@@ -13,8 +13,9 @@ const Index = () => {
       url: "#",
       active: true,
       subItems: [
+        { title: "All Payments", icon: CreditCard, url: "#" },
         { title: "Orders", icon: ShoppingCart, url: "#" },
-        { title: "Buyback Program", icon: ArrowLeftRight, url: "#", active: true },
+        { title: "Buyback Program", icon: ArrowLeftRight, url: "#", active: true, bold: true },
         { title: "Gift Card Sales", icon: CreditCard, url: "#" }
       ]
     },
@@ -66,7 +67,7 @@ const Index = () => {
                               >
                                 <a href={subItem.url} className="flex items-center gap-2">
                                   <subItem.icon className="h-3.5 w-3.5" />
-                                  <span>{subItem.title}</span>
+                                  <span className={subItem.bold ? "font-bold" : ""}>{subItem.title}</span>
                                 </a>
                               </SidebarMenuSubButton>
                             </SidebarMenuItem>
