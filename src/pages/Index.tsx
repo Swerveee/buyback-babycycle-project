@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton } from "@/components/ui/sidebar";
 import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign, RefreshCw } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
 import BuybackProcess from '@/components/customer/BuybackProcess';
 
 const Index = () => {
+  const [view, setView] = useState<'buyer' | 'merchant'>('buyer');
+
   const menuItems = [
     { title: "Home", icon: Home, url: "#" },
     { title: "Getting Paid", icon: DollarSign, url: "#" },
@@ -80,11 +83,27 @@ const Index = () => {
           </SidebarContent>
         </Sidebar>
         
-        <main className="flex-1 overflow-auto">
-          <div className="grid grid-cols-2 gap-8">
-            <BuybackProcess />
-            <BuybackDashboard />
+        <main className="flex-1 overflow-auto p-6">
+          <div className="mb-6 flex justify-end space-x-4">
+            <Button 
+              variant={view === 'buyer' ? 'default' : 'outline'}
+              onClick={() => setView('buyer')}
+            >
+              Buyer View
+            </Button>
+            <Button 
+              variant={view === 'merchant' ? 'default' : 'outline'}
+              onClick={() => setView('merchant')}
+            >
+              Merchant View
+            </Button>
           </div>
+          
+          {view === 'buyer' ? (
+            <BuybackProcess />
+          ) : (
+            <BuybackDashboard />
+          )}
         </main>
       </div>
     </SidebarProvider>
