@@ -1,20 +1,20 @@
 import React from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton } from "@/components/ui/sidebar";
-import { Home, Package, CreditCard, ShoppingCart, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, ArrowLeftRight } from 'lucide-react';
+import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign } from 'lucide-react';
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
 
 const Index = () => {
   const menuItems = [
     { title: "Home", icon: Home, url: "#" },
-    { title: "Getting Paid", icon: CreditCard, url: "#" },
+    { title: "Getting Paid", icon: DollarSign, url: "#" },
     { 
       title: "Sales", 
-      icon: ShoppingCart, 
+      icon: ShoppingBag, 
       url: "#",
       active: true,
       subItems: [
         { title: "All Payments", icon: CreditCard, url: "#" },
-        { title: "Orders", icon: ShoppingCart, url: "#" },
+        { title: "Orders", icon: Receipt, url: "#" },
         { title: "Buyback Program", icon: ArrowLeftRight, url: "#", active: true, bold: true },
         { title: "Gift Card Sales", icon: CreditCard, url: "#" }
       ]
