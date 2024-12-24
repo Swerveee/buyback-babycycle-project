@@ -1,6 +1,6 @@
 import React from 'react';
-import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Home, Package, CreditCard, ShoppingCart, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings } from 'lucide-react';
+import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton } from "@/components/ui/sidebar";
+import { Home, Package, CreditCard, ShoppingCart, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, ArrowLeftRight } from 'lucide-react';
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
 
 const Index = () => {
@@ -9,7 +9,16 @@ const Index = () => {
     { title: "Getting Paid", icon: CreditCard, url: "#" },
     { title: "Sales", icon: ShoppingCart, url: "#" },
     { title: "Catalog", icon: Package, url: "#" },
-    { title: "Apps", icon: AppWindow, url: "#", active: true },
+    { 
+      title: "Apps", 
+      icon: AppWindow, 
+      url: "#", 
+      active: true,
+      subItems: [
+        { title: "Buyback Program", icon: ArrowLeftRight, url: "#", active: true },
+        { title: "More Apps", icon: AppWindow, url: "#" }
+      ]
+    },
     { title: "Site & Mobile App", icon: Smartphone, url: "#" },
     { title: "Inbox", icon: Inbox, url: "#" },
     { title: "Customers & Leads", icon: Users, url: "#" },
@@ -45,6 +54,24 @@ const Index = () => {
                           <span className="text-sm">{item.title}</span>
                         </a>
                       </SidebarMenuButton>
+                      {item.subItems && item.active && (
+                        <SidebarMenuSub>
+                          {item.subItems.map((subItem) => (
+                            <SidebarMenuItem key={subItem.title}>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={subItem.active}
+                                className="text-[#a3a3a3] hover:text-white"
+                              >
+                                <a href={subItem.url} className="flex items-center gap-2">
+                                  <subItem.icon className="h-3.5 w-3.5" />
+                                  <span>{subItem.title}</span>
+                                </a>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuItem>
+                          ))}
+                        </SidebarMenuSub>
+                      )}
                     </SidebarMenuItem>
                   ))}
                 </SidebarMenu>
