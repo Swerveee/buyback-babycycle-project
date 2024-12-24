@@ -34,9 +34,6 @@ const Index = () => {
         <Sidebar className="bg-[#1e1e1e] border-r border-[#2d2d2d]">
           <SidebarContent>
             <SidebarGroup>
-              <div className="px-3 py-4">
-                <img src="/lovable-uploads/5cf0a6b4-cfee-4fc0-9c72-a9ee158a5791.png" alt="Logo" className="h-6 w-auto" />
-              </div>
               <div className="px-3 py-2 mb-4">
                 <button className="w-full text-left px-3 py-2 rounded-md bg-[#2d2d2d] text-white text-sm hover:bg-[#3d3d3d] transition-colors">
                   Quick Actions
