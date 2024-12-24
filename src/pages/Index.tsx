@@ -7,18 +7,19 @@ const Index = () => {
   const menuItems = [
     { title: "Home", icon: Home, url: "#" },
     { title: "Getting Paid", icon: CreditCard, url: "#" },
-    { title: "Sales", icon: ShoppingCart, url: "#" },
-    { title: "Catalog", icon: Package, url: "#" },
     { 
-      title: "Apps", 
-      icon: AppWindow, 
-      url: "#", 
+      title: "Sales", 
+      icon: ShoppingCart, 
+      url: "#",
       active: true,
       subItems: [
+        { title: "Orders", icon: ShoppingCart, url: "#" },
         { title: "Buyback Program", icon: ArrowLeftRight, url: "#", active: true },
-        { title: "More Apps", icon: AppWindow, url: "#" }
+        { title: "Gift Card Sales", icon: CreditCard, url: "#" }
       ]
     },
+    { title: "Catalog", icon: Package, url: "#" },
+    { title: "Apps", icon: AppWindow, url: "#" },
     { title: "Site & Mobile App", icon: Smartphone, url: "#" },
     { title: "Inbox", icon: Inbox, url: "#" },
     { title: "Customers & Leads", icon: Users, url: "#" },
