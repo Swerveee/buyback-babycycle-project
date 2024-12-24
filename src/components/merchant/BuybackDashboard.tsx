@@ -7,41 +7,75 @@ import BuybackMetrics from './BuybackMetrics';
 
 const BuybackDashboard = () => {
   return (
-    <div className="container mx-auto p-6 animate-fade-in">
-      <h1 className="text-3xl font-bold mb-6">Buyback Program Management</h1>
+    <div className="p-8 animate-fade-in">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-2xl font-semibold text-[#2d2d2d]">Buyback Program Management</h1>
+        <button className="px-4 py-2 bg-[#2261e9] text-white rounded-md hover:bg-[#1a4fc0] transition-colors text-sm">
+          Design Site
+        </button>
+      </div>
       
-      <BuybackMetrics />
-      
-      <Tabs defaultValue="requests" className="mt-6">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="requests">Buyback Requests</TabsTrigger>
-          <TabsTrigger value="settings">Program Settings</TabsTrigger>
-        </TabsList>
+      <div className="grid gap-6">
+        <Card className="border-none shadow-sm bg-white">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-medium">Quick Setup</CardTitle>
+          </CardHeader>
+          <CardContent className="flex gap-4">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-[#2261e9]">Free plan</span>
+              <button className="text-[#2261e9] hover:underline">Compare Plans</button>
+            </div>
+            <div className="h-4 w-px bg-gray-200" />
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-600">No domain</span>
+              <button className="text-[#2261e9] hover:underline">Connect</button>
+            </div>
+          </CardContent>
+        </Card>
         
-        <TabsContent value="requests">
-          <Card>
-            <CardHeader>
-              <CardTitle>Buyback Requests</CardTitle>
-              <CardDescription>Manage customer buyback requests and process items</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <BuybackRequests />
-            </CardContent>
-          </Card>
-        </TabsContent>
+        <BuybackMetrics />
         
-        <TabsContent value="settings">
-          <Card>
-            <CardHeader>
-              <CardTitle>Program Settings</CardTitle>
-              <CardDescription>Configure your buyback program rules and pricing</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <BuybackSettings />
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+        <Tabs defaultValue="requests" className="mt-6">
+          <TabsList className="grid w-full grid-cols-2 bg-transparent border rounded-lg p-1">
+            <TabsTrigger 
+              value="requests" 
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
+              Buyback Requests
+            </TabsTrigger>
+            <TabsTrigger 
+              value="settings"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
+              Program Settings
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="requests">
+            <Card className="border-none shadow-sm mt-4">
+              <CardHeader>
+                <CardTitle className="text-lg font-medium">Buyback Requests</CardTitle>
+                <CardDescription>Manage customer buyback requests and process items</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <BuybackRequests />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="settings">
+            <Card className="border-none shadow-sm mt-4">
+              <CardHeader>
+                <CardTitle className="text-lg font-medium">Program Settings</CardTitle>
+                <CardDescription>Configure your buyback program rules and pricing</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <BuybackSettings />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 };
