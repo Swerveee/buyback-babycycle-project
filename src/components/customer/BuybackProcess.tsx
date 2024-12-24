@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -11,6 +12,7 @@ import CompensationStep from './buyback/CompensationStep';
 const BuybackProcess = () => {
   const [step, setStep] = useState(1);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +22,13 @@ const BuybackProcess = () => {
         title: "Progress Saved",
         description: "Your information has been saved successfully.",
       });
+    } else {
+      // Final submission
+      toast({
+        title: "Request Submitted",
+        description: "Your buyback request has been submitted successfully.",
+      });
+      navigate('/success');
     }
   };
 
