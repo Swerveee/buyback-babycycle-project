@@ -4,16 +4,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle2, Package, DollarSign, Truck } from 'lucide-react';
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import ProductDetailsStep from './buyback/ProductDetailsStep';
 import ConditionAssessmentStep from './buyback/ConditionAssessmentStep';
 import ShippingDetailsStep from './buyback/ShippingDetailsStep';
 import CompensationStep from './buyback/CompensationStep';
 
-const BuybackProcess = () => {
+interface BuybackProcessProps {
+  isWireframe: boolean;
+}
+
+const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const [step, setStep] = useState(1);
-  const [isWireframe, setIsWireframe] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -84,17 +85,6 @@ const BuybackProcess = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-2xl animate-fade-in">
-      <div className="flex justify-end mb-4">
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="wireframe-mode"
-            checked={isWireframe}
-            onCheckedChange={setIsWireframe}
-          />
-          <Label htmlFor="wireframe-mode">Wireframe Mode</Label>
-        </div>
-      </div>
-
       <div className="mb-8">
         <div className="flex justify-between items-center mb-8">
           {steps.map((s, index) => (
@@ -120,7 +110,7 @@ const BuybackProcess = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CurrentStepComponent onSubmit={handleSubmit} />
+          <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />
           <div className="flex justify-between pt-4">
             {step > 1 && (
               <Button

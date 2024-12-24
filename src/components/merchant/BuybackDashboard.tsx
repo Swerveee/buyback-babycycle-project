@@ -5,72 +5,104 @@ import BuybackRequests from './BuybackRequests';
 import BuybackSettings from './BuybackSettings';
 import BuybackMetrics from './BuybackMetrics';
 
-const BuybackDashboard = () => {
+interface BuybackDashboardProps {
+  isWireframe: boolean;
+}
+
+const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
+  const wireframeStyles = isWireframe ? {
+    card: "border-2 border-dashed border-gray-300 shadow-none",
+    header: "bg-gray-100 border-b-2 border-dashed border-gray-300",
+    title: "font-mono",
+    description: "font-mono text-gray-500",
+    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
+    tabs: "border-2 border-dashed border-gray-300",
+    tabsTrigger: "data-[state=active]:border-2 data-[state=active]:border-dashed data-[state=active]:border-gray-500 data-[state=active]:bg-gray-200",
+  } : {
+    card: "border-none shadow-sm",
+    header: "",
+    title: "text-lg font-medium",
+    description: "",
+    button: "bg-[#2261e9] text-white hover:bg-[#1a4fc0]",
+    tabs: "bg-transparent border rounded-lg",
+    tabsTrigger: "data-[state=active]:bg-white data-[state=active]:shadow-sm",
+  };
+
   return (
     <div className="p-8 animate-fade-in">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-semibold text-[#2d2d2d]">Buyback Program Management</h1>
-        <button className="px-4 py-2 bg-[#2261e9] text-white rounded-md hover:bg-[#1a4fc0] transition-colors text-sm">
+        <h1 className={`text-2xl font-semibold ${isWireframe ? "font-mono text-gray-700" : "text-[#2d2d2d]"}`}>
+          Buyback Program Management
+        </h1>
+        <button className={`px-4 py-2 rounded-md transition-colors text-sm ${wireframeStyles.button}`}>
           Design Site
         </button>
       </div>
       
       <div className="grid gap-6">
-        <Card className="border-none shadow-sm bg-white">
+        <Card className={wireframeStyles.card}>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium">Quick Setup</CardTitle>
+            <CardTitle className={wireframeStyles.title}>Quick Setup</CardTitle>
           </CardHeader>
           <CardContent className="flex gap-4">
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-[#2261e9]">Free plan</span>
-              <button className="text-[#2261e9] hover:underline">Compare Plans</button>
+              <span className={isWireframe ? "font-mono text-gray-600" : "text-[#2261e9]"}>Free plan</span>
+              <button className={isWireframe ? "font-mono text-gray-600 hover:text-gray-800" : "text-[#2261e9] hover:underline"}>
+                Compare Plans
+              </button>
             </div>
-            <div className="h-4 w-px bg-gray-200" />
+            <div className={`h-4 w-px ${isWireframe ? "bg-gray-300" : "bg-gray-200"}`} />
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-gray-600">No domain</span>
-              <button className="text-[#2261e9] hover:underline">Connect</button>
+              <span className={isWireframe ? "font-mono text-gray-600" : "text-gray-600"}>No domain</span>
+              <button className={isWireframe ? "font-mono text-gray-600 hover:text-gray-800" : "text-[#2261e9] hover:underline"}>
+                Connect
+              </button>
             </div>
           </CardContent>
         </Card>
         
-        <BuybackMetrics />
+        <BuybackMetrics isWireframe={isWireframe} />
         
         <Tabs defaultValue="requests" className="mt-6">
-          <TabsList className="grid w-full grid-cols-2 bg-transparent border rounded-lg p-1">
+          <TabsList className={`grid w-full grid-cols-2 p-1 ${wireframeStyles.tabs}`}>
             <TabsTrigger 
               value="requests" 
-              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className={wireframeStyles.tabsTrigger}
             >
               Buyback Requests
             </TabsTrigger>
             <TabsTrigger 
               value="settings"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className={wireframeStyles.tabsTrigger}
             >
               Program Settings
             </TabsTrigger>
           </TabsList>
           
           <TabsContent value="requests">
-            <Card className="border-none shadow-sm mt-4">
+            <Card className={wireframeStyles.card}>
               <CardHeader>
-                <CardTitle className="text-lg font-medium">Buyback Requests</CardTitle>
-                <CardDescription>Manage customer buyback requests and process items</CardDescription>
+                <CardTitle className={wireframeStyles.title}>Buyback Requests</CardTitle>
+                <CardDescription className={wireframeStyles.description}>
+                  Manage customer buyback requests and process items
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <BuybackRequests />
+                <BuybackRequests isWireframe={isWireframe} />
               </CardContent>
             </Card>
           </TabsContent>
           
           <TabsContent value="settings">
-            <Card className="border-none shadow-sm mt-4">
+            <Card className={wireframeStyles.card}>
               <CardHeader>
-                <CardTitle className="text-lg font-medium">Program Settings</CardTitle>
-                <CardDescription>Configure your buyback program rules and pricing</CardDescription>
+                <CardTitle className={wireframeStyles.title}>Program Settings</CardTitle>
+                <CardDescription className={wireframeStyles.description}>
+                  Configure your buyback program rules and pricing
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <BuybackSettings />
+                <BuybackSettings isWireframe={isWireframe} />
               </CardContent>
             </Card>
           </TabsContent>
