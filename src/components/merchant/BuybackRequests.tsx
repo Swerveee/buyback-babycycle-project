@@ -6,7 +6,11 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import BuybackRequestDetails from './BuybackRequestDetails';
 import { BuybackRequest } from '@/types/buyback';
 
-const BuybackRequests = () => {
+interface BuybackRequestsProps {
+  isWireframe: boolean;
+}
+
+const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   const requests: BuybackRequest[] = [
     {
       id: "REQ001",
@@ -75,8 +79,16 @@ const BuybackRequests = () => {
     // Add your reject logic here
   };
 
+  const wireframeStyles = isWireframe ? {
+    table: "border-2 border-dashed border-gray-300",
+    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700"
+  } : {
+    table: "border",
+    button: "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
+  };
+
   return (
-    <div className="rounded-md border">
+    <div className={wireframeStyles.table}>
       <Table>
         <TableHeader>
           <TableRow>
@@ -108,7 +120,7 @@ const BuybackRequests = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
+                      className={wireframeStyles.button}
                     >
                       View Details
                     </Button>

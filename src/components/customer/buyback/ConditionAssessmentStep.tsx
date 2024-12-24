@@ -7,9 +7,10 @@ import { useToast } from "@/hooks/use-toast";
 
 interface ConditionAssessmentStepProps {
   onSubmit: (data: any) => void;
+  isWireframe: boolean;
 }
 
-const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSubmit }) => {
+const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSubmit, isWireframe }) => {
   const [images, setImages] = useState<File[]>([]);
   const { toast } = useToast();
 
@@ -29,30 +30,40 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
     onSubmit(e);
   };
 
+  const wireframeStyles = isWireframe ? {
+    input: "border-2 border-dashed border-gray-300 bg-gray-50",
+    label: "font-mono",
+    uploadArea: "border-2 border-dashed border-gray-300 bg-gray-50"
+  } : {
+    input: "",
+    label: "",
+    uploadArea: "border-2 border-dashed border-[#9b87f5]"
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label>Item Condition</Label>
+          <Label className={wireframeStyles.label}>Item Condition</Label>
           <RadioGroup defaultValue="good">
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="excellent" id="excellent" />
-              <Label htmlFor="excellent">Excellent - Like New</Label>
+              <Label htmlFor="excellent" className={wireframeStyles.label}>Excellent - Like New</Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="good" id="good" />
-              <Label htmlFor="good">Good - Minor Wear</Label>
+              <Label htmlFor="good" className={wireframeStyles.label}>Good - Minor Wear</Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="fair" id="fair" />
-              <Label htmlFor="fair">Fair - Visible Wear</Label>
+              <Label htmlFor="fair" className={wireframeStyles.label}>Fair - Visible Wear</Label>
             </div>
           </RadioGroup>
         </div>
 
         <div className="space-y-2">
-          <Label>Product Images</Label>
-          <div className="border-2 border-dashed border-[#9b87f5] rounded-lg p-6 text-center">
+          <Label className={wireframeStyles.label}>Product Images</Label>
+          <div className={`rounded-lg p-6 text-center ${wireframeStyles.uploadArea}`}>
             <Input
               type="file"
               accept="image/*"
@@ -63,7 +74,7 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
             />
             <Label
               htmlFor="image-upload"
-              className="cursor-pointer flex flex-col items-center gap-2"
+              className={`cursor-pointer flex flex-col items-center gap-2 ${wireframeStyles.label}`}
             >
               <Upload className="w-8 h-8 text-[#9b87f5]" />
               <span className="text-sm text-[#1A1F2C]">Click to upload or drag and drop</span>
@@ -86,8 +97,11 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
         </div>
 
         <div className="space-y-2">
-          <Label>Additional Notes</Label>
-          <Input placeholder="Describe any specific wear or damage" />
+          <Label className={wireframeStyles.label}>Additional Notes</Label>
+          <Input 
+            placeholder="Describe any specific wear or damage" 
+            className={wireframeStyles.input}
+          />
         </div>
       </div>
     </form>
