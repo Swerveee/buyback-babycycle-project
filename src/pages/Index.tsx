@@ -1,6 +1,6 @@
 import React from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton } from "@/components/ui/sidebar";
-import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign } from 'lucide-react';
+import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign, RefreshCw } from 'lucide-react';
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
 
 const Index = () => {
@@ -15,7 +15,7 @@ const Index = () => {
       subItems: [
         { title: "All Payments", icon: CreditCard, url: "#" },
         { title: "Orders", icon: Receipt, url: "#" },
-        { title: "Buyback Program", icon: ArrowLeftRight, url: "#", active: true, bold: true },
+        { title: "Buyback Program", icon: RefreshCw, url: "#", active: true, bold: true },
         { title: "Gift Card Sales", icon: CreditCard, url: "#" }
       ]
     },
