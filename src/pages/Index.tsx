@@ -2,6 +2,7 @@ import React from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton } from "@/components/ui/sidebar";
 import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign, RefreshCw } from 'lucide-react';
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
+import BuybackProcess from '@/components/customer/BuybackProcess';
 
 const Index = () => {
   const menuItems = [
@@ -80,7 +81,10 @@ const Index = () => {
         </Sidebar>
         
         <main className="flex-1 overflow-auto">
-          <BuybackDashboard />
+          <div className="grid grid-cols-2 gap-8">
+            <BuybackProcess />
+            <BuybackDashboard />
+          </div>
         </main>
       </div>
     </SidebarProvider>
