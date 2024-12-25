@@ -27,10 +27,9 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
         description: "Your information has been saved successfully.",
       });
     } else {
-      // Final submission
       toast({
         title: "Request Submitted",
-        description: "Your buyback request has been submitted successfully.",
+        description: "Your buyback request has been submitted successfully. We'll review it shortly!",
       });
       navigate('/success');
     }
@@ -40,7 +39,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     {
       title: "Product Details",
       icon: Package,
-      description: "Enter your product information",
+      description: "Tell us about your kids' item",
       component: ProductDetailsStep
     },
     {
@@ -52,13 +51,13 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     {
       title: "Shipping Details",
       icon: Truck,
-      description: "Get your shipping label",
+      description: "Get your prepaid shipping label",
       component: ShippingDetailsStep
     },
     {
-      title: "Compensation",
+      title: "Store Credit",
       icon: DollarSign,
-      description: "Choose how you want to be paid",
+      description: "Choose how you want to be rewarded",
       component: CompensationStep
     }
   ];
@@ -75,7 +74,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     activeStep: "border-2 border-dashed border-black bg-black text-white",
   } : {
     card: "border-[#eee] shadow-sm",
-    header: "bg-[#F1F1F1]",
+    header: "bg-[#F8F2FF]",
     title: "text-[#1A1F2C]",
     description: "text-[#555555]",
     stepIcon: "",
@@ -85,6 +84,11 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
 
   return (
     <div className="container mx-auto p-6 max-w-2xl animate-fade-in">
+      <div className="text-center mb-8">
+        <h1 className="text-2xl font-semibold mb-2">Kids Grow Fast!</h1>
+        <p className="text-gray-600">Trade in gently used baby and kids' items for store credit</p>
+      </div>
+      
       <div className="mb-8">
         <div className="flex justify-between items-center mb-8">
           {steps.map((s, index) => (
