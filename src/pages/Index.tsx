@@ -7,8 +7,10 @@ import { Label } from "@/components/ui/label";
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
 import BuybackProcess from '@/components/customer/BuybackProcess';
 
+type ViewType = 'buyer' | 'merchant';
+
 const Index = () => {
-  const [view, setView] = useState<'buyer' | 'merchant'>('buyer');
+  const [view, setView] = useState<ViewType>('buyer');
   const [isWireframe, setIsWireframe] = useState(false);
   const [showBuyback, setShowBuyback] = useState(false);
 
@@ -40,6 +42,36 @@ const Index = () => {
   if (view === 'buyer') {
     return (
       <div className="min-h-screen">
+        {/* Controls for wireframe and view switching */}
+        <div className="fixed top-4 right-4 flex items-center space-x-4 z-50 bg-white p-2 rounded-lg shadow-sm">
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="wireframe-mode"
+              checked={isWireframe}
+              onCheckedChange={setIsWireframe}
+            />
+            <Label htmlFor="wireframe-mode" className={isWireframe ? "font-mono" : ""}>
+              Wireframe Mode
+            </Label>
+          </div>
+          <div className="flex space-x-2">
+            <Button 
+              variant={view === 'buyer' ? 'default' : 'outline'}
+              onClick={() => setView('buyer')}
+              className={isWireframe ? 'border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700' : ""}
+            >
+              Buyer View
+            </Button>
+            <Button 
+              variant={view === 'merchant' ? 'default' : 'outline'}
+              onClick={() => setView('merchant')}
+              className={isWireframe ? 'border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700' : ""}
+            >
+              Merchant View
+            </Button>
+          </div>
+        </div>
+
         {/* Announcement Bar */}
         <div className={`w-full py-2 text-center text-white ${isWireframe ? 'bg-gray-300' : 'bg-[#96B6A3]'}`}>
           <p className="text-sm">Save up to 30% instantly on all bundles until December 25th 🎁</p>
@@ -152,7 +184,7 @@ const Index = () => {
           <SidebarContent>
             <SidebarGroup>
               <div className="px-3 py-2 mb-4">
-                <button className={`w-full text-left px-3 py-2 rounded-md bg-[#2d2d2d] text-white hover:bg-[#3d3d3d] transition-colors text-sm`}>
+                <button className="w-full text-left px-3 py-2 rounded-md bg-[#2d2d2d] text-white hover:bg-[#3d3d3d] transition-colors text-sm">
                   Quick Actions
                 </button>
               </div>
@@ -218,7 +250,8 @@ const Index = () => {
           </SidebarContent>
         </Sidebar>
         
-        <main className={`flex-1 overflow-auto p-6 bg-[#f8f9fb]`}>
+        <main className="flex-1 overflow-auto p-6 bg-[#f8f9fb]">
+          {/* Controls for wireframe and view switching */}
           <div className="mb-6 flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <Switch
@@ -246,11 +279,7 @@ const Index = () => {
             </div>
           </div>
           
-          {view === 'buyer' ? (
-            <BuybackProcess isWireframe={isWireframe} />
-          ) : (
-            <BuybackDashboard isWireframe={isWireframe} />
-          )}
+          <BuybackDashboard isWireframe={isWireframe} />
         </main>
       </div>
     </SidebarProvider>
