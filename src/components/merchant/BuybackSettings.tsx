@@ -11,9 +11,9 @@ interface BuybackSettingsProps {
 
 const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
   const wireframeStyles = isWireframe ? {
-    label: "font-mono text-gray-600",
-    input: "border-2 border-dashed border-gray-300",
-    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
+    label: "font-mono text-black",
+    input: "border-2 border-dashed border-black bg-white",
+    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
   } : {
     label: "text-gray-700",
     input: "border-gray-200",

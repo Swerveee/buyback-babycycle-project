@@ -11,13 +11,13 @@ interface BuybackDashboardProps {
 
 const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
   const wireframeStyles = isWireframe ? {
-    card: "border-2 border-dashed border-gray-300 shadow-none",
-    header: "bg-gray-100 border-b-2 border-dashed border-gray-300",
-    title: "font-mono",
-    description: "font-mono text-gray-500",
-    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
-    tabs: "border-2 border-dashed border-gray-300",
-    tabsTrigger: "data-[state=active]:border-2 data-[state=active]:border-dashed data-[state=active]:border-gray-500 data-[state=active]:bg-gray-200",
+    card: "border-2 border-dashed border-black shadow-none",
+    header: "bg-white border-b-2 border-dashed border-black",
+    title: "font-mono text-black",
+    description: "font-mono text-black/60",
+    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+    tabs: "border-2 border-dashed border-black",
+    tabsTrigger: "data-[state=active]:border-2 data-[state=active]:border-dashed data-[state=active]:border-black data-[state=active]:bg-black data-[state=active]:text-white",
   } : {
     card: "border-none shadow-sm",
     header: "",

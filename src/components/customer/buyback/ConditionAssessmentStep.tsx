@@ -31,9 +31,9 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
   };
 
   const wireframeStyles = isWireframe ? {
-    input: "border-2 border-dashed border-gray-300 bg-gray-50",
-    label: "font-mono",
-    uploadArea: "border-2 border-dashed border-gray-300 bg-gray-50"
+    input: "border-2 border-dashed border-black bg-white",
+    label: "font-mono text-black",
+    uploadArea: "border-2 border-dashed border-black bg-white"
   } : {
     input: "",
     label: "",

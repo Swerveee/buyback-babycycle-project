@@ -66,13 +66,13 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const CurrentStepComponent = steps[step - 1].component;
 
   const wireframeStyles = isWireframe ? {
-    card: "border-2 border-dashed border-gray-300 shadow-none",
-    header: "bg-gray-100 border-b-2 border-dashed border-gray-300",
-    title: "font-mono",
-    description: "font-mono text-gray-500",
-    stepIcon: "border-2 border-dashed",
-    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
-    activeStep: "border-2 border-dashed border-gray-500 bg-gray-200",
+    card: "border-2 border-dashed border-black",
+    header: "bg-white border-b-2 border-dashed border-black",
+    title: "font-mono text-black",
+    description: "font-mono text-black/60",
+    stepIcon: "border-2 border-dashed border-black",
+    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+    activeStep: "border-2 border-dashed border-black bg-black text-white",
   } : {
     card: "border-[#eee] shadow-sm",
     header: "bg-[#F1F1F1]",
