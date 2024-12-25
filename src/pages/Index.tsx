@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign, RefreshCw } from 'lucide-react';
+import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarGroupLabel } from "@/components/ui/sidebar";
+import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign, RefreshCw, Baby, Gift, Heart, ShoppingCart, Star, HelpCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,26 @@ const Index = () => {
   const [view, setView] = useState<'buyer' | 'merchant'>('buyer');
   const [isWireframe, setIsWireframe] = useState(false);
 
-  const menuItems = [
+  const buyerMenuItems = [
+    { title: "Home", icon: Home, url: "#" },
+    { title: "Baby Essentials", icon: Baby, url: "#" },
+    { title: "Kids' Gifts", icon: Gift, url: "#" },
+    { title: "Wishlist", icon: Heart, url: "#" },
+    { 
+      title: "My Account", 
+      icon: ShoppingCart, 
+      url: "#",
+      active: true,
+      subItems: [
+        { title: "Orders", icon: Package, url: "#" },
+        { title: "Buyback Program", icon: RefreshCw, url: "#", active: true, bold: true },
+        { title: "Rewards", icon: Star, url: "#" }
+      ]
+    },
+    { title: "Help Center", icon: HelpCircle, url: "#" },
+  ];
+
+  const merchantMenuItems = [
     { title: "Home", icon: Home, url: "#" },
     { title: "Getting Paid", icon: DollarSign, url: "#" },
     { 
@@ -49,6 +68,8 @@ const Index = () => {
     main: "bg-[#f8f9fb]"
   };
 
+  const currentMenuItems = view === 'buyer' ? buyerMenuItems : merchantMenuItems;
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
@@ -62,7 +83,7 @@ const Index = () => {
               </div>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {menuItems.map((item) => (
+                  {currentMenuItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton 
                         asChild 
@@ -75,7 +96,7 @@ const Index = () => {
                         </a>
                       </SidebarMenuButton>
                       {item.subItems && item.active && (
-                        <SidebarMenuSub>
+                        <SidebarMenu>
                           {item.subItems.map((subItem) => (
                             <SidebarMenuItem key={subItem.title}>
                               <SidebarMenuButton
@@ -90,7 +111,7 @@ const Index = () => {
                               </SidebarMenuButton>
                             </SidebarMenuItem>
                           ))}
-                        </SidebarMenuSub>
+                        </SidebarMenu>
                       )}
                     </SidebarMenuItem>
                   ))}
