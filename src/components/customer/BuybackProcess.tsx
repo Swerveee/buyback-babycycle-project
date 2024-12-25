@@ -85,8 +85,13 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   return (
     <div className="container mx-auto p-6 max-w-2xl animate-fade-in">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-semibold mb-2">Kids Grow Fast!</h1>
-        <p className="text-gray-600">Trade in gently used baby and kids' items for store credit</p>
+        <h1 className="text-3xl font-bold mb-2">Bonsie Buyback Program</h1>
+        <p className="text-lg text-gray-600 mb-4">Give your gently used baby clothes a second life!</p>
+        <div className="bg-gray-100 p-4 rounded-lg mb-6">
+          <p className="text-sm">
+            Get up to <span className="font-bold">30% more value</span> when you choose store credit
+          </p>
+        </div>
       </div>
       
       <div className="mb-8">
@@ -135,6 +140,26 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
           </div>
         </CardContent>
       </Card>
+
+      {step === 1 && (
+        <div className="mt-8 grid grid-cols-3 gap-6 text-center">
+          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
+            <Package className="w-8 h-8 mx-auto mb-2" />
+            <h3 className="font-semibold mb-1">Easy Returns</h3>
+            <p className="text-sm text-gray-600">Free shipping label provided</p>
+          </div>
+          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
+            <DollarSign className="w-8 h-8 mx-auto mb-2" />
+            <h3 className="font-semibold mb-1">Quick Payment</h3>
+            <p className="text-sm text-gray-600">Get paid within 48 hours</p>
+          </div>
+          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
+            <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
+            <h3 className="font-semibold mb-1">Sustainable Choice</h3>
+            <p className="text-sm text-gray-600">Help reduce textile waste</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
