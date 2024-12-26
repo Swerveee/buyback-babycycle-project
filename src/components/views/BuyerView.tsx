@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import BuybackProcess from '@/components/customer/BuybackProcess';
+import { Users, ShoppingBag, Package, DollarSign, RefreshCw } from 'lucide-react';
 
 interface BuyerViewProps {
   isWireframe: boolean;
