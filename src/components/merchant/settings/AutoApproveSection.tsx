@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { HelpCircle } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface AutoApproveSectionProps {
   autoApprove: boolean;
@@ -29,7 +31,17 @@ const AutoApproveSection: React.FC<AutoApproveSectionProps> = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
         <div className="space-y-1">
-          <span className="text-lg font-semibold">Auto-approve Requests</span>
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-semibold">Auto-approve Requests</span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <HelpCircle className="h-4 w-4 text-gray-500 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Automatically approve buyback requests that meet these conditions.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <p className="text-sm text-gray-600">Automatically process buyback requests using fixed rates</p>
         </div>
         <Switch 
