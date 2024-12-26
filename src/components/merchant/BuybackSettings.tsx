@@ -3,9 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { Eye } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import BuybackPreviewDialog from './BuybackPreviewDialog';
 
 interface BuybackSettingsProps {
   isWireframe: boolean;
@@ -21,12 +19,11 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
     good: '50',
     fair: '30'
   });
-  const [showPreview, setShowPreview] = useState(false);
 
   const wireframeStyles = isWireframe ? {
     label: "font-mono text-black",
-    input: "border-2 border-dashed border-black bg-white",
-    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+    input: "border-2 border-dashed border-gray-300 bg-white",
+    button: "border-2 border-dashed border-gray-300 bg-white hover:bg-gray-200 text-gray-700",
   } : {
     label: "text-gray-700",
     input: "border-gray-200",
@@ -42,19 +39,9 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-1">Buyback Program Settings</h2>
-          <p className="text-gray-600">Configure your store's buyback program</p>
-        </div>
-        <Button 
-          onClick={() => setShowPreview(true)}
-          className={`flex items-center gap-2 ${wireframeStyles.button}`}
-          variant="outline"
-        >
-          <Eye className="w-4 h-4" />
-          Preview Program
-        </Button>
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold mb-1">Buyback Program Settings</h2>
+        <p className="text-gray-600">Configure your store's buyback program</p>
       </div>
 
       <div className="space-y-8">
@@ -112,6 +99,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
                   <SelectValue placeholder="Select duration" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="never">Never</SelectItem>
                   <SelectItem value="3">3 months</SelectItem>
                   <SelectItem value="6">6 months</SelectItem>
                   <SelectItem value="12">12 months</SelectItem>
@@ -161,14 +149,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           </Button>
         </div>
       </div>
-
-      <BuybackPreviewDialog
-        open={showPreview}
-        onOpenChange={setShowPreview}
-        rates={rates}
-        autoApprove={autoApprove}
-        minItemPrice={enableMinPrice ? minItemPrice : undefined}
-      />
     </div>
   );
 };
