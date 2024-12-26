@@ -4,8 +4,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Package, Plus } from 'lucide-react';
+import { Package, Plus, HelpCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Product {
   id: string;
@@ -96,24 +102,30 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Buyback Program</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>SKU</TableHead>
               <TableHead>Price</TableHead>
               <TableHead>Inventory</TableHead>
               <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="flex items-center gap-2">
+                Buyback Program
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Toggle to add or remove products from the buyback program</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {mockProducts.map((product) => (
               <TableRow key={product.id}>
-                <TableCell>
-                  <Switch
-                    checked={selectedProducts.includes(product.id)}
-                    onCheckedChange={() => handleProductSelect(product.id)}
-                  />
-                </TableCell>
                 <TableCell className="font-medium flex items-center gap-3">
                   <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center">
                     <img 
@@ -136,6 +148,12 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
                   <Button variant="ghost" size="sm">
                     •••
                   </Button>
+                </TableCell>
+                <TableCell>
+                  <Switch
+                    checked={selectedProducts.includes(product.id)}
+                    onCheckedChange={() => handleProductSelect(product.id)}
+                  />
                 </TableCell>
               </TableRow>
             ))}
