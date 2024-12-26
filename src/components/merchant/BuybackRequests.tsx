@@ -1,112 +1,60 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
-import { Info } from "lucide-react";
 import BuybackRequestDetails from './BuybackRequestDetails';
 import { BuybackRequest } from '@/types/buyback';
-import { Checkbox } from "@/components/ui/checkbox";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
-interface Product {
-  id: string;
-  name: string;
-  type: string;
-  sku: string;
-  price: string;
-  inventory: string;
-  inBuybackProgram: boolean;
-  image: string;
-}
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
 }
 
 const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
-  const [products, setProducts] = useState<Product[]>([
+  const mockRequests: BuybackRequest[] = [
     {
       id: "1",
-      name: "Baby Onesie - 0-3 months",
-      type: "Physical",
-      sku: "BABY001",
-      price: "₪29.99",
-      inventory: "In stock",
-      inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1522771930-78848d9293e8"
+      product: "Baby Onesie - 0-3 months",
+      customer: "Sarah Johnson",
+      date: "2024-02-20",
+      status: "Pending Review",
+      value: "₪15.00",
+      description: "Gently used, no stains",
+      email: "sarah@example.com",
+      phone: "123-456-7890",
+      images: ["image1.jpg", "image2.jpg"],
+      condition: "Like New",
+      shippingAddress: "123 Main St, City, Country"
     },
     {
       id: "2",
-      name: "Infant Sleepsuit Set",
-      type: "Physical",
-      sku: "BABY002",
-      price: "₪39.99",
-      inventory: "In stock",
-      inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1519689680058-324335c77eba"
+      product: "Infant Sleepsuit Set",
+      customer: "Michael Brown",
+      date: "2024-02-19",
+      status: "Approved",
+      value: "₪25.00",
+      description: "Worn once, excellent condition",
+      email: "michael@example.com",
+      phone: "234-567-8901",
+      images: ["image3.jpg"],
+      condition: "Excellent",
+      shippingAddress: "456 Oak St, City, Country"
     },
     {
       id: "3",
-      name: "Baby Knit Cardigan",
-      type: "Physical",
-      sku: "BABY003",
-      price: "₪34.99",
-      inventory: "In stock",
-      inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1522771930-78848d9293e8"
-    },
-    {
-      id: "4",
-      name: "Soft Cotton Romper",
-      type: "Physical",
-      sku: "BABY004",
-      price: "₪24.99",
-      inventory: "In stock",
-      inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1519689680058-324335c77eba"
-    },
-    {
-      id: "5",
-      name: "Baby Dress Set",
-      type: "Physical",
-      sku: "BABY005",
-      price: "₪44.99",
-      inventory: "In stock",
-      inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1522771930-78848d9293e8"
-    },
-    {
-      id: "6",
-      name: "Infant Pants Pack",
-      type: "Physical",
-      sku: "BABY006",
-      price: "₪19.99",
-      inventory: "In stock",
-      inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1519689680058-324335c77eba"
+      product: "Baby Knit Cardigan",
+      customer: "Emma Wilson",
+      date: "2024-02-18",
+      status: "Shipped",
+      value: "₪20.00",
+      description: "Minor wear on sleeves",
+      email: "emma@example.com",
+      phone: "345-678-9012",
+      images: ["image4.jpg", "image5.jpg"],
+      condition: "Good",
+      shippingAddress: "789 Pine St, City, Country"
     }
-  ]);
-
-  const [selectedAll, setSelectedAll] = useState(false);
-
-  const toggleBuyback = (productId: string) => {
-    setProducts(products.map(product => 
-      product.id === productId 
-        ? { ...product, inBuybackProgram: !product.inBuybackProgram }
-        : product
-    ));
-  };
-
-  const toggleAllBuyback = () => {
-    const newSelectedAll = !selectedAll;
-    setSelectedAll(newSelectedAll);
-    setProducts(products.map(product => ({
-      ...product,
-      inBuybackProgram: newSelectedAll
-    })));
-  };
+  ];
 
   const wireframeStyles = isWireframe ? {
     table: "border-2 border-dashed border-gray-300",
@@ -116,75 +64,58 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     button: "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
   };
 
+  const getStatusBadgeColor = (status: string) => {
+    switch (status) {
+      case "Pending Review":
+        return "bg-yellow-100 text-yellow-800";
+      case "Approved":
+        return "bg-green-100 text-green-800";
+      case "Shipped":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Product Catalog</h2>
-        <Button
-          variant="outline"
-          onClick={toggleAllBuyback}
-          className={`${wireframeStyles.button} flex items-center gap-2`}
-        >
-          {selectedAll ? 'Remove All from Buyback' : 'Add All to Buyback'}
-        </Button>
-      </div>
-      
       <div className={wireframeStyles.table}>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Product Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>SKU</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead>Inventory</TableHead>
-              <TableHead className="flex items-center gap-2">
-                Buyback Program
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Info className="h-4 w-4 text-gray-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Toggle to add or remove products from the buyback program</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead>Customer</TableHead>
+              <TableHead>Product</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Value</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id}>
+            {mockRequests.map((request) => (
+              <TableRow key={request.id}>
+                <TableCell>{request.date}</TableCell>
+                <TableCell>{request.customer}</TableCell>
+                <TableCell>{request.product}</TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="w-10 h-10 rounded-md object-cover"
-                    />
-                    {product.name}
-                  </div>
+                  <Badge className={getStatusBadgeColor(request.status)}>
+                    {request.status}
+                  </Badge>
                 </TableCell>
-                <TableCell>{product.type}</TableCell>
-                <TableCell>{product.sku}</TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>{product.inventory}</TableCell>
+                <TableCell>{request.value}</TableCell>
                 <TableCell>
-                  <Switch
-                    checked={product.inBuybackProgram}
-                    onCheckedChange={() => toggleBuyback(product.id)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className={wireframeStyles.button}
-                  >
-                    View Details
-                  </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className={wireframeStyles.button}
+                      >
+                        View Details
+                      </Button>
+                    </DialogTrigger>
+                    <BuybackRequestDetails request={request} isWireframe={isWireframe} />
+                  </Dialog>
                 </TableCell>
               </TableRow>
             ))}
