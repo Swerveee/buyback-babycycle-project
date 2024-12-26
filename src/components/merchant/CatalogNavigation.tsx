@@ -11,6 +11,12 @@ interface CatalogNavigationProps {
 const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onProductsClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
   const handleProductsClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -31,7 +37,7 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
         <NavigationMenuItem className="w-full">
           <Button 
             variant="ghost"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggleMenu}
             className={`w-full justify-start gap-2 hover:bg-gray-100 ${wireframeStyles.button}`}
           >
             <span className="flex items-center gap-2">

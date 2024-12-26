@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Index from "./pages/Index";
 import Success from "./pages/Success";
+import BuybackOnboarding from "./pages/BuybackOnboarding";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/buyback-onboarding" element={<BuybackOnboarding />} />
           <Route path="/buyback" element={<Index />} />
           <Route path="/success" element={<Success />} />
         </Routes>
