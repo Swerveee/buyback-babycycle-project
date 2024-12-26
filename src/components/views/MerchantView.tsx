@@ -49,6 +49,7 @@ const MerchantView: React.FC<MerchantViewProps> = ({
                       icon: ShoppingBag, 
                       url: "#",
                       active: activeView === 'buyback',
+                      onClick: () => setActiveView('buyback'),
                       subItems: [
                         { title: "All Payments", icon: CreditCard, url: "#" },
                         { title: "Orders", icon: Receipt, url: "#" },
