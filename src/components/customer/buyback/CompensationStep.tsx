@@ -24,15 +24,11 @@ const CompensationStep: React.FC<CompensationStepProps> = ({ onSubmit, isWirefra
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label className={wireframeStyles.label}>Choose Compensation Method</Label>
+        <Label className={wireframeStyles.label}>Compensation Method</Label>
         <RadioGroup defaultValue="store-credit">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="store-credit" id="store-credit" />
             <Label htmlFor="store-credit" className={wireframeStyles.label}>Store Credit (+10% bonus)</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="cash" id="cash" />
-            <Label htmlFor="cash" className={wireframeStyles.label}>Cash Payment</Label>
           </div>
         </RadioGroup>
       </div>
