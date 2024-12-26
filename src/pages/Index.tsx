@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BuyerView from '@/components/views/BuyerView';
 import MerchantView from '@/components/views/MerchantView';
 
@@ -9,6 +10,7 @@ const Index = () => {
   const [isWireframe, setIsWireframe] = useState(false);
   const [showBuyback, setShowBuyback] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const navigate = useNavigate();
 
   if (view === 'buyer') {
     return (
@@ -21,6 +23,7 @@ const Index = () => {
         setShowControls={setShowControls}
         showBuyback={showBuyback}
         setShowBuyback={setShowBuyback}
+        onLogoClick={() => navigate('/')}
       />
     );
   }
@@ -33,6 +36,7 @@ const Index = () => {
       setView={setView}
       showControls={showControls}
       setShowControls={setShowControls}
+      onLogoClick={() => navigate('/')}
     />
   );
 };
