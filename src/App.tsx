@@ -30,7 +30,15 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route 
+        path="/" 
+        element={
+          <Home 
+            isWireframe={isWireframe} 
+            onWireframeChange={handleWireframeToggle}
+          />
+        } 
+      />
       <Route 
         path="/buyback-onboarding" 
         element={
