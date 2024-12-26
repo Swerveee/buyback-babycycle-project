@@ -1,9 +1,9 @@
-import React from 'react';
 import { Toggle } from "@/components/ui/toggle";
 import { RefreshCw, Package, DollarSign } from 'lucide-react';
 import FeatureCard from '@/components/customer/buyback/onboarding/FeatureCard';
 import ActivationCard from '@/components/customer/buyback/onboarding/ActivationCard';
-import WixMenu from '@/components/WixMenu';
+import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from "@/components/ui/sidebar";
+import { Home, CreditCard, ShoppingBag, Package as PackageIcon, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign as DollarSignIcon, RefreshCw as RefreshCwIcon } from 'lucide-react';
 
 interface BuybackOnboardingProps {
   isWireframe: boolean;
@@ -38,45 +38,116 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f9fb]">
-      <WixMenu currentPath="buyback" />
-      <div className="p-8">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="flex justify-end mb-4">
-            <Toggle
-              pressed={isWireframe}
-              onPressedChange={onWireframeChange}
-              className={`${wireframeStyles.button} px-4`}
-            >
-              Wireframe Mode
-            </Toggle>
-          </div>
+    <SidebarProvider>
+      <div className="min-h-screen flex">
+        <Sidebar className="bg-[#1e1e1e] border-r border-[#2d2d2d]">
+          <SidebarContent>
+            <SidebarGroup>
+              <div className="px-3 py-2 mb-4">
+                <button className="w-full text-left px-3 py-2 rounded-md bg-[#2d2d2d] text-white hover:bg-[#3d3d3d] transition-colors text-sm">
+                  Quick Actions
+                </button>
+              </div>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {[
+                    { title: "Home", icon: Home, url: "/" },
+                    { title: "Getting Paid", icon: DollarSignIcon, url: "#" },
+                    { 
+                      title: "Sales", 
+                      icon: ShoppingBag, 
+                      url: "#",
+                      active: true,
+                      subItems: [
+                        { title: "All Payments", icon: CreditCard, url: "#" },
+                        { title: "Orders", icon: Receipt, url: "#" },
+                        { title: "Buyback Program", icon: RefreshCwIcon, url: "#", active: true, bold: true },
+                        { title: "Gift Card Sales", icon: CreditCard, url: "#" }
+                      ]
+                    },
+                    { title: "Catalog", icon: PackageIcon, url: "#" },
+                    { title: "Apps", icon: AppWindow, url: "#" },
+                    { title: "Site & Mobile App", icon: Smartphone, url: "#" },
+                    { title: "Inbox", icon: Inbox, url: "#" },
+                    { title: "Customers & Leads", icon: Users, url: "#" },
+                    { title: "Analytics", icon: BarChart2, url: "#" },
+                    { title: "Settings", icon: Settings, url: "#" },
+                  ].map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton 
+                        asChild 
+                        data-active={item.active}
+                        className="text-[#a3a3a3] hover:text-white hover:bg-[#2d2d2d] data-[active=true]:bg-[#2d2d2d] data-[active=true]:text-white"
+                      >
+                        <a href={item.url} className="flex items-center gap-3">
+                          <item.icon className="h-4 w-4" />
+                          <span className="text-sm">{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                      {item.subItems && item.active && (
+                        <SidebarMenuSub>
+                          {item.subItems.map((subItem) => (
+                            <SidebarMenuItem key={subItem.title}>
+                              <SidebarMenuButton
+                                asChild
+                                isActive={subItem.active}
+                                className="text-[#a3a3a3] hover:text-white"
+                              >
+                                <a href={subItem.url} className="flex items-center gap-2">
+                                  <subItem.icon className="h-3.5 w-3.5" />
+                                  <span className={subItem.bold ? "font-bold" : ""}>{subItem.title}</span>
+                                </a>
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          ))}
+                        </SidebarMenuSub>
+                      )}
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
 
-          <div className="text-center space-y-4">
-            <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
-              Buyback Program
-            </h1>
-            <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
-              Turn returns into opportunities. Our buyback program helps you manage returns efficiently while building customer loyalty.
-            </p>
-          </div>
+        <main className="flex-1 bg-[#f8f9fb] p-8">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="flex justify-end mb-4">
+              <Toggle
+                pressed={isWireframe}
+                onPressedChange={onWireframeChange}
+                className={`${wireframeStyles.button} px-4`}
+              >
+                Wireframe Mode
+              </Toggle>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <FeatureCard
-                key={index}
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                isWireframe={isWireframe}
-              />
-            ))}
-          </div>
+            <div className="text-center space-y-4">
+              <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
+                Buyback Program
+              </h1>
+              <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
+                Turn returns into opportunities. Our buyback program helps you manage returns efficiently while building customer loyalty.
+              </p>
+            </div>
 
-          <ActivationCard isWireframe={isWireframe} />
-        </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {features.map((feature, index) => (
+                <FeatureCard
+                  key={index}
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                  isWireframe={isWireframe}
+                />
+              ))}
+            </div>
+
+            <ActivationCard isWireframe={isWireframe} />
+          </div>
+        </main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
