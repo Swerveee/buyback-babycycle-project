@@ -3,10 +3,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Info, Eye } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useNavigate } from 'react-router-dom';
+import { Eye } from 'lucide-react';
+import BuybackPreviewDialog from './BuybackPreviewDialog';
 
 interface BuybackSettingsProps {
   isWireframe: boolean;
@@ -21,8 +19,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
     good: '50',
     fair: '30'
   });
-  
-  const navigate = useNavigate();
+  const [showPreview, setShowPreview] = useState(false);
 
   const wireframeStyles = isWireframe ? {
     label: "font-mono text-black",
@@ -41,20 +38,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
     }
   };
 
-  const handlePreviewClick = () => {
-    navigate('/buyback', { 
-      state: { 
-        preview: true,
-        settings: {
-          autoApprove,
-          rates,
-          enableMinPrice,
-          minItemPrice
-        }
-      }
-    });
-  };
-
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between mb-6">
@@ -63,8 +46,8 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           <p className="text-gray-600">Configure your store's buyback program</p>
         </div>
         <Button 
-          onClick={handlePreviewClick}
-          className="flex items-center gap-2"
+          onClick={() => setShowPreview(true)}
+          className={`flex items-center gap-2 ${wireframeStyles.button}`}
           variant="outline"
         >
           <Eye className="w-4 h-4" />
@@ -76,20 +59,8 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
         <div className="space-y-4">
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
             <div className="space-y-1">
-              <span className="text-lg font-semibold flex items-center gap-2">
-                Auto-approve Requests
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Info className="h-4 w-4 text-gray-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-sm">Enable to automatically approve buyback requests based on fixed compensation rates</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </span>
-              <p className="text-sm text-gray-600">When enabled, requests will be automatically processed using the rates below</p>
+              <span className="text-lg font-semibold">Auto-approve Requests</span>
+              <p className="text-sm text-gray-600">Automatically process buyback requests using fixed rates</p>
             </div>
             <Switch 
               checked={autoApprove}
@@ -124,8 +95,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           </div>
         </div>
 
-        <Separator className="my-6" />
-
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
@@ -157,20 +126,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           )}
         </div>
 
-        <div className="space-y-4">
-          <Label className={wireframeStyles.label}>Additional Settings</Label>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className={`text-sm ${wireframeStyles.label}`}>Email notifications</span>
-              <Switch />
-            </div>
-            <div className="flex items-center justify-between">
-              <span className={`text-sm ${wireframeStyles.label}`}>Allow partial returns</span>
-              <Switch />
-            </div>
-          </div>
-        </div>
-
         <div className="flex justify-end space-x-2">
           <Button variant="outline" className={wireframeStyles.button}>
             Cancel
@@ -180,6 +135,14 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           </Button>
         </div>
       </div>
+
+      <BuybackPreviewDialog
+        open={showPreview}
+        onOpenChange={setShowPreview}
+        rates={rates}
+        autoApprove={autoApprove}
+        minItemPrice={enableMinPrice ? minItemPrice : undefined}
+      />
     </div>
   );
 };
