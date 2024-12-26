@@ -3,7 +3,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Package, Plus } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
@@ -17,7 +17,6 @@ interface Product {
   type: 'Physical';
 }
 
-// Mock data updated to match screenshot
 const mockProducts: Product[] = [
   { id: '1', name: 'Zucchini Squash', sku: 'ZUC001', price: 6.00, stock: 150, status: 'active', type: 'Physical' },
   { id: '2', name: 'Beets Bunch', sku: 'BET002', price: 5.00, stock: 75, status: 'active', type: 'Physical' },
@@ -84,7 +83,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
             onClick={handleSelectAll}
             className="flex items-center gap-2"
           >
-            {selectedProducts.length === mockProducts.length ? 'Deselect All' : 'Add All to Buyback'}
+            {selectedProducts.length === mockProducts.length ? 'Remove All from Buyback' : 'Add All to Buyback'}
           </Button>
           <Button className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
@@ -97,12 +96,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-12">
-                <Checkbox
-                  checked={selectedProducts.length === mockProducts.length}
-                  onCheckedChange={handleSelectAll}
-                />
-              </TableHead>
+              <TableHead>Buyback Program</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>SKU</TableHead>
@@ -115,7 +109,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
             {mockProducts.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>
-                  <Checkbox
+                  <Switch
                     checked={selectedProducts.includes(product.id)}
                     onCheckedChange={() => handleProductSelect(product.id)}
                   />
