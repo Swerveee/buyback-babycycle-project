@@ -9,21 +9,13 @@ const BalanceDisplay = ({ isWireframe }: BalanceDisplayProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${
+        <div className={`flex items-center space-x-2 ${
           isWireframe 
-            ? 'bg-gray-100 border-2 border-dashed border-gray-300' 
-            : 'bg-[#F1F0FB]'
-        }`}>
-          <Wallet className={`h-4 w-4 ${
-            isWireframe 
-              ? 'text-gray-700' 
-              : 'text-[#9b87f5]'
-          }`} />
-          <span className={`text-sm font-medium ${
-            isWireframe 
-              ? 'text-gray-700' 
-              : 'text-[#7E69AB]'
-          }`}>$50.00</span>
+            ? 'bg-gray-200 border-2 border-dashed border-gray-400' 
+            : 'bg-[#F8F2FF]'
+        } px-4 py-2 rounded-full`}>
+          <Wallet className="h-4 w-4 text-[#9b87f5]" />
+          <span className="text-sm font-medium text-[#1A1F2C]">Store Credit: $120</span>
         </div>
       </TooltipTrigger>
       <TooltipContent>

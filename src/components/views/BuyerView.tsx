@@ -2,9 +2,9 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Wallet } from "lucide-react";
 import BuybackProcess from '@/components/customer/BuybackProcess';
-import { Users, ShoppingBag, Package, DollarSign, RefreshCw } from 'lucide-react';
+import MainNavigation from '@/components/navigation/MainNavigation';
+import { Package, DollarSign, RefreshCw } from 'lucide-react';
 
 interface BuyerViewProps {
   isWireframe: boolean;
@@ -29,19 +29,6 @@ const BuyerView: React.FC<BuyerViewProps> = ({
   setShowBuyback,
   onLogoClick
 }) => {
-  const navItems = [
-    { title: "SHOP", url: "#" },
-    { title: "OUR STORY", url: "#" },
-    { title: "CONTACT", url: "#" },
-    { title: "SUSTAINABILITY", url: "#" },
-    { 
-      title: "OUR BUYBACK PROGRAM", 
-      url: "#",
-      isHighlighted: true,
-      onClick: () => setShowBuyback(false)
-    }
-  ];
-
   return (
     <div className="min-h-screen">
       {/* Controls Bar */}
@@ -92,48 +79,11 @@ const BuyerView: React.FC<BuyerViewProps> = ({
         <p className="text-sm font-medium">Give your baby's outgrown treasures a new home! Get 15% off your first preloved purchase 🌱</p>
       </div>
 
-      {/* Navigation */}
-      <nav className={`${isWireframe ? 'bg-gray-100 border-2 border-dashed border-gray-300' : 'bg-white shadow-sm'} py-6 px-6`}>
-        <div className="container mx-auto flex items-center justify-between">
-          <button 
-            onClick={onLogoClick}
-            className={`text-2xl font-bold ${isWireframe ? 'font-mono' : ''} text-[#9b87f5]`}
-          >
-            BabyCycle
-          </button>
-
-          <div className="flex items-center space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.title}
-                onClick={item.onClick}
-                className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 
-                  item.isHighlighted ? 'text-[#9b87f5] font-medium hover:text-[#7E69AB]' : 
-                  'text-gray-700 hover:text-[#9b87f5]'} 
-                  text-sm tracking-wide transition-colors`}
-              >
-                {item.title}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center space-x-6">
-            {/* Balance Display */}
-            <div className={`flex items-center space-x-2 ${
-              isWireframe ? 'bg-gray-200 border-2 border-dashed border-gray-400' : 'bg-[#F8F2FF]'
-            } px-4 py-2 rounded-full`}>
-              <Wallet className="h-4 w-4 text-[#9b87f5]" />
-              <span className="text-sm font-medium text-[#1A1F2C]">Store Credit: $120</span>
-            </div>
-            <button className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
-              <Users className="h-5 w-5" />
-            </button>
-            <button className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
-              <ShoppingBag className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </nav>
+      <MainNavigation 
+        isWireframe={isWireframe}
+        onLogoClick={onLogoClick}
+        setShowBuyback={setShowBuyback}
+      />
 
       {/* Main Content */}
       <main className={`${isWireframe ? 'bg-gray-50' : 'bg-[#F1F0FB]'} min-h-screen`}>

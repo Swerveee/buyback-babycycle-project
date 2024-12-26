@@ -79,7 +79,6 @@ const Home = ({ isWireframe = false, onWireframeChange }: HomeProps) => {
 
           <div className="flex items-center space-x-6">
             <BalanceDisplay isWireframe={isWireframe} />
-
             <button className={`${isWireframe ? 'text-gray-700' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
               <Users className="h-5 w-5" />
             </button>
