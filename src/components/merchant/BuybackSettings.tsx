@@ -15,6 +15,7 @@ interface BuybackSettingsProps {
 const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
   const [minItemPrice, setMinItemPrice] = useState<string>('');
   const [enableMinPrice, setEnableMinPrice] = useState(false);
+  const [autoApprove, setAutoApprove] = useState(false);
   const [rates, setRates] = useState({
     excellent: '70',
     good: '50',
@@ -76,7 +77,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
 
           <div className="grid gap-4">
             {[
-              { condition: 'excellent', label: 'Excellent - Like New', description: 'Items in pristine condition' },
+              { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
               { condition: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
               { condition: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
             ].map(({ condition, label, description }) => (
@@ -92,6 +93,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
                     onChange={handleRateChange(condition as keyof typeof rates)}
                     className={`${wireframeStyles.input} pr-8`}
                     placeholder="0"
+                    disabled={!autoApprove}
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
                 </div>
@@ -138,7 +140,10 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className={`text-sm ${wireframeStyles.label}`}>Auto-approve requests</span>
-              <Switch />
+              <Switch 
+                checked={autoApprove}
+                onCheckedChange={setAutoApprove}
+              />
             </div>
             <div className="flex items-center justify-between">
               <span className={`text-sm ${wireframeStyles.label}`}>Email notifications</span>
