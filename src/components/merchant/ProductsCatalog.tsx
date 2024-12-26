@@ -24,12 +24,12 @@ interface Product {
 }
 
 const mockProducts: Product[] = [
-  { id: '1', name: 'Zucchini Squash', sku: 'ZUC001', price: 6.00, stock: 150, status: 'active', type: 'Physical' },
-  { id: '2', name: 'Beets Bunch', sku: 'BET002', price: 5.00, stock: 75, status: 'active', type: 'Physical' },
-  { id: '3', name: 'Organic Carrots', sku: 'CAR003', price: 6.00, stock: 45, status: 'active', type: 'Physical' },
-  { id: '4', name: 'Sweet Potatoes', sku: 'POT004', price: 7.00, stock: 30, status: 'active', type: 'Physical' },
-  { id: '5', name: 'Tomato Medley', sku: 'TOM005', price: 8.00, stock: 200, status: 'active', type: 'Physical' },
-  { id: '6', name: 'Cucumber Pack', sku: 'CUC006', price: 5.00, stock: 100, status: 'active', type: 'Physical' },
+  { id: '1', name: 'Organic Cotton Onesie', sku: 'ONS001', price: 24.99, stock: 150, status: 'active', type: 'Physical' },
+  { id: '2', name: 'Baby Soft Blanket', sku: 'BLK002', price: 34.99, stock: 75, status: 'active', type: 'Physical' },
+  { id: '3', name: 'Infant Sleep Sack', sku: 'SLP003', price: 29.99, stock: 45, status: 'active', type: 'Physical' },
+  { id: '4', name: 'Baby Romper Set', sku: 'RMP004', price: 39.99, stock: 30, status: 'active', type: 'Physical' },
+  { id: '5', name: 'Newborn Hat Pack', sku: 'HAT005', price: 19.99, stock: 200, status: 'active', type: 'Physical' },
+  { id: '6', name: 'Baby Socks Bundle', sku: 'SCK006', price: 14.99, stock: 100, status: 'active', type: 'Physical' },
 ];
 
 const formatPrice = (price: number) => {
@@ -108,18 +108,22 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
               <TableHead>Price</TableHead>
               <TableHead>Inventory</TableHead>
               <TableHead className="text-right">Actions</TableHead>
-              <TableHead className="flex items-center gap-2">
-                Buyback Program
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <HelpCircle className="h-4 w-4 text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Toggle to add or remove products from the buyback program</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+              <TableHead className="text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="flex items-center gap-2">
+                    Buyback Program
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Toggle to add or remove products from the buyback program</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </span>
+                </div>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -149,7 +153,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
                     •••
                   </Button>
                 </TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   <Switch
                     checked={selectedProducts.includes(product.id)}
                     onCheckedChange={() => handleProductSelect(product.id)}
