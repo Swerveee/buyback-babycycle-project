@@ -93,7 +93,7 @@ const BuyerView: React.FC<BuyerViewProps> = ({
       <nav className={`${isWireframe ? 'bg-gray-100 border-2 border-dashed border-gray-300' : 'bg-white shadow-sm'} py-6 px-6`}>
         <div className="container mx-auto flex items-center justify-between">
           <div className={`text-2xl font-bold ${isWireframe ? 'font-mono' : ''} text-[#9b87f5]`}>
-            Circlet
+            BabyCycle
           </div>
 
           <div className="flex items-center space-x-8">
@@ -141,7 +141,7 @@ const BuyerView: React.FC<BuyerViewProps> = ({
                 Give Baby Clothes a Second Story
               </h1>
               <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                Join our sustainable parenting community. Give your little one's gently worn clothes and toys a new home while earning rewards and making eco-conscious choices for their future.
+                Already bought from us? Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program makes it easy: we'll send you a shipping label, you send the clothes, and we'll credit your account within 48 hours. Get up to 70% back in store credit for your next purchase.
               </p>
               <div className="grid grid-cols-3 gap-8 mb-12">
                 {[
@@ -177,7 +177,7 @@ const BuyerView: React.FC<BuyerViewProps> = ({
                 onClick={() => setShowBuyback(true)}
                 className={`${isWireframe ? 'border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'} px-8 py-6 text-lg font-medium transition-colors`}
               >
-                Start Your Sustainable Parenting Journey
+                Sell Back My Baby Items
               </Button>
             </div>
           )}
