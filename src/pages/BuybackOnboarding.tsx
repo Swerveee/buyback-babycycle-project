@@ -3,6 +3,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { RefreshCw, Package, DollarSign } from 'lucide-react';
 import FeatureCard from '@/components/customer/buyback/onboarding/FeatureCard';
 import ActivationCard from '@/components/customer/buyback/onboarding/ActivationCard';
+import WixMenu from '@/components/WixMenu';
 
 interface BuybackOnboardingProps {
   isWireframe: boolean;
@@ -37,40 +38,43 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f9fb] p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-end mb-4">
-          <Toggle
-            pressed={isWireframe}
-            onPressedChange={onWireframeChange}
-            className={`${wireframeStyles.button} px-4`}
-          >
-            Wireframe Mode
-          </Toggle>
-        </div>
+    <div className="min-h-screen bg-[#f8f9fb]">
+      <WixMenu currentPath="buyback" />
+      <div className="p-8">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <div className="flex justify-end mb-4">
+            <Toggle
+              pressed={isWireframe}
+              onPressedChange={onWireframeChange}
+              className={`${wireframeStyles.button} px-4`}
+            >
+              Wireframe Mode
+            </Toggle>
+          </div>
 
-        <div className="text-center space-y-4">
-          <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
-            Buyback Program
-          </h1>
-          <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
-            Turn returns into opportunities. Our buyback program helps you manage returns efficiently while building customer loyalty.
-          </p>
-        </div>
+          <div className="text-center space-y-4">
+            <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
+              Buyback Program
+            </h1>
+            <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
+              Turn returns into opportunities. Our buyback program helps you manage returns efficiently while building customer loyalty.
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-              isWireframe={isWireframe}
-            />
-          ))}
-        </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                isWireframe={isWireframe}
+              />
+            ))}
+          </div>
 
-        <ActivationCard isWireframe={isWireframe} />
+          <ActivationCard isWireframe={isWireframe} />
+        </div>
       </div>
     </div>
   );
