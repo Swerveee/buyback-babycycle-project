@@ -35,7 +35,19 @@ const App = () => {
                 />
               } 
             />
-            <Route path="/buyback" element={<Index />} />
+            <Route 
+              path="/buyback" 
+              element={
+                <Index 
+                  isWireframe={isWireframe}
+                  setIsWireframe={setIsWireframe}
+                  view={view}
+                  setView={setView}
+                  showControls={showControls}
+                  setShowControls={setShowControls}
+                />
+              } 
+            />
             <Route path="/success" element={<Success />} />
           </Routes>
         </BrowserRouter>

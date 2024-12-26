@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -6,13 +6,23 @@ import { Label } from "@/components/ui/label";
 import BuyerView from '@/components/views/BuyerView';
 import MerchantView from '@/components/views/MerchantView';
 
-type ViewType = 'buyer' | 'merchant';
+interface IndexProps {
+  isWireframe: boolean;
+  setIsWireframe: (value: boolean) => void;
+  view: 'buyer' | 'merchant';
+  setView: (view: 'buyer' | 'merchant') => void;
+  showControls: boolean;
+  setShowControls: (show: boolean) => void;
+}
 
-const Index = () => {
-  const [view, setView] = useState<ViewType>('buyer');
-  const [isWireframe, setIsWireframe] = useState(false);
-  const [showBuyback, setShowBuyback] = useState(false);
-  const [showControls, setShowControls] = useState(true);
+const Index: React.FC<IndexProps> = ({
+  isWireframe,
+  setIsWireframe,
+  view,
+  setView,
+  showControls,
+  setShowControls
+}) => {
   const navigate = useNavigate();
 
   const renderView = () => {
@@ -25,8 +35,6 @@ const Index = () => {
           setView={setView}
           showControls={showControls}
           setShowControls={setShowControls}
-          showBuyback={showBuyback}
-          setShowBuyback={setShowBuyback}
           onLogoClick={() => navigate('/')}
         />
       );
