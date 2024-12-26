@@ -23,6 +23,10 @@ interface Product {
   type: 'Physical';
 }
 
+interface ProductsCatalogProps {
+  isWireframe: boolean;
+}
+
 const mockProducts: Product[] = [
   { id: '1', name: 'Organic Cotton Onesie', sku: 'ONS001', price: 24.99, stock: 150, status: 'active', type: 'Physical' },
   { id: '2', name: 'Baby Soft Blanket', sku: 'BLK002', price: 34.99, stock: 75, status: 'active', type: 'Physical' },
@@ -40,9 +44,21 @@ const formatPrice = (price: number) => {
   }).format(price);
 };
 
-const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) => {
+const ProductsCatalog: React.FC<ProductsCatalogProps> = ({ isWireframe }) => {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const { toast } = useToast();
+
+  const wireframeStyles = isWireframe ? {
+    card: "border-2 border-dashed border-gray-300",
+    button: "border-2 border-dashed border-gray-300 bg-gray-50",
+    table: "font-mono",
+    badge: "border-2 border-dashed border-gray-300 bg-gray-50"
+  } : {
+    card: "",
+    button: "",
+    table: "",
+    badge: ""
+  };
 
   const handleSelectAll = () => {
     if (selectedProducts.length === mockProducts.length) {
@@ -81,27 +97,27 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Package className="h-5 w-5" />
-          <h2 className="text-2xl font-semibold">Products ({mockProducts.length})</h2>
+          <h2 className={`text-2xl font-semibold ${isWireframe ? "font-mono" : ""}`}>Products ({mockProducts.length})</h2>
         </div>
         <div className="flex items-center gap-4">
           <Button 
             variant="outline"
             onClick={handleSelectAll}
-            className="flex items-center gap-2"
+            className={`flex items-center gap-2 ${wireframeStyles.button}`}
           >
             {selectedProducts.length === mockProducts.length ? 'Remove All from Buyback' : 'Add All to Buyback'}
           </Button>
-          <Button className="flex items-center gap-2">
+          <Button className={`flex items-center gap-2 ${wireframeStyles.button}`}>
             <Plus className="h-4 w-4" />
             New Product
           </Button>
         </div>
       </div>
 
-      <Card>
+      <Card className={wireframeStyles.card}>
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className={wireframeStyles.table}>
               <TableHead>Name</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>SKU</TableHead>
@@ -129,9 +145,9 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
           </TableHeader>
           <TableBody>
             {mockProducts.map((product) => (
-              <TableRow key={product.id}>
+              <TableRow key={product.id} className={wireframeStyles.table}>
                 <TableCell className="font-medium flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center">
+                  <div className={`w-10 h-10 ${isWireframe ? "border-2 border-dashed border-gray-300" : "bg-gray-100"} rounded-md flex items-center justify-center`}>
                     <img 
                       src={`/placeholder.svg`} 
                       alt={product.name}
@@ -144,7 +160,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
                 <TableCell>{product.sku}</TableCell>
                 <TableCell>{formatPrice(product.price)}</TableCell>
                 <TableCell>
-                  <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-100">
+                  <Badge variant="secondary" className={`bg-green-50 text-green-700 hover:bg-green-100 ${wireframeStyles.badge}`}>
                     In stock
                   </Badge>
                 </TableCell>
@@ -155,7 +171,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
                   />
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className={wireframeStyles.button}>
                     •••
                   </Button>
                 </TableCell>
