@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RefreshCw, Package, DollarSign, ArrowRight } from 'lucide-react';
+import { Toggle } from "@/components/ui/toggle";
 
 interface BuybackOnboardingProps {
   isWireframe: boolean;
@@ -24,6 +25,16 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe }) =>
   return (
     <div className="min-h-screen bg-[#f8f9fb] p-8">
       <div className="max-w-4xl mx-auto space-y-8">
+        <div className="flex justify-end mb-4">
+          <Toggle
+            pressed={isWireframe}
+            onPressedChange={() => navigate('/buyback-onboarding', { state: { isWireframe: !isWireframe } })}
+            className={`${wireframeStyles.button} px-4`}
+          >
+            Wireframe Mode
+          </Toggle>
+        </div>
+
         <div className="text-center space-y-4">
           <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
             Buyback Program
