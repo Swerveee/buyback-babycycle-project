@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Info } from 'lucide-react';
+import { Info, Eye } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useNavigate } from 'react-router-dom';
 
 interface BuybackSettingsProps {
   isWireframe: boolean;
@@ -21,6 +21,8 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
     good: '50',
     fair: '30'
   });
+  
+  const navigate = useNavigate();
 
   const wireframeStyles = isWireframe ? {
     label: "font-mono text-black",
@@ -39,27 +41,38 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
     }
   };
 
+  const handlePreviewClick = () => {
+    navigate('/buyback', { 
+      state: { 
+        preview: true,
+        settings: {
+          autoApprove,
+          rates,
+          enableMinPrice,
+          minItemPrice
+        }
+      }
+    });
+  };
+
   return (
     <div className="space-y-8">
-      <div className="space-y-4">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <Label className={wireframeStyles.label}>Program Name</Label>
-          <Input 
-            placeholder="Enter program name"
-            className={wireframeStyles.input}
-          />
+          <h2 className="text-2xl font-semibold mb-1">Buyback Program Settings</h2>
+          <p className="text-gray-600">Configure your store's buyback program</p>
         </div>
-        
-        <div>
-          <Label className={wireframeStyles.label}>Program Description</Label>
-          <Textarea 
-            placeholder="Describe your buyback program"
-            className={wireframeStyles.input}
-          />
-        </div>
+        <Button 
+          onClick={handlePreviewClick}
+          className="flex items-center gap-2"
+          variant="outline"
+        >
+          <Eye className="w-4 h-4" />
+          Preview Program
+        </Button>
+      </div>
 
-        <Separator className="my-6" />
-
+      <div className="space-y-8">
         <div className="space-y-4">
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
             <div className="space-y-1">
@@ -84,46 +97,30 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
             />
           </div>
 
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Compensation Rates</h3>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info className="h-4 w-4 text-gray-500" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm">Set the percentage of original price to be refunded as store credit</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-
-            <div className="grid gap-4">
-              {[
-                { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
-                { condition: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
-                { condition: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
-              ].map(({ condition, label, description }) => (
-                <div key={condition} className="grid grid-cols-2 gap-4 items-center">
-                  <div>
-                    <Label className={`${wireframeStyles.label} block mb-1`}>{label}</Label>
-                    <span className="text-sm text-gray-500">{description}</span>
-                  </div>
-                  <div className="relative">
-                    <Input
-                      type="text"
-                      value={rates[condition as keyof typeof rates]}
-                      onChange={handleRateChange(condition as keyof typeof rates)}
-                      className={`${wireframeStyles.input} pr-8 ${!autoApprove ? 'bg-gray-100' : ''}`}
-                      placeholder="0"
-                      disabled={!autoApprove}
-                    />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
-                  </div>
+          <div className="grid gap-4">
+            {[
+              { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
+              { condition: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
+              { condition: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
+            ].map(({ condition, label, description }) => (
+              <div key={condition} className="grid grid-cols-2 gap-4 items-center">
+                <div>
+                  <Label className={`${wireframeStyles.label} block mb-1`}>{label}</Label>
+                  <span className="text-sm text-gray-500">{description}</span>
                 </div>
-              ))}
-            </div>
+                <div className="relative">
+                  <Input
+                    type="text"
+                    value={rates[condition as keyof typeof rates]}
+                    onChange={handleRateChange(condition as keyof typeof rates)}
+                    className={`${wireframeStyles.input} pr-8 ${!autoApprove ? 'bg-gray-100' : ''}`}
+                    placeholder="0"
+                    disabled={!autoApprove}
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
