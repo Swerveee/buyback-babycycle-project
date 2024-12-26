@@ -55,29 +55,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
             />
           </div>
 
-          <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-semibold">Allow Fund Payouts</span>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <HelpCircle className="h-4 w-4 text-gray-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Funds can be issued as an alternative to store credit during request approval</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <p className="text-sm text-gray-600">Enable cash payments as an alternative to store credit</p>
-            </div>
-            <Switch 
-              checked={allowFundPayouts}
-              onCheckedChange={setAllowFundPayouts}
-            />
-          </div>
-
           <div className="grid gap-4">
             {[
               { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
@@ -128,6 +105,29 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
               </Select>
             </div>
           </div>
+        </div>
+
+        <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-semibold">Allow Fund Payouts</span>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <HelpCircle className="h-4 w-4 text-gray-500" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Funds can be issued as an alternative to store credit during request approval</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <p className="text-sm text-gray-600">Enable cash payments as an alternative to store credit</p>
+          </div>
+          <Switch 
+            checked={allowFundPayouts}
+            onCheckedChange={setAllowFundPayouts}
+          />
         </div>
 
         <div className="space-y-4">
