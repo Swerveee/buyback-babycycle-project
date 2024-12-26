@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { InfoCircle } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface BuybackSettingsProps {
@@ -65,7 +65,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <InfoCircle className="h-4 w-4 text-gray-500" />
+                  <Info className="h-4 w-4 text-gray-500" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-sm">Set the percentage of original price to be refunded as store credit</p>
