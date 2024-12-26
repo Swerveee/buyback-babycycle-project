@@ -89,7 +89,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
                 </p>
                 <Button 
                   onClick={() => navigate('/buyback')}
-                  className={`${wireframeStyles.button} gap-2`}
+                  className={`${wireframeStyles.button} gap-2 ${isWireframe ? 'text-black' : ''}`}
                   size="lg"
                 >
                   Activate Buyback Program
