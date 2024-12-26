@@ -13,6 +13,7 @@ interface MerchantViewProps {
   setView: (view: 'buyer' | 'merchant') => void;
   showControls: boolean;
   setShowControls: (show: boolean) => void;
+  onLogoClick: () => void;
 }
 
 const MerchantView: React.FC<MerchantViewProps> = ({
@@ -21,7 +22,8 @@ const MerchantView: React.FC<MerchantViewProps> = ({
   view,
   setView,
   showControls,
-  setShowControls
+  setShowControls,
+  onLogoClick
 }) => {
   return (
     <SidebarProvider>

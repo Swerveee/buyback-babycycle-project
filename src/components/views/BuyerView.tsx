@@ -14,6 +14,7 @@ interface BuyerViewProps {
   setShowControls: (show: boolean) => void;
   showBuyback: boolean;
   setShowBuyback: (show: boolean) => void;
+  onLogoClick: () => void;
 }
 
 const BuyerView: React.FC<BuyerViewProps> = ({
@@ -24,7 +25,8 @@ const BuyerView: React.FC<BuyerViewProps> = ({
   showControls,
   setShowControls,
   showBuyback,
-  setShowBuyback
+  setShowBuyback,
+  onLogoClick
 }) => {
   const navItems = [
     { title: "SHOP", url: "#" },
@@ -92,9 +94,12 @@ const BuyerView: React.FC<BuyerViewProps> = ({
       {/* Navigation */}
       <nav className={`${isWireframe ? 'bg-gray-100 border-2 border-dashed border-gray-300' : 'bg-white shadow-sm'} py-6 px-6`}>
         <div className="container mx-auto flex items-center justify-between">
-          <div className={`text-2xl font-bold ${isWireframe ? 'font-mono' : ''} text-[#9b87f5]`}>
+          <button 
+            onClick={onLogoClick}
+            className={`text-2xl font-bold ${isWireframe ? 'font-mono' : ''} text-[#9b87f5]`}
+          >
             BabyCycle
-          </div>
+          </button>
 
           <div className="flex items-center space-x-8">
             {navItems.map((item) => (
