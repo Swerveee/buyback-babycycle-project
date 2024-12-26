@@ -86,7 +86,7 @@ const BuyerView: React.FC<BuyerViewProps> = ({
 
       {/* Announcement Bar */}
       <div className={`w-full py-3 text-center text-white ${isWireframe ? 'bg-gray-300' : 'bg-[#7E69AB]'}`}>
-        <p className="text-sm font-medium">Join our circular fashion movement. Get 15% off your first preloved purchase 🌱</p>
+        <p className="text-sm font-medium">Give your baby's outgrown treasures a new home! Get 15% off your first preloved purchase 🌱</p>
       </div>
 
       {/* Navigation */}
@@ -138,27 +138,27 @@ const BuyerView: React.FC<BuyerViewProps> = ({
           ) : (
             <div className="text-center max-w-2xl mx-auto">
               <h1 className={`text-4xl font-bold mb-6 ${isWireframe ? 'font-mono' : ''} text-[#403E43]`}>
-                Preloved Fashion, Renewed Purpose
+                Give Baby Clothes a Second Story
               </h1>
               <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                Join our circular fashion community. Give your gently worn pieces a second life while earning rewards and making sustainable choices for our planet.
+                Join our sustainable parenting community. Give your little one's gently worn clothes and toys a new home while earning rewards and making eco-conscious choices for their future.
               </p>
               <div className="grid grid-cols-3 gap-8 mb-12">
                 {[
                   {
                     icon: Package,
-                    title: "Simple Returns",
-                    description: "Free shipping label & eco-friendly packaging included"
+                    title: "Easy Returns",
+                    description: "Free shipping label & eco-friendly packaging for baby items"
                   },
                   {
                     icon: DollarSign,
-                    title: "Instant Rewards",
-                    description: "Earn up to 70% of resale value in store credit"
+                    title: "Parent Rewards",
+                    description: "Earn up to 70% back in store credit for your baby's outgrown items"
                   },
                   {
                     icon: RefreshCw,
-                    title: "Sustainable Impact",
-                    description: "Each piece saved reduces fashion's footprint"
+                    title: "Growing Impact",
+                    description: "Each preloved item helps reduce fashion waste for future generations"
                   }
                 ].map((feature) => (
                   <div
@@ -177,7 +177,7 @@ const BuyerView: React.FC<BuyerViewProps> = ({
                 onClick={() => setShowBuyback(true)}
                 className={`${isWireframe ? 'border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'} px-8 py-6 text-lg font-medium transition-colors`}
               >
-                Start Your Sustainable Journey
+                Start Your Sustainable Parenting Journey
               </Button>
             </div>
           )}
