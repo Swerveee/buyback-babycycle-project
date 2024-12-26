@@ -28,11 +28,11 @@ const BuyerView: React.FC<BuyerViewProps> = ({
 }) => {
   const navItems = [
     { title: "SHOP", url: "#" },
-    { title: "ABOUT US", url: "#" },
+    { title: "OUR STORY", url: "#" },
     { title: "CONTACT", url: "#" },
-    { title: "BONDING BLOG", url: "#" },
+    { title: "SUSTAINABILITY", url: "#" },
     { 
-      title: "BUYBACK PROGRAM", 
+      title: "PRELOVED", 
       url: "#",
       isHighlighted: true,
       onClick: () => setShowBuyback(false)
@@ -85,15 +85,15 @@ const BuyerView: React.FC<BuyerViewProps> = ({
       </div>
 
       {/* Announcement Bar */}
-      <div className={`w-full py-2 text-center text-white ${isWireframe ? 'bg-gray-300' : 'bg-[#96B6A3]'}`}>
-        <p className="text-sm">Save up to 30% instantly on all bundles until December 25th 🎁</p>
+      <div className={`w-full py-3 text-center text-white ${isWireframe ? 'bg-gray-300' : 'bg-[#7E69AB]'}`}>
+        <p className="text-sm font-medium">Join our circular fashion movement. Get 15% off your first preloved purchase 🌱</p>
       </div>
 
       {/* Navigation */}
-      <nav className={`${isWireframe ? 'bg-gray-100 border-2 border-dashed border-gray-300' : 'bg-white shadow-sm'} py-4 px-6`}>
+      <nav className={`${isWireframe ? 'bg-gray-100 border-2 border-dashed border-gray-300' : 'bg-white shadow-sm'} py-6 px-6`}>
         <div className="container mx-auto flex items-center justify-between">
-          <div className={`text-2xl font-bold ${isWireframe ? 'font-mono' : ''}`}>
-            Bonsie
+          <div className={`text-2xl font-bold ${isWireframe ? 'font-mono' : ''} text-[#9b87f5]`}>
+            Circlet
           </div>
 
           <div className="flex items-center space-x-8">
@@ -101,9 +101,10 @@ const BuyerView: React.FC<BuyerViewProps> = ({
               <button
                 key={item.title}
                 onClick={item.onClick}
-                className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-primary'} ${
-                  item.isHighlighted ? 'font-semibold' : ''
-                } text-sm`}
+                className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 
+                  item.isHighlighted ? 'text-[#9b87f5] font-medium hover:text-[#7E69AB]' : 
+                  'text-gray-700 hover:text-[#9b87f5]'} 
+                  text-sm tracking-wide transition-colors`}
               >
                 {item.title}
               </button>
@@ -111,10 +112,10 @@ const BuyerView: React.FC<BuyerViewProps> = ({
           </div>
 
           <div className="flex items-center space-x-4">
-            <button className={isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-primary'}>
+            <button className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
               <Users className="h-5 w-5" />
             </button>
-            <button className={isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-primary'}>
+            <button className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
               <ShoppingBag className="h-5 w-5" />
             </button>
           </div>
@@ -122,13 +123,13 @@ const BuyerView: React.FC<BuyerViewProps> = ({
       </nav>
 
       {/* Main Content */}
-      <main className={`${isWireframe ? 'bg-gray-50' : 'bg-[#f8f9fb]'} min-h-screen`}>
-        <div className="container mx-auto py-8">
+      <main className={`${isWireframe ? 'bg-gray-50' : 'bg-[#F1F0FB]'} min-h-screen`}>
+        <div className="container mx-auto py-12">
           {showBuyback ? (
             <div className="mb-6">
               <button
                 onClick={() => setShowBuyback(false)}
-                className="text-gray-600 hover:text-gray-900 mb-4 flex items-center"
+                className="text-[#7E69AB] hover:text-[#9b87f5] mb-4 flex items-center transition-colors"
               >
                 ← Back to Program Details
               </button>
@@ -136,47 +137,47 @@ const BuyerView: React.FC<BuyerViewProps> = ({
             </div>
           ) : (
             <div className="text-center max-w-2xl mx-auto">
-              <h1 className={`text-4xl font-bold mb-6 ${isWireframe ? 'font-mono' : ''}`}>
-                Buyback Program
+              <h1 className={`text-4xl font-bold mb-6 ${isWireframe ? 'font-mono' : ''} text-[#403E43]`}>
+                Preloved Fashion, Renewed Purpose
               </h1>
-              <p className="text-gray-600 mb-8">
-                Give your gently used Bonsie clothes a second life and earn rewards! Our buyback program helps reduce waste while putting money back in your pocket.
+              <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+                Join our circular fashion community. Give your gently worn pieces a second life while earning rewards and making sustainable choices for our planet.
               </p>
               <div className="grid grid-cols-3 gap-8 mb-12">
                 {[
                   {
                     icon: Package,
-                    title: "Easy Returns",
-                    description: "Free shipping label provided"
+                    title: "Simple Returns",
+                    description: "Free shipping label & eco-friendly packaging included"
                   },
                   {
                     icon: DollarSign,
-                    title: "Quick Payment",
-                    description: "Get paid within 48 hours"
+                    title: "Instant Rewards",
+                    description: "Earn up to 70% of resale value in store credit"
                   },
                   {
                     icon: RefreshCw,
-                    title: "Sustainable Choice",
-                    description: "Help reduce textile waste"
+                    title: "Sustainable Impact",
+                    description: "Each piece saved reduces fashion's footprint"
                   }
                 ].map((feature) => (
                   <div
                     key={feature.title}
                     className={`p-6 rounded-lg ${
-                      isWireframe ? 'border-2 border-dashed border-gray-300' : 'bg-white shadow-sm'
+                      isWireframe ? 'border-2 border-dashed border-gray-300' : 'bg-white shadow-sm hover:shadow-md transition-shadow'
                     }`}
                   >
-                    <feature.icon className="w-8 h-8 mb-4 mx-auto" />
-                    <h3 className="font-semibold mb-2">{feature.title}</h3>
+                    <feature.icon className="w-8 h-8 mb-4 mx-auto text-[#9b87f5]" />
+                    <h3 className="font-semibold mb-2 text-[#403E43]">{feature.title}</h3>
                     <p className="text-sm text-gray-600">{feature.description}</p>
                   </div>
                 ))}
               </div>
               <Button
                 onClick={() => setShowBuyback(true)}
-                className={`${isWireframe ? 'border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700' : 'bg-primary text-white'} text-white px-8 py-3`}
+                className={`${isWireframe ? 'border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'} px-8 py-6 text-lg font-medium transition-colors`}
               >
-                Start Buyback Process
+                Start Your Sustainable Journey
               </Button>
             </div>
           )}
