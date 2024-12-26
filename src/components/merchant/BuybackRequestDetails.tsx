@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { BuybackRequest } from '@/types/buyback';
 
 interface BuybackRequestDetailsProps {
@@ -24,6 +26,13 @@ const BuybackRequestDetails = ({
   onReject,
   getStatusColor 
 }: BuybackRequestDetailsProps) => {
+  const [payoutType, setPayoutType] = useState<'store-credit' | 'funds'>('store-credit');
+
+  const handleApprove = () => {
+    onApprove(request.id);
+    // The email content will be automatically updated based on the payout type
+  };
+
   return (
     <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
       <DialogHeader>
@@ -55,7 +64,7 @@ const BuybackRequestDetails = ({
               <div>
                 <p className="font-medium">Status</p>
                 <Badge className={getStatusColor(request.status)}>
-                  {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
+                  {request.status}
                 </Badge>
               </div>
             </div>
@@ -104,6 +113,22 @@ const BuybackRequestDetails = ({
             <h3 className="text-lg font-medium text-[#333333] mb-2">Shipping Information</h3>
             <p className="text-[#555555]">{request.shippingAddress}</p>
           </div>
+
+          <Separator className="bg-[#F1F1F1]" />
+
+          <div>
+            <h3 className="text-lg font-medium text-[#333333] mb-2">Payout Options</h3>
+            <RadioGroup value={payoutType} onValueChange={(value: 'store-credit' | 'funds') => setPayoutType(value)}>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="store-credit" id="store-credit" />
+                <Label htmlFor="store-credit">Store Credit (+10% bonus)</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="funds" id="funds" />
+                <Label htmlFor="funds">Funds</Label>
+              </div>
+            </RadioGroup>
+          </div>
         </div>
       </ScrollArea>
       
@@ -117,7 +142,7 @@ const BuybackRequestDetails = ({
         </Button>
         <Button
           className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
-          onClick={() => onApprove(request.id)}
+          onClick={handleApprove}
         >
           Approve
         </Button>
