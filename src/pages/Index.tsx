@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -24,6 +24,7 @@ const Index: React.FC<IndexProps> = ({
   setShowControls
 }) => {
   const navigate = useNavigate();
+  const [showBuyback, setShowBuyback] = useState(false);
 
   const renderView = () => {
     if (view === 'buyer') {
@@ -35,6 +36,8 @@ const Index: React.FC<IndexProps> = ({
           setView={setView}
           showControls={showControls}
           setShowControls={setShowControls}
+          showBuyback={showBuyback}
+          setShowBuyback={setShowBuyback}
           onLogoClick={() => navigate('/')}
         />
       );
