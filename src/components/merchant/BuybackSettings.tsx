@@ -99,12 +99,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
               </TooltipProvider>
             </div>
 
-            {!autoApprove && (
-              <div className="text-sm text-gray-500 italic bg-gray-50 p-3 rounded">
-                Enable auto-approve requests above to set fixed compensation rates
-              </div>
-            )}
-
             <div className="grid gap-4">
               {[
                 { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
@@ -121,7 +115,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
                       type="text"
                       value={rates[condition as keyof typeof rates]}
                       onChange={handleRateChange(condition as keyof typeof rates)}
-                      className={`${wireframeStyles.input} pr-8`}
+                      className={`${wireframeStyles.input} pr-8 ${!autoApprove ? 'bg-gray-100' : ''}`}
                       placeholder="0"
                       disabled={!autoApprove}
                     />
@@ -179,15 +173,15 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex justify-end space-x-2">
-        <Button variant="outline" className={wireframeStyles.button}>
-          Cancel
-        </Button>
-        <Button className={wireframeStyles.button}>
-          Save Changes
-        </Button>
+        <div className="flex justify-end space-x-2">
+          <Button variant="outline" className={wireframeStyles.button}>
+            Cancel
+          </Button>
+          <Button className={wireframeStyles.button}>
+            Save Changes
+          </Button>
+        </div>
       </div>
     </div>
   );
