@@ -39,7 +39,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex w-full">
         <Sidebar className="bg-[#1e1e1e] border-r border-[#2d2d2d]">
           <SidebarContent>
             <SidebarGroup>
@@ -110,8 +110,8 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
           </SidebarContent>
         </Sidebar>
 
-        <main className="flex-1 bg-[#f8f9fb] p-8">
-          <div className="max-w-4xl mx-auto space-y-8">
+        <main className="flex-1 bg-[#f8f9fb] p-8 w-full">
+          <div className="max-w-6xl mx-auto space-y-8">
             <div className="flex justify-end mb-4">
               <Toggle
                 pressed={isWireframe}
