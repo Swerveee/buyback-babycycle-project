@@ -107,7 +107,6 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
               <TableHead>SKU</TableHead>
               <TableHead>Price</TableHead>
               <TableHead>Inventory</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
               <TableHead className="text-center">
                 <div className="flex flex-col items-center gap-2">
                   <span className="flex items-center gap-2">
@@ -125,6 +124,7 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
                   </span>
                 </div>
               </TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -148,16 +148,16 @@ const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) =>
                     In stock
                   </Badge>
                 </TableCell>
-                <TableCell className="text-right">
-                  <Button variant="ghost" size="sm">
-                    •••
-                  </Button>
-                </TableCell>
                 <TableCell className="text-center">
                   <Switch
                     checked={selectedProducts.includes(product.id)}
                     onCheckedChange={() => handleProductSelect(product.id)}
                   />
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button variant="ghost" size="sm">
+                    •••
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
