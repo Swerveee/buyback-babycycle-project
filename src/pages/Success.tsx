@@ -4,24 +4,12 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
-interface SuccessProps {
-  isWireframe?: boolean;
-}
-
-const Success: React.FC<SuccessProps> = ({ isWireframe = false }) => {
+const Success = () => {
   const navigate = useNavigate();
-
-  const wireframeStyles = isWireframe ? {
-    card: "border-2 border-dashed border-gray-300",
-    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700"
-  } : {
-    card: "border-[#eee] shadow-sm",
-    button: "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
-  };
 
   return (
     <div className="container mx-auto p-6 max-w-2xl">
-      <Card className={wireframeStyles.card}>
+      <Card className="border-[#eee] shadow-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <CheckCircle2 className="w-16 h-16 text-green-500" />
@@ -44,7 +32,7 @@ const Success: React.FC<SuccessProps> = ({ isWireframe = false }) => {
           <div className="flex justify-center">
             <Button 
               onClick={() => navigate('/')}
-              className={wireframeStyles.button}
+              className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
             >
               Return to Shop
             </Button>
