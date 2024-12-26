@@ -13,12 +13,16 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
 
   const handleProductsClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent the click from bubbling up
+    e.stopPropagation();
     onProductsClick();
   };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const wireframeStyles = isWireframe ? {
+    button: "border-2 border-dashed border-gray-300 bg-gray-50",
+    menu: "border-2 border-dashed border-gray-300 bg-gray-50 font-mono"
+  } : {
+    button: "",
+    menu: ""
   };
 
   return (
@@ -27,8 +31,8 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
         <NavigationMenuItem className="w-full">
           <Button 
             variant="ghost"
-            onClick={toggleMenu}
-            className="w-full justify-start gap-2 hover:bg-gray-100"
+            onClick={() => setIsOpen(!isOpen)}
+            className={`w-full justify-start gap-2 hover:bg-gray-100 ${wireframeStyles.button}`}
           >
             <span className="flex items-center gap-2">
               Catalog
@@ -39,56 +43,56 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
             <div className="ml-4 mt-1 space-y-1">
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Restaurant Menus (New)
               </Button>
               <Button
                 variant="ghost"
                 onClick={handleProductsClick}
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Products
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Inventory
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Categories
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Collections
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Gift Cards
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Price Lists
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Back in Stock Requests
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm ${wireframeStyles.menu}`}
               >
                 Find Products to Sell
               </Button>
