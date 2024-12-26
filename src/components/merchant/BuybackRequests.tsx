@@ -29,63 +29,63 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   const [products, setProducts] = useState<Product[]>([
     {
       id: "1",
-      name: "Zucchini Squash",
+      name: "Baby Onesie - 0-3 months",
       type: "Physical",
-      sku: "ZUCH001",
-      price: "₪6.00",
+      sku: "BABY001",
+      price: "₪29.99",
       inventory: "In stock",
       inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+      image: "https://images.unsplash.com/photo-1522771930-78848d9293e8"
     },
     {
       id: "2",
-      name: "Beets Bunch",
+      name: "Infant Sleepsuit Set",
       type: "Physical",
-      sku: "BEET001",
-      price: "₪5.00",
+      sku: "BABY002",
+      price: "₪39.99",
       inventory: "In stock",
       inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+      image: "https://images.unsplash.com/photo-1519689680058-324335c77eba"
     },
     {
       id: "3",
-      name: "Organic Carrots",
+      name: "Baby Knit Cardigan",
       type: "Physical",
-      sku: "CARR001",
-      price: "₪6.00",
+      sku: "BABY003",
+      price: "₪34.99",
       inventory: "In stock",
       inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+      image: "https://images.unsplash.com/photo-1522771930-78848d9293e8"
     },
     {
       id: "4",
-      name: "Sweet Potatoes",
+      name: "Soft Cotton Romper",
       type: "Physical",
-      sku: "SWPO001",
-      price: "₪7.00",
+      sku: "BABY004",
+      price: "₪24.99",
       inventory: "In stock",
       inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b"
+      image: "https://images.unsplash.com/photo-1519689680058-324335c77eba"
     },
     {
       id: "5",
-      name: "Tomato Medley",
+      name: "Baby Dress Set",
       type: "Physical",
-      sku: "TOMA001",
-      price: "₪8.00",
+      sku: "BABY005",
+      price: "₪44.99",
       inventory: "In stock",
       inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334"
+      image: "https://images.unsplash.com/photo-1522771930-78848d9293e8"
     },
     {
       id: "6",
-      name: "Cucumber Pack",
+      name: "Infant Pants Pack",
       type: "Physical",
-      sku: "CUCU001",
-      price: "₪5.00",
+      sku: "BABY006",
+      price: "₪19.99",
       inventory: "In stock",
       inBuybackProgram: false,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+      image: "https://images.unsplash.com/photo-1519689680058-324335c77eba"
     }
   ]);
 
