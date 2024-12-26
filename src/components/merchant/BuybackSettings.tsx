@@ -40,8 +40,8 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
   return (
     <div className="space-y-8">
       <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-1">Buyback Program Settings</h2>
-        <p className="text-gray-600">Configure your store's buyback program</p>
+        <h2 className="text-2xl font-semibold mb-1">Program Settings</h2>
+        <p className="text-gray-600">Configure your buyback program rules and pricing</p>
       </div>
 
       <div className="space-y-8">
@@ -99,10 +99,10 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
                   <SelectValue placeholder="Select duration" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="never">Never</SelectItem>
                   <SelectItem value="3">3 months</SelectItem>
                   <SelectItem value="6">6 months</SelectItem>
                   <SelectItem value="12">12 months</SelectItem>
+                  <SelectItem value="never">Never</SelectItem>
                 </SelectContent>
               </Select>
             </div>
