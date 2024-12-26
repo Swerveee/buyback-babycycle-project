@@ -77,6 +77,14 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     }
   };
 
+  const handleApprove = (id: string) => {
+    console.log('Approving request:', id);
+  };
+
+  const handleReject = (id: string) => {
+    console.log('Rejecting request:', id);
+  };
+
   return (
     <div className="space-y-4">
       <div className={wireframeStyles.table}>
@@ -114,7 +122,12 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
                         View Details
                       </Button>
                     </DialogTrigger>
-                    <BuybackRequestDetails request={request} isWireframe={isWireframe} />
+                    <BuybackRequestDetails 
+                      request={request} 
+                      onApprove={handleApprove}
+                      onReject={handleReject}
+                      getStatusColor={getStatusBadgeColor}
+                    />
                   </Dialog>
                 </TableCell>
               </TableRow>
