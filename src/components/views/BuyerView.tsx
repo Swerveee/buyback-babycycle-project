@@ -2,9 +2,9 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Wallet } from "lucide-react";
 import BuybackProcess from '@/components/customer/BuybackProcess';
 import { Users, ShoppingBag, Package, DollarSign, RefreshCw } from 'lucide-react';
-import BalanceDisplay from '@/components/BalanceDisplay';
 
 interface BuyerViewProps {
   isWireframe: boolean;
@@ -118,7 +118,13 @@ const BuyerView: React.FC<BuyerViewProps> = ({
           </div>
 
           <div className="flex items-center space-x-6">
-            <BalanceDisplay isWireframe={isWireframe} />
+            {/* Balance Display */}
+            <div className={`flex items-center space-x-2 ${
+              isWireframe ? 'bg-gray-200 border-2 border-dashed border-gray-400' : 'bg-[#F8F2FF]'
+            } px-4 py-2 rounded-full`}>
+              <Wallet className="h-4 w-4 text-[#9b87f5]" />
+              <span className="text-sm font-medium text-[#1A1F2C]">Store Credit: $120</span>
+            </div>
             <button className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
               <Users className="h-5 w-5" />
             </button>
