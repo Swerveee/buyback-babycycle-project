@@ -6,25 +6,14 @@ import { Label } from "@/components/ui/label";
 import BuyerView from '@/components/views/BuyerView';
 import MerchantView from '@/components/views/MerchantView';
 
-interface IndexProps {
-  isWireframe: boolean;
-  setIsWireframe: (value: boolean) => void;
-  view: 'buyer' | 'merchant';
-  setView: (view: 'buyer' | 'merchant') => void;
-  showControls: boolean;
-  setShowControls: (show: boolean) => void;
-}
+type ViewType = 'buyer' | 'merchant';
 
-const Index: React.FC<IndexProps> = ({
-  isWireframe,
-  setIsWireframe,
-  view,
-  setView,
-  showControls,
-  setShowControls
-}) => {
-  const navigate = useNavigate();
+const Index = () => {
+  const [view, setView] = useState<ViewType>('buyer');
+  const [isWireframe, setIsWireframe] = useState(false);
   const [showBuyback, setShowBuyback] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const navigate = useNavigate();
 
   const renderView = () => {
     if (view === 'buyer') {
