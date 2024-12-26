@@ -61,44 +61,75 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
         <Separator className="my-6" />
 
         <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold">Compensation Rates</h3>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Info className="h-4 w-4 text-gray-500" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-sm">Set the percentage of original price to be refunded as store credit</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+          <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
+            <div className="space-y-1">
+              <span className="text-lg font-semibold flex items-center gap-2">
+                Auto-approve Requests
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="h-4 w-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-sm">Enable to automatically approve buyback requests based on fixed compensation rates</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </span>
+              <p className="text-sm text-gray-600">When enabled, requests will be automatically processed using the rates below</p>
+            </div>
+            <Switch 
+              checked={autoApprove}
+              onCheckedChange={setAutoApprove}
+            />
           </div>
 
-          <div className="grid gap-4">
-            {[
-              { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
-              { condition: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
-              { condition: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
-            ].map(({ condition, label, description }) => (
-              <div key={condition} className="grid grid-cols-2 gap-4 items-center">
-                <div>
-                  <Label className={`${wireframeStyles.label} block mb-1`}>{label}</Label>
-                  <span className="text-sm text-gray-500">{description}</span>
-                </div>
-                <div className="relative">
-                  <Input
-                    type="text"
-                    value={rates[condition as keyof typeof rates]}
-                    onChange={handleRateChange(condition as keyof typeof rates)}
-                    className={`${wireframeStyles.input} pr-8`}
-                    placeholder="0"
-                    disabled={!autoApprove}
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
-                </div>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-semibold">Compensation Rates</h3>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info className="h-4 w-4 text-gray-500" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-sm">Set the percentage of original price to be refunded as store credit</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+
+            {!autoApprove && (
+              <div className="text-sm text-gray-500 italic bg-gray-50 p-3 rounded">
+                Enable auto-approve requests above to set fixed compensation rates
               </div>
-            ))}
+            )}
+
+            <div className="grid gap-4">
+              {[
+                { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
+                { condition: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
+                { condition: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
+              ].map(({ condition, label, description }) => (
+                <div key={condition} className="grid grid-cols-2 gap-4 items-center">
+                  <div>
+                    <Label className={`${wireframeStyles.label} block mb-1`}>{label}</Label>
+                    <span className="text-sm text-gray-500">{description}</span>
+                  </div>
+                  <div className="relative">
+                    <Input
+                      type="text"
+                      value={rates[condition as keyof typeof rates]}
+                      onChange={handleRateChange(condition as keyof typeof rates)}
+                      className={`${wireframeStyles.input} pr-8`}
+                      placeholder="0"
+                      disabled={!autoApprove}
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -136,15 +167,8 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
         </div>
 
         <div className="space-y-4">
-          <Label className={wireframeStyles.label}>Program Settings</Label>
+          <Label className={wireframeStyles.label}>Additional Settings</Label>
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className={`text-sm ${wireframeStyles.label}`}>Auto-approve requests</span>
-              <Switch 
-                checked={autoApprove}
-                onCheckedChange={setAutoApprove}
-              />
-            </div>
             <div className="flex items-center justify-between">
               <span className={`text-sm ${wireframeStyles.label}`}>Email notifications</span>
               <Switch />
