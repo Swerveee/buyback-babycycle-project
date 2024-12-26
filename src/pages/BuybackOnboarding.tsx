@@ -39,7 +39,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex bg-[#1e1e1e]">
+      <div className="min-h-screen flex">
         <Sidebar className="bg-[#1e1e1e] border-r border-[#2d2d2d]">
           <SidebarContent>
             <SidebarGroup>
@@ -110,7 +110,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
           </SidebarContent>
         </Sidebar>
 
-        <main className="flex-1 bg-[#1e1e1e] p-8">
+        <main className="flex-1 bg-[#f8f9fb] p-8">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="flex justify-end mb-4">
               <Toggle
@@ -123,10 +123,10 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
             </div>
 
             <div className="text-center space-y-4">
-              <h1 className={`text-4xl font-bold text-white ${wireframeStyles.text}`}>
+              <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
                 Buyback Program
               </h1>
-              <p className={`text-lg text-gray-400 max-w-2xl mx-auto ${wireframeStyles.text}`}>
+              <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
                 Turn returns into opportunities. Our buyback program helps you manage returns efficiently while building customer loyalty.
               </p>
             </div>
