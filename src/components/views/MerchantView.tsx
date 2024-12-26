@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from "@/components/ui/sidebar";
 import BuybackDashboard from '@/components/merchant/BuybackDashboard';
+import ProductsCatalog from '@/components/merchant/ProductsCatalog';
 import { Home, CreditCard, ShoppingBag, Package, AppWindow, Smartphone, Inbox, Users, BarChart2, Settings, Receipt, DollarSign, RefreshCw } from 'lucide-react';
 
 interface MerchantViewProps {
@@ -25,6 +26,8 @@ const MerchantView: React.FC<MerchantViewProps> = ({
   setShowControls,
   onLogoClick
 }) => {
+  const [activeView, setActiveView] = useState<'buyback' | 'products'>('buyback');
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
@@ -45,15 +48,21 @@ const MerchantView: React.FC<MerchantViewProps> = ({
                       title: "Sales", 
                       icon: ShoppingBag, 
                       url: "#",
-                      active: true,
+                      active: activeView === 'buyback',
                       subItems: [
                         { title: "All Payments", icon: CreditCard, url: "#" },
                         { title: "Orders", icon: Receipt, url: "#" },
-                        { title: "Buyback Program", icon: RefreshCw, url: "#", active: true, bold: true },
+                        { title: "Buyback Program", icon: RefreshCw, url: "#", active: activeView === 'buyback', bold: true },
                         { title: "Gift Card Sales", icon: CreditCard, url: "#" }
                       ]
                     },
-                    { title: "Catalog", icon: Package, url: "#" },
+                    { 
+                      title: "Catalog", 
+                      icon: Package, 
+                      url: "#",
+                      active: activeView === 'products',
+                      onClick: () => setActiveView('products')
+                    },
                     { title: "Apps", icon: AppWindow, url: "#" },
                     { title: "Site & Mobile App", icon: Smartphone, url: "#" },
                     { title: "Inbox", icon: Inbox, url: "#" },
@@ -66,6 +75,7 @@ const MerchantView: React.FC<MerchantViewProps> = ({
                         asChild 
                         data-active={item.active}
                         className="text-[#a3a3a3] hover:text-white hover:bg-[#2d2d2d] data-[active=true]:bg-[#2d2d2d] data-[active=true]:text-white"
+                        onClick={item.onClick}
                       >
                         <a href={item.url} className="flex items-center gap-3">
                           <item.icon className="h-4 w-4" />
@@ -80,6 +90,7 @@ const MerchantView: React.FC<MerchantViewProps> = ({
                                 asChild
                                 isActive={subItem.active}
                                 className="text-[#a3a3a3] hover:text-white"
+                                onClick={() => setActiveView('buyback')}
                               >
                                 <a href={subItem.url} className="flex items-center gap-2">
                                   <subItem.icon className="h-3.5 w-3.5" />
@@ -141,7 +152,11 @@ const MerchantView: React.FC<MerchantViewProps> = ({
             </div>
           )}
           
-          <BuybackDashboard isWireframe={isWireframe} />
+          {activeView === 'buyback' ? (
+            <BuybackDashboard isWireframe={isWireframe} />
+          ) : (
+            <ProductsCatalog isWireframe={isWireframe} />
+          )}
         </main>
       </div>
     </SidebarProvider>

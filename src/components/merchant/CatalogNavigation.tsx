@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import ProductsCatalog from './ProductsCatalog';
 
 interface CatalogNavigationProps {
+  isWireframe: boolean;
   onProductsClick: () => void;
 }
 
-const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ onProductsClick }) => {
+const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onProductsClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleProductsClick = (e: React.MouseEvent) => {
