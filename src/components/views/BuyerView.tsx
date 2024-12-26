@@ -32,7 +32,7 @@ const BuyerView: React.FC<BuyerViewProps> = ({
     { title: "CONTACT", url: "#" },
     { title: "SUSTAINABILITY", url: "#" },
     { 
-      title: "PRELOVED", 
+      title: "OUR BUYBACK PROGRAM", 
       url: "#",
       isHighlighted: true,
       onClick: () => setShowBuyback(false)
@@ -141,24 +141,24 @@ const BuyerView: React.FC<BuyerViewProps> = ({
                 Give Baby Clothes a Second Story
               </h1>
               <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                Already bought from us? Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program makes it easy: we'll send you a shipping label, you send the clothes, and we'll credit your account within 48 hours. Get up to 70% back in store credit for your next purchase.
+                Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program is simple: send us the clothes your little one has outgrown, and we'll credit your account within 48 hours. Plus, we'll cover the shipping costs! Get up to 70% back in store credit to use on your next purchase.
               </p>
               <div className="grid grid-cols-3 gap-8 mb-12">
                 {[
                   {
                     icon: Package,
                     title: "Easy Returns",
-                    description: "Free shipping label & eco-friendly packaging for baby items"
+                    description: "Returning baby items is easy with free shipping included"
                   },
                   {
                     icon: DollarSign,
-                    title: "Parent Rewards",
+                    title: "Get Rewards",
                     description: "Earn up to 70% back in store credit for your baby's outgrown items"
                   },
                   {
                     icon: RefreshCw,
                     title: "Growing Impact",
-                    description: "Each preloved item helps reduce fashion waste for future generations"
+                    description: "Every gently used piece helps reduce waste and makes a difference for the next generation"
                   }
                 ].map((feature) => (
                   <div
