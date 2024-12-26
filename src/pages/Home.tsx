@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, Leaf, Heart, RefreshCw, Users, ShoppingBag, Wallet } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ArrowRight, Leaf, Heart, RefreshCw, Users, ShoppingBag } from 'lucide-react';
+import BalanceDisplay from '@/components/BalanceDisplay';
 
 interface HomeProps {
   isWireframe?: boolean;
@@ -78,18 +78,7 @@ const Home = ({ isWireframe = false, onWireframeChange }: HomeProps) => {
           </div>
 
           <div className="flex items-center space-x-6">
-            {/* Balance Display */}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-[#F1F0FB] rounded-full">
-                  <Wallet className="h-4 w-4 text-[#9b87f5]" />
-                  <span className="text-sm font-medium text-[#7E69AB]">$50.00</span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Available store credit</p>
-              </TooltipContent>
-            </Tooltip>
+            <BalanceDisplay isWireframe={isWireframe} />
 
             <button className={`${isWireframe ? 'text-gray-700' : 'text-gray-700 hover:text-[#9b87f5]'} transition-colors`}>
               <Users className="h-5 w-5" />
