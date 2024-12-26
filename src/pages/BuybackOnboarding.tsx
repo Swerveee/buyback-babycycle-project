@@ -7,9 +7,10 @@ import { Toggle } from "@/components/ui/toggle";
 
 interface BuybackOnboardingProps {
   isWireframe: boolean;
+  onWireframeChange: (value: boolean) => void;
 }
 
-const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe }) => {
+const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWireframeChange }) => {
   const navigate = useNavigate();
 
   const wireframeStyles = isWireframe ? {
@@ -28,7 +29,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe }) =>
         <div className="flex justify-end mb-4">
           <Toggle
             pressed={isWireframe}
-            onPressedChange={() => navigate('/buyback-onboarding', { state: { isWireframe: !isWireframe } })}
+            onPressedChange={onWireframeChange}
             className={`${wireframeStyles.button} px-4`}
           >
             Wireframe Mode
