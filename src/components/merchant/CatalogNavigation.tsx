@@ -13,7 +13,12 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
 
   const handleProductsClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation(); // Prevent the click from bubbling up
     onProductsClick();
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -22,7 +27,7 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
         <NavigationMenuItem className="w-full">
           <Button 
             variant="ghost"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggleMenu}
             className="w-full justify-start gap-2 hover:bg-gray-100"
           >
             <span className="flex items-center gap-2">
@@ -38,57 +43,55 @@ const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onPr
               >
                 Restaurant Menus (New)
               </Button>
-              <div className="space-y-1">
-                <Button
-                  variant="ghost"
-                  onClick={handleProductsClick}
-                  className="w-full justify-start text-sm"
-                >
-                  Products
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Inventory
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Categories
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Collections
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Gift Cards
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Price Lists
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Back in Stock Requests
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-sm"
-                >
-                  Find Products to Sell
-                </Button>
-              </div>
+              <Button
+                variant="ghost"
+                onClick={handleProductsClick}
+                className="w-full justify-start text-sm"
+              >
+                Products
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Inventory
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Categories
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Collections
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Gift Cards
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Price Lists
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Back in Stock Requests
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm"
+              >
+                Find Products to Sell
+              </Button>
             </div>
           )}
         </NavigationMenuItem>
