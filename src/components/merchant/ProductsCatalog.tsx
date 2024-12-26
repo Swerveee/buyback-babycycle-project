@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Package } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Package, Plus } from 'lucide-react';
+import { useToast } from "@/components/ui/use-toast";
 
 interface Product {
   id: string;
@@ -11,75 +14,134 @@ interface Product {
   price: number;
   stock: number;
   status: 'active' | 'draft' | 'archived';
+  type: 'Physical';
 }
 
-// Mock data for demonstration
+// Mock data updated to match screenshot
 const mockProducts: Product[] = [
-  { id: '1', name: 'Classic T-Shirt', sku: 'TSH001', price: 29.99, stock: 150, status: 'active' },
-  { id: '2', name: 'Denim Jeans', sku: 'DNJ002', price: 89.99, stock: 75, status: 'active' },
-  { id: '3', name: 'Running Shoes', sku: 'SHO003', price: 129.99, stock: 45, status: 'active' },
-  { id: '4', name: 'Winter Jacket', sku: 'JKT004', price: 199.99, stock: 30, status: 'draft' },
-  { id: '5', name: 'Baseball Cap', sku: 'CAP005', price: 24.99, stock: 200, status: 'active' },
+  { id: '1', name: 'Zucchini Squash', sku: 'ZUC001', price: 6.00, stock: 150, status: 'active', type: 'Physical' },
+  { id: '2', name: 'Beets Bunch', sku: 'BET002', price: 5.00, stock: 75, status: 'active', type: 'Physical' },
+  { id: '3', name: 'Organic Carrots', sku: 'CAR003', price: 6.00, stock: 45, status: 'active', type: 'Physical' },
+  { id: '4', name: 'Sweet Potatoes', sku: 'POT004', price: 7.00, stock: 30, status: 'active', type: 'Physical' },
+  { id: '5', name: 'Tomato Medley', sku: 'TOM005', price: 8.00, stock: 200, status: 'active', type: 'Physical' },
+  { id: '6', name: 'Cucumber Pack', sku: 'CUC006', price: 5.00, stock: 100, status: 'active', type: 'Physical' },
 ];
-
-const getStatusColor = (status: Product['status']) => {
-  switch (status) {
-    case 'active':
-      return 'bg-green-500';
-    case 'draft':
-      return 'bg-yellow-500';
-    case 'archived':
-      return 'bg-gray-500';
-    default:
-      return 'bg-gray-500';
-  }
-};
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'ILS',
+    currencyDisplay: 'symbol'
   }).format(price);
 };
 
 const ProductsCatalog: React.FC<{ isWireframe: boolean }> = ({ isWireframe }) => {
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const { toast } = useToast();
+
+  const handleSelectAll = () => {
+    if (selectedProducts.length === mockProducts.length) {
+      setSelectedProducts([]);
+      toast({
+        title: "All products removed from buyback program",
+        description: "Products have been removed from the buyback program.",
+      });
+    } else {
+      setSelectedProducts(mockProducts.map(p => p.id));
+      toast({
+        title: "All products added to buyback program",
+        description: "All products have been added to the buyback program.",
+      });
+    }
+  };
+
+  const handleProductSelect = (productId: string) => {
+    setSelectedProducts(prev => {
+      const isSelected = prev.includes(productId);
+      const newSelection = isSelected
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId];
+      
+      toast({
+        title: isSelected ? "Product removed" : "Product added",
+        description: `Product has been ${isSelected ? 'removed from' : 'added to'} the buyback program.`,
+      });
+      
+      return newSelection;
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Package className="h-5 w-5" />
-          <h2 className="text-2xl font-semibold">Products</h2>
+          <h2 className="text-2xl font-semibold">Products ({mockProducts.length})</h2>
         </div>
-        <Badge variant="outline" className="px-2 py-1">
-          {mockProducts.length} products
-        </Badge>
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="outline"
+            onClick={handleSelectAll}
+            className="flex items-center gap-2"
+          >
+            {selectedProducts.length === mockProducts.length ? 'Deselect All' : 'Add All to Buyback'}
+          </Button>
+          <Button className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            New Product
+          </Button>
+        </div>
       </div>
 
       <Card>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Product Name</TableHead>
+              <TableHead className="w-12">
+                <Checkbox
+                  checked={selectedProducts.length === mockProducts.length}
+                  onCheckedChange={handleSelectAll}
+                />
+              </TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Type</TableHead>
               <TableHead>SKU</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Stock</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Inventory</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {mockProducts.map((product) => (
               <TableRow key={product.id}>
-                <TableCell className="font-medium">{product.name}</TableCell>
+                <TableCell>
+                  <Checkbox
+                    checked={selectedProducts.includes(product.id)}
+                    onCheckedChange={() => handleProductSelect(product.id)}
+                  />
+                </TableCell>
+                <TableCell className="font-medium flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center">
+                    <img 
+                      src={`/placeholder.svg`} 
+                      alt={product.name}
+                      className="w-8 h-8 object-contain"
+                    />
+                  </div>
+                  {product.name}
+                </TableCell>
+                <TableCell>{product.type}</TableCell>
                 <TableCell>{product.sku}</TableCell>
                 <TableCell>{formatPrice(product.price)}</TableCell>
-                <TableCell>{product.stock}</TableCell>
                 <TableCell>
-                  <Badge 
-                    variant="secondary"
-                    className={`${getStatusColor(product.status)} text-white`}
-                  >
-                    {product.status}
+                  <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-100">
+                    In stock
                   </Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button variant="ghost" size="sm">
+                    •••
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
