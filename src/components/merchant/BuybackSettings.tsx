@@ -39,11 +39,6 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
 
   return (
     <div className="space-y-8">
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-1">Program Settings</h2>
-        <p className="text-gray-600">Configure your buyback program rules and pricing</p>
-      </div>
-
       <div className="space-y-8">
         <div className="space-y-4">
           <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
