@@ -1,10 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Heart, RefreshCw, Users, ShoppingBag } from 'lucide-react';
 
 const Home = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
     { title: "SHOP", url: "#" },
@@ -14,7 +15,7 @@ const Home = () => {
     { 
       title: "OUR BUYBACK PROGRAM", 
       url: "/buyback",
-      isHighlighted: true,
+      isHighlighted: location.pathname !== '/',
       onClick: () => navigate('/buyback')
     }
   ];
@@ -29,7 +30,10 @@ const Home = () => {
       {/* Navigation */}
       <nav className="bg-white shadow-sm py-6 px-6">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="text-2xl font-bold text-[#9b87f5]">
+          <div 
+            className="text-2xl font-bold text-[#9b87f5] cursor-pointer"
+            onClick={() => navigate('/')}
+          >
             BabyCycle
           </div>
 
@@ -121,26 +125,6 @@ const Home = () => {
                   Return outgrown items for store credit and shop for the next size up
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Buyback Program Highlight */}
-        <div className="bg-[#F1F0FB] py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Our Buyback Promise</h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Get up to 70% back in store credit when you return your gently used BabyCycle items. 
-                We make it easy with free shipping and fast processing.
-              </p>
-              <Button 
-                onClick={() => navigate('/buyback')}
-                className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white px-8 py-6 text-lg"
-              >
-                Start Your Buyback Journey
-                <ArrowRight className="ml-2" />
-              </Button>
             </div>
           </div>
         </div>
