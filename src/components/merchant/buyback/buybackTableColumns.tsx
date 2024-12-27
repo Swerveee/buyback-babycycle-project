@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { ArrowUpDown } from 'lucide-react';
+import { format } from 'date-fns';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
 import BuybackRequestDetails from '../BuybackRequestDetails';
@@ -24,15 +24,17 @@ export const createBuybackColumns = (
           className="text-center w-full"
         >
           Date
-          <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => (
-      <div className="text-center">
-        {row.getValue('date')}
-      </div>
-    ),
+    cell: ({ row }) => {
+      const date = new Date(row.getValue('date'));
+      return (
+        <div className="text-center">
+          {format(date, 'dd/MM/yy')}
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'customer',
