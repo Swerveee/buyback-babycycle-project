@@ -72,7 +72,6 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     stepIcon: "border-2 border-dashed border-black",
     button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
     activeStep: "border-2 border-dashed border-black bg-black text-white",
-    infoCard: "border-2 border-dashed border-black bg-white"
   } : {
     card: "border-[#eee] shadow-sm",
     header: "bg-[#F8F2FF]",
@@ -81,7 +80,6 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     stepIcon: "",
     button: "bg-[#9b87f5] hover:bg-[#7E69AB] text-white",
     activeStep: "bg-[#9b87f5] text-white",
-    infoCard: "bg-gray-50"
   };
 
   return (
@@ -100,13 +98,11 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
         <div className="flex justify-between items-center mb-8">
           {steps.map((s, index) => (
             <div key={index} className="flex flex-col items-center">
-              <div 
-                className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
-                  step > index + 1 ? 'bg-[#7E69AB] text-white' :
-                  step === index + 1 ? wireframeStyles.activeStep :
-                  'bg-[#F1F1F1] text-[#8E9196]'
-                } ${wireframeStyles.stepIcon}`}
-              >
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
+                step > index + 1 ? 'bg-[#7E69AB] text-white' :
+                step === index + 1 ? wireframeStyles.activeStep :
+                'bg-[#F1F1F1] text-[#8E9196]'
+              } ${wireframeStyles.stepIcon}`}>
                 <s.icon className="w-5 h-5" />
               </div>
               <span className={`text-sm text-center ${wireframeStyles.description}`}>{s.title}</span>
@@ -147,17 +143,17 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
 
       {step === 1 && (
         <div className="mt-8 grid grid-cols-3 gap-6 text-center">
-          <div className={`p-4 rounded-lg ${wireframeStyles.infoCard}`}>
+          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
             <Package className="w-8 h-8 mx-auto mb-2" />
             <h3 className="font-semibold mb-1">Easy Returns</h3>
             <p className="text-sm text-gray-600">Free shipping label provided</p>
           </div>
-          <div className={`p-4 rounded-lg ${wireframeStyles.infoCard}`}>
+          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
             <DollarSign className="w-8 h-8 mx-auto mb-2" />
             <h3 className="font-semibold mb-1">Quick Payment</h3>
             <p className="text-sm text-gray-600">Get paid within 48 hours</p>
           </div>
-          <div className={`p-4 rounded-lg ${wireframeStyles.infoCard}`}>
+          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
             <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
             <h3 className="font-semibold mb-1">Sustainable Choice</h3>
             <p className="text-sm text-gray-600">Help reduce textile waste</p>
