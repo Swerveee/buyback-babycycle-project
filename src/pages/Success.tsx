@@ -25,7 +25,7 @@ const Success = () => {
             <ol className="list-decimal list-inside text-[#555555] space-y-2 mt-2">
               <li>Our team will review your submission and confirm your store credit value</li>
               <li>You'll receive an email with your prepaid shipping label</li>
-              <li>Pack your items securely and drop them off at the nearest shipping location</li>
+              <li className="whitespace-nowrap">Pack your items securely and drop them off at the nearest shipping location</li>
               <li>Once reviewed, your store credit will be added to your account</li>
             </ol>
           </div>
