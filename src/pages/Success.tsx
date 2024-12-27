@@ -26,7 +26,7 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           </Toggle>
         </div>
       )}
-      <Card className={`${isWireframe ? 'border-2 border-dashed border-gray-400 shadow-none bg-white' : 'border-[#eee]'} shadow-sm`}>
+      <Card className={`${isWireframe ? 'border-2 border-dashed border-black shadow-none bg-white' : 'border-[#eee]'} shadow-sm`}>
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <CheckCircle2 className={`w-16 h-16 ${isWireframe ? 'text-gray-900' : 'text-green-500'}`} />
