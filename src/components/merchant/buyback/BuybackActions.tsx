@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { FileDown, RefreshCcw } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 
 interface BuybackActionsProps {
@@ -19,30 +19,16 @@ const BuybackActions = ({ wireframeStyles }: BuybackActionsProps) => {
     });
   };
 
-  const handleGenerateReport = () => {
-    toast({
-      title: "Generating Report",
-      description: "Your report is being generated and will be ready shortly.",
-    });
-  };
-
   return (
     <div className="flex gap-2">
       <Button
         variant="outline"
-        className={wireframeStyles.button}
+        size="sm"
+        className="h-9 px-3 flex items-center gap-2"
         onClick={handleProcessAllPending}
       >
-        <RefreshCcw className="mr-2 h-4 w-4" />
-        Process All Pending
-      </Button>
-      <Button
-        variant="outline"
-        className={wireframeStyles.button}
-        onClick={handleGenerateReport}
-      >
-        <FileDown className="mr-2 h-4 w-4" />
-        Generate Report
+        <Check className="h-4 w-4" />
+        Approve All Pending
       </Button>
     </div>
   );
