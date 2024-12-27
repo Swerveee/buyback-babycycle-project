@@ -40,27 +40,6 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
       </div>
       
       <div className="grid gap-4">
-        <Card className={wireframeStyles.card}>
-          <CardHeader className="pb-2">
-            <CardTitle className={wireframeStyles.title}>Quick Setup</CardTitle>
-          </CardHeader>
-          <CardContent className="flex gap-4">
-            <div className="flex items-center gap-2 text-base">
-              <span className={isWireframe ? "font-mono text-gray-600" : "text-[#2261e9]"}>Free plan</span>
-              <button className={isWireframe ? "font-mono text-gray-600 hover:text-gray-800" : "text-[#2261e9] hover:underline"}>
-                Compare Plans
-              </button>
-            </div>
-            <div className={`h-4 w-px ${isWireframe ? "bg-gray-300" : "bg-gray-200"}`} />
-            <div className="flex items-center gap-2 text-base">
-              <span className={isWireframe ? "font-mono text-gray-600" : "text-gray-600"}>No domain</span>
-              <button className={isWireframe ? "font-mono text-gray-600 hover:text-gray-800" : "text-[#2261e9] hover:underline"}>
-                Connect
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-        
         <BuybackMetrics isWireframe={isWireframe} />
         
         <Tabs defaultValue="requests" className="mt-4">
