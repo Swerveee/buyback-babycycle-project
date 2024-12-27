@@ -107,7 +107,12 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
                   ? 'Maximum images reached'
                   : 'Click to upload or drag and drop'}
               </span>
-              <span className="text-xs text-[#8E9196]">PNG, JPG up to 10MB (max {MAX_IMAGES} images)</span>
+              <span className="text-xs text-[#8E9196]">
+                Add up to {MAX_IMAGES} images to help us assess your item
+              </span>
+              <span className="text-xs text-[#8E9196] italic">
+                One clear photo is enough, but you can add more if needed
+              </span>
             </Label>
           </div>
           {images.length > 0 && (
