@@ -47,7 +47,13 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
         onValueChange={setShippingMethod}
       >
         <div className={`flex items-start space-x-3 p-4 rounded-lg border ${
-          shippingMethod === 'self' ? 'border-primary bg-accent/10' : 'border-gray-200'
+          shippingMethod === 'self' 
+            ? isWireframe 
+              ? 'border-2 border-dashed border-black bg-gray-50' 
+              : 'border-primary bg-accent/10'
+            : isWireframe
+              ? 'border-2 border-dashed border-black'
+              : 'border-gray-200'
         } cursor-pointer hover:border-primary/50 transition-colors`}>
           <RadioGroupItem value="self" id="self" className={wireframeStyles.radio} />
           <div className="space-y-1 flex-grow">
@@ -87,7 +93,13 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
         </div>
 
         <div className={`flex items-start space-x-3 p-4 rounded-lg border ${
-          shippingMethod === 'pickup' ? 'border-primary bg-accent/10' : 'border-gray-200'
+          shippingMethod === 'pickup' 
+            ? isWireframe 
+              ? 'border-2 border-dashed border-black bg-gray-50' 
+              : 'border-primary bg-accent/10'
+            : isWireframe
+              ? 'border-2 border-dashed border-black'
+              : 'border-gray-200'
         } cursor-pointer hover:border-primary/50 transition-colors`}>
           <RadioGroupItem value="pickup" id="pickup" className={wireframeStyles.radio} />
           <div className="space-y-1 flex-grow">
