@@ -84,9 +84,7 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
         </div>
 
         <div className="space-y-2">
-          <Label className={wireframeStyles.label}>
-            Product Images ({images.length}/{MAX_IMAGES})
-          </Label>
+          <Label className={wireframeStyles.label}>Product Images</Label>
           <div className={`rounded-lg p-6 text-center ${wireframeStyles.uploadArea}`}>
             <Input
               type="file"
