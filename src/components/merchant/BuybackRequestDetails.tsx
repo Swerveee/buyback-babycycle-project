@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
 import { BuybackRequest } from '@/types/buyback';
 import {
   Tooltip,
@@ -21,6 +20,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { HelpCircle, ZoomIn } from "lucide-react";
 import ImagePreview from './buyback/ImagePreview';
 import ValueEditor from './buyback/ValueEditor';
+import RejectNoteModal from './buyback/RejectNoteModal';
 import {
   Collapsible,
   CollapsibleContent,
@@ -45,7 +45,7 @@ const BuybackRequestDetails = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
   const [estimatedValue, setEstimatedValue] = useState(request.value);
-  const [showRejectNote, setShowRejectNote] = useState(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
 
   const handlePreviousImage = () => {
     setCurrentImageIndex((prev) => Math.max(0, prev - 1));
@@ -56,11 +56,12 @@ const BuybackRequestDetails = ({
   };
 
   const handleReject = () => {
-    if (showRejectNote) {
+    if (note.trim()) {
       onReject(request.id);
-      setShowRejectNote(false);
+      setIsRejectModalOpen(false);
+      setNote('');
     } else {
-      setShowRejectNote(true);
+      setIsRejectModalOpen(true);
     }
   };
 
@@ -218,31 +219,29 @@ const BuybackRequestDetails = ({
         </div>
       </ScrollArea>
       
-      <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-[#F1F1F1]">
-        {showRejectNote && (
-          <Textarea
-            placeholder="Add a note about why you're rejecting this request..."
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            className="min-h-[80px]"
-          />
-        )}
-        <div className="flex justify-end gap-2">
-          <Button
-            variant="outline"
-            className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
-            onClick={handleReject}
-          >
-            {showRejectNote ? 'Confirm Reject' : 'Reject'}
-          </Button>
-          <Button
-            className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
-            onClick={() => onApprove(request.id)}
-          >
-            Approve
-          </Button>
-        </div>
+      <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-[#F1F1F1]">
+        <Button
+          variant="outline"
+          className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
+          onClick={() => setIsRejectModalOpen(true)}
+        >
+          Reject
+        </Button>
+        <Button
+          className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+          onClick={() => onApprove(request.id)}
+        >
+          Approve
+        </Button>
       </div>
+
+      <RejectNoteModal
+        isOpen={isRejectModalOpen}
+        onClose={() => setIsRejectModalOpen(false)}
+        onConfirm={handleReject}
+        note={note}
+        onNoteChange={setNote}
+      />
     </DialogContent>
   );
 };
