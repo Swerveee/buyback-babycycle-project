@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Check } from 'lucide-react';
+import { MoreVertical, Check } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface BuybackActionsProps {
   wireframeStyles: {
@@ -20,17 +26,23 @@ const BuybackActions = ({ wireframeStyles }: BuybackActionsProps) => {
   };
 
   return (
-    <div className="flex gap-2">
-      <Button
-        variant="outline"
-        size="sm"
-        className="h-9 px-3 flex items-center gap-2"
-        onClick={handleProcessAllPending}
-      >
-        <Check className="h-4 w-4" />
-        Approve All Pending
-      </Button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-9 w-9"
+        >
+          <MoreVertical className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={handleProcessAllPending}>
+          <Check className="mr-2 h-4 w-4" />
+          Approve All Pending
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
