@@ -2,7 +2,7 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, Clock, Sparkles } from "lucide-react";
+import { Clock, Sparkles, CheckCircle2 } from "lucide-react";
 
 interface CompensationStepProps {
   onSubmit: (data: any) => void;
@@ -27,44 +27,51 @@ const CompensationStep: React.FC<CompensationStepProps> = ({ onSubmit, isWirefra
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h3 className="text-lg font-semibold text-[#1A1F2C]">Store Credit Value</h3>
-            <p className="text-sm text-[#555555]">Based on item condition assessment</p>
-          </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-[#1A1F2C]">$120</div>
-            <div className="text-sm text-[#7E69AB]">+10% bonus included</div>
-          </div>
-        </div>
-        <RadioGroup defaultValue="store-credit" className="space-y-2">
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="store-credit" id="store-credit" />
-            <Label htmlFor="store-credit" className={wireframeStyles.label}>
-              Store Credit
-            </Label>
-          </div>
-        </RadioGroup>
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold text-[#1A1F2C] mb-2">Store Credit</h2>
+        <p className="text-[#555555]">Earn store credit for your used items.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className={`p-4 rounded-lg ${wireframeStyles.benefitCard}`}>
-          <Sparkles className="w-6 h-6 text-[#9b87f5] mb-2" />
-          <h4 className="font-semibold mb-1">Bonus Value</h4>
-          <p className="text-sm text-[#555555]">Get 10% extra on your credit value</p>
+      <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>
+        <div className="text-center mb-4">
+          <div className="text-3xl font-bold text-[#1A1F2C] mb-2">
+            Estimated Store Credit: $120
+          </div>
+          <p className="text-sm text-[#555555]">
+            The final store credit value will be confirmed after the merchant reviews your items.
+          </p>
         </div>
-        <div className={`p-4 rounded-lg ${wireframeStyles.benefitCard}`}>
-          <Clock className="w-6 h-6 text-[#9b87f5] mb-2" />
-          <h4 className="font-semibold mb-1">12 Month Validity</h4>
-          <p className="text-sm text-[#555555]">Use your credit within one year</p>
-        </div>
-        <div className={`p-4 rounded-lg ${wireframeStyles.benefitCard}`}>
-          <CheckCircle2 className="w-6 h-6 text-[#9b87f5] mb-2" />
-          <h4 className="font-semibold mb-1">Instant Usage</h4>
-          <p className="text-sm text-[#555555]">Shop immediately after approval</p>
+
+        <div className="flex flex-col gap-4 mt-6">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-[#9b87f5]" />
+            <span className="text-[#1A1F2C]">10% bonus included.</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock className="w-5 h-5 text-[#9b87f5]" />
+            <span className="text-[#1A1F2C]">Valid for 12 months.</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-[#9b87f5]" />
+            <span className="text-[#1A1F2C]">Shop instantly after approval.</span>
+          </div>
         </div>
       </div>
+
+      <div className="text-center mt-8">
+        <p className="text-lg font-semibold text-[#1A1F2C]">
+          Submit your request now to finalize your store credit.
+        </p>
+      </div>
+
+      <RadioGroup defaultValue="store-credit" className="hidden">
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="store-credit" id="store-credit" />
+          <Label htmlFor="store-credit" className={wireframeStyles.label}>
+            Store Credit
+          </Label>
+        </div>
+      </RadioGroup>
     </form>
   );
 };
