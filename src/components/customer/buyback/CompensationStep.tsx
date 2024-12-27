@@ -27,6 +27,11 @@ const CompensationStep: React.FC<CompensationStepProps> = ({ onSubmit, isWirefra
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold text-[#1A1F2C] mb-2">Store Credit</h2>
+        <p className="text-[#555555]">Redeem the value of your items as store credit.</p>
+      </div>
+
       <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>
         <div className="text-center mb-6">
           <div className="text-4xl font-bold text-[#1A1F2C] mb-3">
