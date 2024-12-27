@@ -19,6 +19,7 @@ import { BuybackRequest } from '@/types/buyback';
 import BuybackFilters from './buyback/BuybackFilters';
 import BuybackActions from './buyback/BuybackActions';
 import { createBuybackColumns } from './buyback/buybackTableColumns';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
@@ -127,6 +128,20 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-4 md:flex-row md:items-center">
+        <Select
+          value={statusFilter}
+          onValueChange={setStatusFilter}
+        >
+          <SelectTrigger className="w-[180px] h-9">
+            <SelectValue placeholder="Filter by status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Statuses</SelectItem>
+            <SelectItem value="Pending Review">Pending Review</SelectItem>
+            <SelectItem value="Approved">Approved</SelectItem>
+            <SelectItem value="Shipped">Shipped</SelectItem>
+          </SelectContent>
+        </Select>
         <BuybackActions wireframeStyles={wireframeStyles} />
         <BuybackFilters
           globalFilter={globalFilter}

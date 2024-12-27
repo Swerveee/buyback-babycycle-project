@@ -22,22 +22,7 @@ const BuybackFilters = ({
   wireframeStyles
 }: BuybackFiltersProps) => {
   return (
-    <div className="flex items-center justify-between w-full">
-      <Select
-        value={statusFilter}
-        onValueChange={setStatusFilter}
-      >
-        <SelectTrigger className="w-[180px] h-9">
-          <SelectValue placeholder="Filter by status" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Statuses</SelectItem>
-          <SelectItem value="Pending Review">Pending Review</SelectItem>
-          <SelectItem value="Approved">Approved</SelectItem>
-          <SelectItem value="Shipped">Shipped</SelectItem>
-        </SelectContent>
-      </Select>
-
+    <div className="flex items-center gap-4">
       <div className="flex items-center gap-2">
         <Button 
           variant="outline" 
