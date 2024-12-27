@@ -33,7 +33,7 @@ export const createBuybackColumns = (
       const date = new Date(row.getValue('date'));
       return (
         <div className="text-center">
-          {format(date, 'dd/MM/yy')}
+          {format(date, 'dd/MM/yyyy')}
         </div>
       );
     },
