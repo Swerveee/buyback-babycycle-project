@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,12 @@ interface CatalogNavigationProps {
 
 const CatalogNavigation: React.FC<CatalogNavigationProps> = ({ isWireframe, onProductsClick }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.preventDefault();
