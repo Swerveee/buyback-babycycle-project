@@ -16,11 +16,11 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
   return (
     <div className="container mx-auto p-6 max-w-2xl">
       {onWireframeChange && (
-        <div className="flex justify-end mb-4">
+        <div className="fixed top-4 right-4">
           <Toggle
             pressed={isWireframe}
             onPressedChange={onWireframeChange}
-            className="mb-4"
+            className="border border-gray-200 rounded-md px-3 py-2 hover:bg-gray-100"
           >
             Wireframe
           </Toggle>
@@ -61,7 +61,7 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           <div className="flex justify-center">
             <Button 
               onClick={() => navigate('/')}
-              className={`${isWireframe ? 'border-2 border-dashed bg-gray-50 hover:bg-gray-100' : 'bg-[#9b87f5] hover:bg-[#7E69AB]'} text-white`}
+              className={`${isWireframe ? 'border-2 border-dashed bg-gray-50 hover:bg-gray-100 text-gray-900' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'}`}
             >
               Return to Shop
             </Button>
