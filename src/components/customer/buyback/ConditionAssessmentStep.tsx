@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Upload, X } from 'lucide-react';
+import { Upload, X, ImagePlus } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -84,10 +84,14 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
         </div>
 
         <div className="space-y-2">
-          <Label className={wireframeStyles.label}>
-            Product Images ({images.length}/{MAX_IMAGES})
-          </Label>
-          <div className={`rounded-lg p-6 text-center ${wireframeStyles.uploadArea}`}>
+          <div className="flex items-center justify-between">
+            <Label className={wireframeStyles.label}>Product Images</Label>
+            <span className={`text-sm ${images.length >= MAX_IMAGES ? 'text-orange-500' : 'text-[#9b87f5]'}`}>
+              {images.length}/{MAX_IMAGES} images uploaded
+            </span>
+          </div>
+          
+          <div className={`rounded-lg p-6 text-center ${wireframeStyles.uploadArea} relative`}>
             <Input
               type="file"
               accept="image/*"
@@ -101,13 +105,31 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
               htmlFor="image-upload"
               className={`cursor-pointer flex flex-col items-center gap-2 ${wireframeStyles.label} ${images.length >= MAX_IMAGES ? 'opacity-50' : ''}`}
             >
-              <Upload className="w-8 h-8 text-[#9b87f5]" />
-              <span className="text-sm text-[#1A1F2C]">
+              <div className="flex items-center gap-2 mb-2">
+                <Upload className="w-8 h-8 text-[#9b87f5]" />
+                <div className="flex -space-x-4">
+                  {[...Array(3)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-8 h-8 rounded-lg border-2 flex items-center justify-center ${
+                        i === 0 ? 'bg-[#9b87f5]/10' :
+                        i === 1 ? 'bg-[#9b87f5]/5' :
+                        'bg-[#9b87f5]/2'
+                      } border-[#9b87f5]`}
+                    >
+                      <ImagePlus className="w-4 h-4 text-[#9b87f5]" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <span className="text-sm text-[#1A1F2C] font-medium">
                 {images.length >= MAX_IMAGES 
                   ? 'Maximum images reached'
-                  : 'Click to upload or drag and drop'}
+                  : 'Upload multiple images at once'}
               </span>
-              <span className="text-xs text-[#8E9196]">PNG, JPG up to 10MB (max {MAX_IMAGES} images)</span>
+              <span className="text-xs text-[#8E9196]">
+                PNG, JPG up to 10MB (max {MAX_IMAGES} images)
+              </span>
             </Label>
           </div>
           {images.length > 0 && (
