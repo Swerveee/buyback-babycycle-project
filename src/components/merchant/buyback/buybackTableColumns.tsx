@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
@@ -30,7 +30,8 @@ export const createBuybackColumns = (
       )
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue('date'));
+      // Parse the ISO string to a Date object
+      const date = parseISO(row.getValue('date'));
       return (
         <div className="text-center">
           {format(date, 'dd/MM/yyyy')}
