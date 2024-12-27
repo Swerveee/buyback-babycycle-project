@@ -3,13 +3,30 @@ import { CheckCircle2, Mail, Package, CreditCard } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Toggle } from "@/components/ui/toggle";
 
-const Success = () => {
+interface SuccessProps {
+  isWireframe?: boolean;
+  onWireframeChange?: (value: boolean) => void;
+}
+
+const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
   const navigate = useNavigate();
 
   return (
     <div className="container mx-auto p-6 max-w-2xl">
-      <Card className="border-[#eee] shadow-sm">
+      {onWireframeChange && (
+        <div className="flex justify-end mb-4">
+          <Toggle
+            pressed={isWireframe}
+            onPressedChange={onWireframeChange}
+            className="mb-4"
+          >
+            Wireframe
+          </Toggle>
+        </div>
+      )}
+      <Card className={`${isWireframe ? 'border-2 border-dashed' : 'border-[#eee]'} shadow-sm`}>
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <CheckCircle2 className="w-16 h-16 text-green-500" />
@@ -20,7 +37,7 @@ const Success = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="bg-[#F8F2FF] p-4 rounded-lg">
+          <div className={`${isWireframe ? 'border-2 border-dashed bg-gray-50' : 'bg-[#F8F2FF]'} p-4 rounded-lg`}>
             <p className="text-[#1A1F2C] font-medium">What happens next?</p>
             <ol className="list-none space-y-3 mt-2">
               <li className="flex items-center gap-3 text-[#555555]">
@@ -44,7 +61,7 @@ const Success = () => {
           <div className="flex justify-center">
             <Button 
               onClick={() => navigate('/')}
-              className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+              className={`${isWireframe ? 'border-2 border-dashed bg-gray-50 hover:bg-gray-100' : 'bg-[#9b87f5] hover:bg-[#7E69AB]'} text-white`}
             >
               Return to Shop
             </Button>

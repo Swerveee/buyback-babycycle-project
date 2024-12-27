@@ -49,7 +49,15 @@ const AppRoutes = () => {
         } 
       />
       <Route path="/buyback" element={<Index />} />
-      <Route path="/success" element={<Success />} />
+      <Route 
+        path="/success" 
+        element={
+          <Success 
+            isWireframe={isWireframe} 
+            onWireframeChange={handleWireframeToggle}
+          />
+        } 
+      />
     </Routes>
   );
 };
