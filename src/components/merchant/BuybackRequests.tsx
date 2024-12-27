@@ -143,16 +143,13 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
           </SelectContent>
         </Select>
         
-        <div className="flex items-center gap-4">
-          <BuybackActions wireframeStyles={wireframeStyles} />
-          <BuybackFilters
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
-            statusFilter={statusFilter}
-            setStatusFilter={setStatusFilter}
-            wireframeStyles={wireframeStyles}
-          />
-        </div>
+        <BuybackFilters
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          wireframeStyles={wireframeStyles}
+        />
       </div>
 
       <div className={wireframeStyles.table}>
