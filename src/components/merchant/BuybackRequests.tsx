@@ -33,7 +33,7 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   const mockRequests: BuybackRequest[] = [
     {
       id: "1",
-      product: "Baby Onesie - 0-3 months",
+      product: "Baby T-shirt",
       customer: "Sarah Johnson",
       date: "2024-02-20",
       status: "Pending Review",
