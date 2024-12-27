@@ -47,7 +47,7 @@ const MainNavigation = ({ isWireframe, onLogoClick, setShowBuyback }: MainNaviga
                 ${item.isActive && isWireframe ? 'bg-gray-300 font-bold border-2 border-dashed border-gray-500 px-2' : ''}
                 ${item.isActive && !isWireframe ? 'text-[#9b87f5] font-medium' : ''}
                 ${!item.isActive && isWireframe ? 'text-gray-600 hover:text-gray-800' : ''}
-                ${!item.isActive && !isWireframe ? (item.isHighlighted ? 'text-[#9b87f5] hover:text-[#7E69AB]' : 'text-gray-700 hover:text-[#9b87f5]')}
+                ${!item.isActive && !isWireframe ? (item.isHighlighted ? 'text-[#9b87f5] hover:text-[#7E69AB]' : 'text-gray-700 hover:text-[#9b87f5]') : ''}
                 transition-colors
               `}
             >
