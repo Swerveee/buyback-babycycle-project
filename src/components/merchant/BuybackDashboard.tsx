@@ -30,7 +30,7 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-8">
         <h1 className={`text-3xl font-bold ${isWireframe ? "font-mono text-gray-700" : "text-[#2d2d2d]"}`}>
           Buyback Program Management
         </h1>

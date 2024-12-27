@@ -72,6 +72,20 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
       images: ["image4.jpg", "image5.jpg"],
       condition: "Good",
       shippingAddress: "789 Pine St, City, Country"
+    },
+    {
+      id: "4",
+      product: "Baby Winter Jacket",
+      customer: "David Lee",
+      date: "2024-02-17",
+      status: "Rejected",
+      value: "₪30.00",
+      description: "Significant wear, torn pocket",
+      email: "david@example.com",
+      phone: "456-789-0123",
+      images: ["image6.jpg"],
+      condition: "Poor",
+      shippingAddress: "321 Elm St, City, Country"
     }
   ];
 
@@ -83,6 +97,8 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
         return "bg-green-100 text-green-800";
       case "Shipped":
         return "bg-blue-100 text-blue-800";
+      case "Rejected":
+        return "bg-red-100 text-red-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
