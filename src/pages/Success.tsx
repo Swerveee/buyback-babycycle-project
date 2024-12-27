@@ -12,6 +12,7 @@ interface SuccessProps {
 
 const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
   const navigate = useNavigate();
+  const orderNumber = "TI-" + Math.random().toString(36).substr(2, 9).toUpperCase();
 
   return (
     <div className="container mx-auto p-6 max-w-2xl">
@@ -37,6 +38,9 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           <CardDescription className={isWireframe ? 'text-gray-600' : 'text-[#555555]'}>
             We're excited to help you trade in your gently used kids' items.
           </CardDescription>
+          <div className={`mt-4 text-sm ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+            Order Number: <span className="font-medium">{orderNumber}</span>
+          </div>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className={`${isWireframe ? 'border-2 border-dashed border-gray-400 bg-gray-50' : 'bg-[#F8F2FF]'} p-4 rounded-lg`}>
@@ -64,17 +68,6 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mx-auto">
             <Button 
-              onClick={() => navigate('/')}
-              variant="outline"
-              className={`w-full ${
-                isWireframe 
-                  ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
-                  : 'border-[#9b87f5] text-[#9b87f5] hover:bg-[#F8F2FF]'
-              }`}
-            >
-              Return to Shop
-            </Button>
-            <Button 
               onClick={() => navigate('/buyback')}
               className={`w-full ${
                 isWireframe 
@@ -84,6 +77,17 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
             >
               <Plus className="w-4 h-4" />
               Trade In Another Item
+            </Button>
+            <Button 
+              onClick={() => navigate('/')}
+              variant="outline"
+              className={`w-full ${
+                isWireframe 
+                  ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
+                  : 'border-[#9b87f5] text-[#9b87f5] hover:bg-[#F8F2FF]'
+              }`}
+            >
+              Return to Shop
             </Button>
           </div>
         </CardContent>
