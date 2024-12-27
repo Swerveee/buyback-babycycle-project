@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, ShoppingBag } from 'lucide-react';
 import BalanceDisplay from '../BalanceDisplay';
+import { useLocation } from 'react-router-dom';
 
 interface MainNavigationProps {
   isWireframe: boolean;
@@ -9,6 +10,9 @@ interface MainNavigationProps {
 }
 
 const MainNavigation = ({ isWireframe, onLogoClick, setShowBuyback }: MainNavigationProps) => {
+  const location = useLocation();
+  const isBuybackRoute = location.pathname.includes('buyback');
+
   const navItems = [
     { title: "SHOP", url: "#" },
     { title: "OUR STORY", url: "#" },
@@ -18,6 +22,7 @@ const MainNavigation = ({ isWireframe, onLogoClick, setShowBuyback }: MainNaviga
       title: "OUR BUYBACK PROGRAM", 
       url: "#",
       isHighlighted: true,
+      isActive: isBuybackRoute,
       onClick: () => setShowBuyback(false)
     }
   ];
@@ -37,10 +42,14 @@ const MainNavigation = ({ isWireframe, onLogoClick, setShowBuyback }: MainNaviga
             <button
               key={item.title}
               onClick={item.onClick}
-              className={`${isWireframe ? 'font-mono text-gray-600 hover:text-gray-800' : 
-                item.isHighlighted ? 'text-[#9b87f5] font-medium hover:text-[#7E69AB]' : 
-                'text-gray-700 hover:text-[#9b87f5]'} 
-                text-sm tracking-wide transition-colors`}
+              className={`
+                ${isWireframe ? 'font-mono' : ''} 
+                ${item.isActive && isWireframe ? 'bg-gray-300 font-bold border-2 border-dashed border-gray-500 px-2' : ''}
+                ${item.isActive && !isWireframe ? 'text-[#9b87f5] font-medium' : ''}
+                ${!item.isActive && isWireframe ? 'text-gray-600 hover:text-gray-800' : ''}
+                ${!item.isActive && !isWireframe ? (item.isHighlighted ? 'text-[#9b87f5] hover:text-[#7E69AB]' : 'text-gray-700 hover:text-[#9b87f5]')}
+                transition-colors
+              `}
             >
               {item.title}
             </button>
