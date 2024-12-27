@@ -58,7 +58,7 @@ export const createBuybackColumns = (
     accessorKey: 'product',
     header: 'Product Name',
     cell: ({ row }) => (
-      <div className="text-center pl-4">
+      <div className="text-center">
         {row.getValue('product')}
       </div>
     ),
@@ -67,7 +67,7 @@ export const createBuybackColumns = (
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => (
-      <div className="text-center pl-4">
+      <div className="text-center">
         <Badge className={getStatusBadgeColor(row.getValue('status'))}>
           {row.getValue('status')}
         </Badge>
