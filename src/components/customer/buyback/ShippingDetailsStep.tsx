@@ -39,10 +39,7 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Shipping Details</h2>
-        <p className="text-gray-600">Choose how you'd like to return your item to us.</p>
-      </div>
+      <p className="text-gray-600">Choose how you'd like to return your item to us.</p>
 
       <RadioGroup
         defaultValue="self"
