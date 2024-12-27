@@ -14,12 +14,12 @@ interface ProductDetailsStepProps {
 }
 
 const items = [
-  { value: "onesie", label: "Organic Cotton Onesie" },
-  { value: "blanket", label: "Baby Soft Blanket" },
-  { value: "sleepsack", label: "Sleep Sack" },
-  { value: "romper", label: "Baby Romper Set" },
-  { value: "hat", label: "Newborn Hat Pack" },
-  { value: "socks", label: "Baby Socks Bundle" },
+  { value: "onesie", label: "Organic Cotton Onesie", image: "/placeholder.svg" },
+  { value: "blanket", label: "Baby Soft Blanket", image: "/placeholder.svg" },
+  { value: "sleepsack", label: "Sleep Sack", image: "/placeholder.svg" },
+  { value: "romper", label: "Baby Romper Set", image: "/placeholder.svg" },
+  { value: "hat", label: "Newborn Hat Pack", image: "/placeholder.svg" },
+  { value: "socks", label: "Baby Socks Bundle", image: "/placeholder.svg" },
 ];
 
 const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWireframe }) => {
@@ -73,7 +73,7 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-full p-0" align="start">
+          <PopoverContent className="w-[400px] p-0" align="start">
             <Command>
               <CommandInput placeholder="Search items..." />
               <CommandList>
@@ -87,14 +87,24 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
                         setValue(currentValue === value ? "" : currentValue);
                         setOpen(false);
                       }}
+                      className="flex items-center gap-3 px-4 py-2"
                     >
-                      <Check
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          value === item.value ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                      {item.label}
+                      <div className={`w-10 h-10 ${isWireframe ? "border-2 border-dashed border-gray-300" : "bg-gray-100"} rounded-md flex items-center justify-center`}>
+                        <img 
+                          src={item.image}
+                          alt={item.label}
+                          className="w-8 h-8 object-contain"
+                        />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check
+                          className={cn(
+                            "h-4 w-4",
+                            value === item.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                        {item.label}
+                      </div>
                     </CommandItem>
                   ))}
                 </CommandGroup>
