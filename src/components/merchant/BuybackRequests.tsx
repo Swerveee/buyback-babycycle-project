@@ -7,6 +7,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import BuybackRequestDetails from './BuybackRequestDetails';
+import { BuybackRequest } from '@/types/buyback';
+import { useToast } from "@/components/ui/use-toast";
 import {
   flexRender,
   getCoreRowModel,
@@ -15,16 +23,14 @@ import {
   useReactTable,
   getFilteredRowModel,
 } from '@tanstack/react-table';
-import { BuybackRequest } from '@/types/buyback';
-import BuybackFilters from './buyback/BuybackFilters';
-import BuybackActions from './buyback/BuybackActions';
-import { createBuybackColumns } from './buyback/buybackTableColumns';
+import { ArrowUpDown, FileDown, RefreshCcw, Search } from 'lucide-react';
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
 }
 
 const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
+  const { toast } = useToast();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -74,6 +80,114 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     }
   ];
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'date',
+        header: ({ column }: any) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+              Date
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          )
+        },
+      },
+      {
+        accessorKey: 'customer',
+        header: ({ column }: any) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+              Customer
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          )
+        },
+      },
+      {
+        accessorKey: 'product',
+        header: 'Product',
+      },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        cell: ({ row }: any) => (
+          <Badge className={getStatusBadgeColor(row.getValue('status'))}>
+            {row.getValue('status')}
+          </Badge>
+        ),
+      },
+      {
+        accessorKey: 'value',
+        header: ({ column }: any) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+              Value
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          )
+        },
+      },
+      {
+        id: 'actions',
+        header: 'Actions',
+        cell: ({ row }: any) => (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className={wireframeStyles.button}
+              >
+                View Details
+              </Button>
+            </DialogTrigger>
+            <BuybackRequestDetails 
+              request={row.original}
+              onApprove={handleApprove}
+              onReject={handleReject}
+              getStatusColor={getStatusBadgeColor}
+            />
+          </Dialog>
+        ),
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data: mockRequests,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+      globalFilter,
+    },
+    onGlobalFilterChange: setGlobalFilter,
+  });
+
+  const wireframeStyles = isWireframe ? {
+    table: "border-2 border-dashed border-gray-300",
+    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
+    input: "border-2 border-dashed border-gray-300",
+  } : {
+    table: "border",
+    button: "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white",
+    input: "border-input",
+  };
+
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
       case "Pending Review":
@@ -95,46 +209,73 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     console.log('Rejecting request:', id);
   };
 
-  const wireframeStyles = isWireframe ? {
-    table: "border-2 border-dashed border-gray-300",
-    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
-    input: "border-2 border-dashed border-gray-300",
-  } : {
-    table: "border",
-    button: "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white",
-    input: "border-input",
+  const handleProcessAllPending = () => {
+    const pendingRequests = mockRequests.filter(req => req.status === "Pending Review");
+    toast({
+      title: "Processing Requests",
+      description: `Processing ${pendingRequests.length} pending requests...`,
+    });
   };
 
-  const columns = useMemo(
-    () => createBuybackColumns(handleApprove, handleReject, getStatusBadgeColor, wireframeStyles),
-    [wireframeStyles]
-  );
+  const handleGenerateReport = () => {
+    toast({
+      title: "Generating Report",
+      description: "Your report is being generated and will be ready shortly.",
+    });
+  };
 
-  const table = useReactTable({
-    data: mockRequests,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange: setSorting,
-    state: {
-      sorting,
-      globalFilter,
-    },
-    onGlobalFilterChange: setGlobalFilter,
-  });
+  const filteredData = useMemo(() => {
+    return statusFilter === 'all' 
+      ? mockRequests 
+      : mockRequests.filter(request => request.status === statusFilter);
+  }, [statusFilter, mockRequests]);
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <BuybackFilters
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-          wireframeStyles={wireframeStyles}
-        />
-        <BuybackActions wireframeStyles={wireframeStyles} />
+        <div className="flex flex-1 gap-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search requests..."
+              value={globalFilter ?? ""}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              className={`pl-8 ${wireframeStyles.input}`}
+            />
+          </div>
+          <Select
+            value={statusFilter}
+            onValueChange={setStatusFilter}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter by status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Statuses</SelectItem>
+              <SelectItem value="Pending Review">Pending Review</SelectItem>
+              <SelectItem value="Approved">Approved</SelectItem>
+              <SelectItem value="Shipped">Shipped</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            className={wireframeStyles.button}
+            onClick={handleProcessAllPending}
+          >
+            <RefreshCcw className="mr-2 h-4 w-4" />
+            Process All Pending
+          </Button>
+          <Button
+            variant="outline"
+            className={wireframeStyles.button}
+            onClick={handleGenerateReport}
+          >
+            <FileDown className="mr-2 h-4 w-4" />
+            Generate Report
+          </Button>
+        </div>
       </div>
 
       <div className={wireframeStyles.table}>
