@@ -34,9 +34,6 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
         <h1 className={`text-3xl font-bold ${isWireframe ? "font-mono text-gray-700" : "text-[#2d2d2d]"}`}>
           Buyback Program Management
         </h1>
-        <button className={`px-4 py-2 rounded-md transition-colors text-base ${wireframeStyles.button}`}>
-          Design Site
-        </button>
       </div>
       
       <div className="grid gap-4">
