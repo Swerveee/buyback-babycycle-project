@@ -126,7 +126,8 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center">
+        <BuybackActions wireframeStyles={wireframeStyles} />
         <BuybackFilters
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
@@ -134,7 +135,6 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
           setStatusFilter={setStatusFilter}
           wireframeStyles={wireframeStyles}
         />
-        <BuybackActions wireframeStyles={wireframeStyles} />
       </div>
 
       <div className={wireframeStyles.table}>
