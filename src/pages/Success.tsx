@@ -26,34 +26,38 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           </Toggle>
         </div>
       )}
-      <Card className={`${isWireframe ? 'border-2 border-dashed' : 'border-[#eee]'} shadow-sm`}>
+      <Card className={`${isWireframe ? 'border-2 border-dashed border-gray-400 shadow-none bg-white' : 'border-[#eee]'} shadow-sm`}>
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <CheckCircle2 className="w-16 h-16 text-green-500" />
+            <CheckCircle2 className={`w-16 h-16 ${isWireframe ? 'text-gray-900' : 'text-green-500'}`} />
           </div>
-          <CardTitle className="text-2xl text-[#1A1F2C]">Thank You for Your Trade-In Request!</CardTitle>
-          <CardDescription className="text-[#555555]">
+          <CardTitle className={`text-2xl ${isWireframe ? 'text-gray-900' : 'text-[#1A1F2C]'}`}>
+            Thank You for Your Trade-In Request!
+          </CardTitle>
+          <CardDescription className={isWireframe ? 'text-gray-600' : 'text-[#555555]'}>
             We're excited to help you trade in your gently used kids' items.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className={`${isWireframe ? 'border-2 border-dashed bg-gray-50' : 'bg-[#F8F2FF]'} p-4 rounded-lg`}>
-            <p className="text-[#1A1F2C] font-medium">What happens next?</p>
+          <div className={`${isWireframe ? 'border-2 border-dashed border-gray-400 bg-gray-50' : 'bg-[#F8F2FF]'} p-4 rounded-lg`}>
+            <p className={`font-medium ${isWireframe ? 'text-gray-900' : 'text-[#1A1F2C]'}`}>
+              What happens next?
+            </p>
             <ol className="list-none space-y-3 mt-2">
-              <li className="flex items-center gap-3 text-[#555555]">
-                <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+                <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-green-500'}`} />
                 Our team will review your submission and confirm your store credit value
               </li>
-              <li className="flex items-center gap-3 text-[#555555]">
-                <Mail className="w-5 h-5 text-blue-500 flex-shrink-0" />
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+                <Mail className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-blue-500'}`} />
                 You'll receive an email with your prepaid shipping label
               </li>
-              <li className="flex items-center gap-3 text-[#555555] whitespace-nowrap">
-                <Package className="w-5 h-5 text-orange-500 flex-shrink-0" />
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} whitespace-nowrap`}>
+                <Package className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-orange-500'}`} />
                 Pack your items securely and drop them off at the nearest shipping location
               </li>
-              <li className="flex items-center gap-3 text-[#555555]">
-                <CreditCard className="w-5 h-5 text-purple-500 flex-shrink-0" />
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+                <CreditCard className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-purple-500'}`} />
                 Once reviewed, your store credit will be added to your account
               </li>
             </ol>
@@ -61,7 +65,11 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           <div className="flex justify-center">
             <Button 
               onClick={() => navigate('/')}
-              className={`${isWireframe ? 'border-2 border-dashed bg-gray-50 hover:bg-gray-100 text-gray-900' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'}`}
+              className={`${
+                isWireframe 
+                  ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
+                  : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'
+              }`}
             >
               Return to Shop
             </Button>
