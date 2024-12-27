@@ -81,7 +81,7 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
                     className={wireframeStyles.input}
                   />
                   <p className="text-xs text-gray-500">
-                    Provide your email to receive instructions or a prepaid label (if required).
+                    We'll email you the prepaid shipping label and instructions.
                   </p>
                 </div>
               </div>
