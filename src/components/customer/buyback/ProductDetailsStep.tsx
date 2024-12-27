@@ -58,7 +58,7 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
       </div>
 
       <div className="space-y-2">
-        <Label className={wireframeStyles.label}>Previously Purchased Item</Label>
+        <Label className={wireframeStyles.label}>Select the Item to Trade In</Label>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -112,6 +112,9 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
             </Command>
           </PopoverContent>
         </Popover>
+        <p className={`text-sm text-gray-500 mt-1 ${isWireframe ? "font-mono" : ""}`}>
+          If your product isn't listed, it may not be part of the buyback program.
+        </p>
       </div>
 
       <div className="space-y-2">
