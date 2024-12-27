@@ -1,6 +1,9 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { PackageSearch } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import BuybackRequests from './BuybackRequests';
 import BuybackSettings from './BuybackSettings';
 import BuybackMetrics from './BuybackMetrics';
@@ -10,6 +13,8 @@ interface BuybackDashboardProps {
 }
 
 const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
+  const navigate = useNavigate();
+
   const wireframeStyles = isWireframe ? {
     card: "border-2 border-dashed border-black shadow-none",
     header: "bg-white border-b-2 border-dashed border-black",
@@ -18,6 +23,7 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
     button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
     tabs: "border-2 border-dashed border-black",
     tabsTrigger: "data-[state=active]:border-2 data-[state=active]:border-dashed data-[state=active]:border-black data-[state=active]:bg-black data-[state=active]:text-white",
+    alert: "border-2 border-dashed border-gray-300"
   } : {
     card: "border-none shadow-sm",
     header: "",
@@ -26,10 +32,25 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
     button: "bg-[#2261e9] text-white hover:bg-[#1a4fc0]",
     tabs: "bg-transparent border rounded-lg",
     tabsTrigger: "data-[state=active]:bg-white data-[state=active]:shadow-sm",
+    alert: ""
   };
 
   return (
     <div className="p-4">
+      <Alert className={`${wireframeStyles.alert} bg-blue-50/50 mb-6`}>
+        <PackageSearch className={`h-4 w-4 ${isWireframe ? 'text-black' : 'text-blue-500'}`} />
+        <AlertDescription className={isWireframe ? "font-mono" : ""}>
+          Make sure to{' '}
+          <button 
+            onClick={() => navigate('/merchant/products')}
+            className="text-blue-500 hover:text-blue-600 underline font-medium"
+          >
+            select which products
+          </button>
+          {' '}are eligible for buyback before processing any requests.
+        </AlertDescription>
+      </Alert>
+
       <div className="flex justify-between items-center mb-8">
         <h1 className={`text-3xl font-bold ${isWireframe ? "font-mono text-gray-700" : "text-[#2d2d2d]"}`}>
           Buyback Program Management
