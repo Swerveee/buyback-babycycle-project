@@ -20,6 +20,7 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { HelpCircle, ZoomIn } from "lucide-react";
 import ImagePreview from './buyback/ImagePreview';
+import ValueEditor from './buyback/ValueEditor';
 import {
   Collapsible,
   CollapsibleContent,
@@ -43,6 +44,7 @@ const BuybackRequestDetails = ({
   const [note, setNote] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
+  const [estimatedValue, setEstimatedValue] = useState(request.value);
 
   const handlePreviousImage = () => {
     setCurrentImageIndex((prev) => Math.max(0, prev - 1));
@@ -102,19 +104,19 @@ const BuybackRequestDetails = ({
             
             <div className="mt-4">
               <div className="flex items-center gap-2">
-                <p className="font-medium">Offered Value</p>
+                <p className="font-medium">Estimated Value</p>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
                       <HelpCircle className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>The value offered to the customer in store credit</p>
+                      <p>The estimated value offered to the customer in store credit</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <p className="text-lg font-semibold text-[#2563eb]">{request.value}</p>
+              <ValueEditor initialValue={estimatedValue} onValueChange={setEstimatedValue} />
             </div>
           </div>
           
@@ -133,7 +135,7 @@ const BuybackRequestDetails = ({
                         alt={`Product condition ${index + 1}`}
                         className="rounded-md border border-[#eee] object-cover w-full h-48 group-hover:opacity-90 transition-opacity"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
                         <ZoomIn className="w-6 h-6 text-white drop-shadow-lg" />
                       </div>
                     </div>
