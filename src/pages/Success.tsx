@@ -62,11 +62,11 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
               </li>
             </ol>
           </div>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mx-auto">
             <Button 
               onClick={() => navigate('/')}
               variant="outline"
-              className={`${
+              className={`w-full ${
                 isWireframe 
                   ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
                   : 'border-[#9b87f5] text-[#9b87f5] hover:bg-[#F8F2FF]'
@@ -76,11 +76,11 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
             </Button>
             <Button 
               onClick={() => navigate('/buyback')}
-              className={`${
+              className={`w-full ${
                 isWireframe 
                   ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
                   : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'
-              } flex items-center gap-2`}
+              } flex items-center justify-center gap-2`}
             >
               <Plus className="w-4 h-4" />
               Trade In Another Item
