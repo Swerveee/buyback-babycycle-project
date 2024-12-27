@@ -21,6 +21,7 @@ export const createBuybackColumns = (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="text-left"
         >
           Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -35,6 +36,7 @@ export const createBuybackColumns = (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="text-left"
         >
           Customer
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -44,15 +46,22 @@ export const createBuybackColumns = (
   },
   {
     accessorKey: 'product',
-    header: 'Product',
+    header: 'Product Name',
+    cell: ({ row }) => (
+      <div className="text-left">
+        {row.getValue('product')}
+      </div>
+    ),
   },
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => (
-      <Badge className={getStatusBadgeColor(row.getValue('status'))}>
-        {row.getValue('status')}
-      </Badge>
+      <div className="text-left">
+        <Badge className={getStatusBadgeColor(row.getValue('status'))}>
+          {row.getValue('status')}
+        </Badge>
+      </div>
     ),
   },
   {
@@ -62,16 +71,22 @@ export const createBuybackColumns = (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="text-left"
         >
-          Value
+          Estimated Value
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <div className="text-left">
+        {row.getValue('value')}
+      </div>
+    ),
   },
   {
     id: 'actions',
-    header: 'Actions',
+    header: '',
     cell: ({ row }) => {
       const [isOpen, setIsOpen] = useState(false);
       
