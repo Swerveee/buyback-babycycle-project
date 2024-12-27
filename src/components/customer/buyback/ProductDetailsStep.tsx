@@ -36,14 +36,13 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
             <SelectItem value="clothing">Baby Clothing</SelectItem>
             <SelectItem value="toys">Toys</SelectItem>
             <SelectItem value="gear">Baby Gear</SelectItem>
-            <SelectItem value="furniture">Furniture</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="space-y-2">
-        <Label className={wireframeStyles.label}>Brand Name</Label>
+        <Label className={wireframeStyles.label}>Item Name</Label>
         <Input 
-          placeholder="e.g., Carter's, Fisher-Price, Graco" 
+          placeholder="Enter item name" 
           required 
           className={wireframeStyles.input}
         />

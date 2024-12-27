@@ -145,18 +145,18 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
         <div className="mt-8 grid grid-cols-3 gap-6 text-center">
           <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
             <Package className="w-8 h-8 mx-auto mb-2" />
-            <h3 className="font-semibold mb-1">Easy Returns</h3>
-            <p className="text-sm text-gray-600">Free shipping label provided</p>
+            <h3 className="font-semibold mb-1">Free Shipping</h3>
+            <p className="text-sm text-gray-600">We cover shipping costs</p>
           </div>
           <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
             <DollarSign className="w-8 h-8 mx-auto mb-2" />
-            <h3 className="font-semibold mb-1">Quick Payment</h3>
-            <p className="text-sm text-gray-600">Get paid within 48 hours</p>
+            <h3 className="font-semibold mb-1">Store Credit</h3>
+            <p className="text-sm text-gray-600">Get instant store credit</p>
           </div>
           <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
             <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
-            <h3 className="font-semibold mb-1">Sustainable Choice</h3>
-            <p className="text-sm text-gray-600">Help reduce textile waste</p>
+            <h3 className="font-semibold mb-1">Eco-Friendly</h3>
+            <p className="text-sm text-gray-600">Support sustainability</p>
           </div>
         </div>
       )}
