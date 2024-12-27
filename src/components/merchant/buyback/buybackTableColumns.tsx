@@ -5,6 +5,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
 import BuybackRequestDetails from '../BuybackRequestDetails';
+import { useState } from 'react';
 
 export const createBuybackColumns = (
   handleApprove: (id: string) => void,
@@ -71,25 +72,31 @@ export const createBuybackColumns = (
   {
     id: 'actions',
     header: 'Actions',
-    cell: ({ row }) => (
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button 
-            variant={isWireframe ? "outline" : "default"}
-            size="sm"
-            className={`${isWireframe ? "border-2 border-dashed border-black bg-white hover:bg-black/5" : ""}`}
-          >
-            View Details
-          </Button>
-        </DialogTrigger>
-        <BuybackRequestDetails 
-          request={row.original}
-          onApprove={handleApprove}
-          onReject={handleReject}
-          getStatusColor={getStatusBadgeColor}
-          isWireframe={isWireframe}
-        />
-      </Dialog>
-    ),
+    cell: ({ row }) => {
+      const [isOpen, setIsOpen] = useState(false);
+      
+      return (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogTrigger asChild>
+            <Button 
+              variant={isWireframe ? "outline" : "default"}
+              size="sm"
+              className={`${isWireframe ? wireframeStyles.button : ""}`}
+            >
+              View Details
+            </Button>
+          </DialogTrigger>
+          <BuybackRequestDetails 
+            request={row.original}
+            onApprove={handleApprove}
+            onReject={handleReject}
+            getStatusColor={getStatusBadgeColor}
+            isWireframe={isWireframe}
+            isOpen={isOpen}
+            onOpenChange={setIsOpen}
+          />
+        </Dialog>
+      );
+    },
   },
 ];

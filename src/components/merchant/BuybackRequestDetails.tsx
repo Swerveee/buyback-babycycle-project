@@ -7,7 +7,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -35,6 +34,8 @@ interface BuybackRequestDetailsProps {
   onReject: (id: string) => void;
   getStatusColor: (status: string) => string;
   isWireframe: boolean;
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 const BuybackRequestDetails = ({ 
@@ -42,7 +43,9 @@ const BuybackRequestDetails = ({
   onApprove, 
   onReject,
   getStatusColor,
-  isWireframe
+  isWireframe,
+  isOpen,
+  onOpenChange
 }: BuybackRequestDetailsProps) => {
   const [note, setNote] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -67,7 +70,7 @@ const BuybackRequestDetails = ({
   };
 
   return (
-    <Dialog open={isImagePreviewOpen} onOpenChange={setIsImagePreviewOpen}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className={`max-w-2xl max-h-[80vh] overflow-hidden flex flex-col ${wireframeStyles.dialog} ${wireframeStyles.content}`}>
         <DialogHeader>
           <DialogTitle className={`text-xl font-semibold ${isWireframe ? "font-mono" : "text-[#333333]"}`}>
@@ -261,18 +264,31 @@ const BuybackRequestDetails = ({
           </Button>
         </div>
 
-        <RejectNoteModal
-          isOpen={isRejectModalOpen}
-          onClose={() => setIsRejectModalOpen(false)}
-          onConfirm={() => {
-            onReject(request.id);
-            setIsRejectModalOpen(false);
-          }}
-          note={note}
-          onNoteChange={setNote}
-          isWireframe={isWireframe}
-        />
       </DialogContent>
+
+      <Dialog open={isImagePreviewOpen} onOpenChange={setIsImagePreviewOpen}>
+        <DialogContent className={`max-w-4xl ${wireframeStyles.dialog}`}>
+          <ImagePreview
+            images={request.images}
+            currentIndex={currentImageIndex}
+            onPrevious={() => setCurrentImageIndex((prev) => Math.max(0, prev - 1))}
+            onNext={() => setCurrentImageIndex((prev) => Math.min(request.images.length - 1, prev + 1))}
+            isWireframe={isWireframe}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <RejectNoteModal
+        isOpen={isRejectModalOpen}
+        onClose={() => setIsRejectModalOpen(false)}
+        onConfirm={() => {
+          onReject(request.id);
+          setIsRejectModalOpen(false);
+        }}
+        note={note}
+        onNoteChange={setNote}
+        isWireframe={isWireframe}
+      />
     </Dialog>
   );
 };
