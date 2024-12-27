@@ -78,7 +78,7 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
             <Command>
               <CommandInput placeholder="Search items..." />
               <CommandEmpty>No item found.</CommandEmpty>
-              <CommandGroup>
+              <CommandGroup heading="Suggested items">
                 {items.map((item) => (
                   <CommandItem
                     key={item.value}
