@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -16,7 +18,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { HelpCircle, ZoomIn } from "lucide-react";
 import ImagePreview from './buyback/ImagePreview';
 import ValueEditor from './buyback/ValueEditor';
@@ -240,7 +241,7 @@ const BuybackRequestDetails = ({
           Reject
         </Button>
         <Button
-          className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+          className={`bg-[#9b87f5] hover:bg-[#7E69AB] text-white ${isWireframe ? wireframeStyles.button : ''}`}
           onClick={() => onApprove(request.id)}
         >
           Approve
