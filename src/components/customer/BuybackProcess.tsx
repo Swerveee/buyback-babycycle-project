@@ -65,13 +65,14 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const CurrentStepComponent = steps[step - 1].component;
 
   const wireframeStyles = isWireframe ? {
-    card: "border-2 border-dashed border-black",
-    header: "bg-white border-b-2 border-dashed border-black",
-    title: "font-mono text-black",
-    description: "font-mono text-black/60",
-    stepIcon: "border-2 border-dashed border-black",
-    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
-    activeStep: "border-2 border-dashed border-black bg-black text-white",
+    card: "border-2 border-dashed border-gray-900",
+    header: "bg-white border-b-2 border-dashed border-gray-900",
+    title: "font-mono text-gray-900",
+    description: "font-mono text-gray-700",
+    stepIcon: "border-2 border-dashed border-gray-900",
+    button: "border-2 border-dashed border-gray-900 bg-white hover:bg-gray-100 text-gray-900",
+    activeStep: "border-2 border-dashed border-gray-900 bg-gray-900 text-white",
+    infoCard: "border-2 border-dashed border-gray-900 bg-white"
   } : {
     card: "border-[#eee] shadow-sm",
     header: "bg-[#F8F2FF]",
@@ -80,14 +81,15 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     stepIcon: "",
     button: "bg-[#9b87f5] hover:bg-[#7E69AB] text-white",
     activeStep: "bg-[#9b87f5] text-white",
+    infoCard: "bg-gray-50"
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-2xl animate-fade-in">
+    <div className="container mx-auto p-6 max-w-2xl">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-2">BabyCycle Buyback Program</h1>
         <p className="text-lg text-gray-600 mb-4">Give your gently used baby clothes a second life!</p>
-        <div className="bg-gray-100 p-4 rounded-lg mb-6">
+        <div className={`p-4 rounded-lg mb-6 ${wireframeStyles.infoCard}`}>
           <p className="text-sm">
             Get up to <span className="font-bold">30% more value</span> when you choose store credit
           </p>
@@ -98,7 +100,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
         <div className="flex justify-between items-center mb-8">
           {steps.map((s, index) => (
             <div key={index} className="flex flex-col items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
                 step > index + 1 ? 'bg-[#7E69AB] text-white' :
                 step === index + 1 ? wireframeStyles.activeStep :
                 'bg-[#F1F1F1] text-[#8E9196]'
@@ -143,17 +145,17 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
 
       {step === 1 && (
         <div className="mt-8 grid grid-cols-3 gap-6 text-center">
-          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
+          <div className={`p-4 rounded-lg ${wireframeStyles.infoCard}`}>
             <Package className="w-8 h-8 mx-auto mb-2" />
             <h3 className="font-semibold mb-1">Easy Returns</h3>
             <p className="text-sm text-gray-600">Free shipping label provided</p>
           </div>
-          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
+          <div className={`p-4 rounded-lg ${wireframeStyles.infoCard}`}>
             <DollarSign className="w-8 h-8 mx-auto mb-2" />
             <h3 className="font-semibold mb-1">Quick Payment</h3>
             <p className="text-sm text-gray-600">Get paid within 48 hours</p>
           </div>
-          <div className={`p-4 rounded-lg ${isWireframe ? 'border-2 border-dashed border-black' : 'bg-gray-50'}`}>
+          <div className={`p-4 rounded-lg ${wireframeStyles.infoCard}`}>
             <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
             <h3 className="font-semibold mb-1">Sustainable Choice</h3>
             <p className="text-sm text-gray-600">Help reduce textile waste</p>
