@@ -45,6 +45,7 @@ const BuybackRequestDetails = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
   const [estimatedValue, setEstimatedValue] = useState(request.value);
+  const [showRejectNote, setShowRejectNote] = useState(false);
 
   const handlePreviousImage = () => {
     setCurrentImageIndex((prev) => Math.max(0, prev - 1));
@@ -52,6 +53,15 @@ const BuybackRequestDetails = ({
 
   const handleNextImage = () => {
     setCurrentImageIndex((prev) => Math.min(request.images.length - 1, prev + 1));
+  };
+
+  const handleReject = () => {
+    if (showRejectNote) {
+      onReject(request.id);
+      setShowRejectNote(false);
+    } else {
+      setShowRejectNote(true);
+    }
   };
 
   return (
@@ -130,11 +140,21 @@ const BuybackRequestDetails = ({
                 <Dialog key={index} open={isImagePreviewOpen} onOpenChange={setIsImagePreviewOpen}>
                   <DialogTrigger asChild>
                     <div className="relative group cursor-pointer">
-                      <img
-                        src={image}
-                        alt={`Product condition ${index + 1}`}
-                        className="rounded-md border border-[#eee] object-cover w-full h-48 group-hover:opacity-90 transition-opacity"
-                      />
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={`Product condition ${index + 1}`}
+                          className="rounded-md border border-[#eee] object-cover w-full h-64 group-hover:opacity-90 transition-opacity"
+                        />
+                      ) : (
+                        <div className="rounded-md border border-[#eee] bg-gray-100 w-full h-64 flex items-center justify-center">
+                          <img
+                            src="/placeholder.svg"
+                            alt="Placeholder"
+                            className="w-16 h-16 opacity-50"
+                          />
+                        </div>
+                      )}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
                         <ZoomIn className="w-6 h-6 text-white drop-shadow-lg" />
                       </div>
@@ -199,19 +219,21 @@ const BuybackRequestDetails = ({
       </ScrollArea>
       
       <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-[#F1F1F1]">
-        <Textarea
-          placeholder="Add a note about this request..."
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          className="min-h-[80px]"
-        />
+        {showRejectNote && (
+          <Textarea
+            placeholder="Add a note about why you're rejecting this request..."
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="min-h-[80px]"
+          />
+        )}
         <div className="flex justify-end gap-2">
           <Button
             variant="outline"
             className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
-            onClick={() => onReject(request.id)}
+            onClick={handleReject}
           >
-            Reject
+            {showRejectNote ? 'Confirm Reject' : 'Reject'}
           </Button>
           <Button
             className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
