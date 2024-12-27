@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Upload } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 interface ConditionAssessmentStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
 }
+
+const MAX_IMAGES = 3;
 
 const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSubmit, isWireframe }) => {
   const [images, setImages] = useState<File[]>([]);
@@ -17,12 +20,31 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const newImages = Array.from(e.target.files);
+      const totalImages = images.length + newImages.length;
+
+      if (totalImages > MAX_IMAGES) {
+        toast({
+          title: "Upload limit reached",
+          description: `You can only upload up to ${MAX_IMAGES} images. Please remove some images first.`,
+          variant: "destructive"
+        });
+        return;
+      }
+
       setImages([...images, ...newImages]);
       toast({
         title: "Images uploaded",
         description: `${newImages.length} image(s) added successfully.`,
       });
     }
+  };
+
+  const removeImage = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
+    toast({
+      title: "Image removed",
+      description: "The image has been removed successfully.",
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -62,7 +84,9 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
         </div>
 
         <div className="space-y-2">
-          <Label className={wireframeStyles.label}>Product Images</Label>
+          <Label className={wireframeStyles.label}>
+            Product Images ({images.length}/{MAX_IMAGES})
+          </Label>
           <div className={`rounded-lg p-6 text-center ${wireframeStyles.uploadArea}`}>
             <Input
               type="file"
@@ -71,25 +95,39 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
               onChange={handleImageUpload}
               className="hidden"
               id="image-upload"
+              disabled={images.length >= MAX_IMAGES}
             />
             <Label
               htmlFor="image-upload"
-              className={`cursor-pointer flex flex-col items-center gap-2 ${wireframeStyles.label}`}
+              className={`cursor-pointer flex flex-col items-center gap-2 ${wireframeStyles.label} ${images.length >= MAX_IMAGES ? 'opacity-50' : ''}`}
             >
               <Upload className="w-8 h-8 text-[#9b87f5]" />
-              <span className="text-sm text-[#1A1F2C]">Click to upload or drag and drop</span>
-              <span className="text-xs text-[#8E9196]">PNG, JPG up to 10MB</span>
+              <span className="text-sm text-[#1A1F2C]">
+                {images.length >= MAX_IMAGES 
+                  ? 'Maximum images reached'
+                  : 'Click to upload or drag and drop'}
+              </span>
+              <span className="text-xs text-[#8E9196]">PNG, JPG up to 10MB (max {MAX_IMAGES} images)</span>
             </Label>
           </div>
           {images.length > 0 && (
             <div className="grid grid-cols-3 gap-2 mt-4">
               {images.map((image, index) => (
-                <div key={index} className="relative aspect-square rounded-lg overflow-hidden bg-[#F1F1F1]">
+                <div key={index} className="relative aspect-square rounded-lg overflow-hidden bg-[#F1F1F1] group">
                   <img
                     src={URL.createObjectURL(image)}
                     alt={`Uploaded image ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => removeImage(index)}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
                 </div>
               ))}
             </div>
