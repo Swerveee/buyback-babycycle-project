@@ -32,19 +32,23 @@ const RejectNoteModal = ({
     content: "bg-white",
     button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
     input: "border-2 border-dashed border-black",
+    title: "font-mono",
+    description: "font-mono",
   } : {
     dialog: "",
     content: "",
     button: "",
     input: "",
+    title: "",
+    description: "",
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className={`${wireframeStyles.dialog} ${wireframeStyles.content}`}>
         <DialogHeader>
-          <DialogTitle>Reject Request</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className={wireframeStyles.title}>Reject Request</DialogTitle>
+          <DialogDescription className={wireframeStyles.description}>
             Please provide a reason for rejecting this buyback request.
           </DialogDescription>
         </DialogHeader>
@@ -64,7 +68,7 @@ const RejectNoteModal = ({
           </Button>
           <Button
             onClick={onConfirm}
-            className={`bg-[#9b87f5] hover:bg-[#7E69AB] text-white ${wireframeStyles.button}`}
+            className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"}`}
           >
             Confirm Rejection
           </Button>

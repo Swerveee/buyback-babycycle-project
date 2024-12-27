@@ -77,7 +77,7 @@ export const createBuybackColumns = (
           <Button 
             variant={isWireframe ? "outline" : "default"}
             size="sm"
-            className={isWireframe ? wireframeStyles.button : ""}
+            className={`${isWireframe ? "border-2 border-dashed border-black bg-white hover:bg-black/5" : ""}`}
           >
             View Details
           </Button>
