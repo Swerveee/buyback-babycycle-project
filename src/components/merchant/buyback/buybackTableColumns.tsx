@@ -21,13 +21,18 @@ export const createBuybackColumns = (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="text-left"
+          className="text-center w-full"
         >
           Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <div className="text-center">
+        {row.getValue('date')}
+      </div>
+    ),
   },
   {
     accessorKey: 'customer',
@@ -36,19 +41,24 @@ export const createBuybackColumns = (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="text-left"
+          className="text-center w-full"
         >
           Customer
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <div className="text-center">
+        {row.getValue('customer')}
+      </div>
+    ),
   },
   {
     accessorKey: 'product',
     header: 'Product Name',
     cell: ({ row }) => (
-      <div className="text-left">
+      <div className="text-center">
         {row.getValue('product')}
       </div>
     ),
@@ -57,7 +67,7 @@ export const createBuybackColumns = (
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => (
-      <div className="text-left">
+      <div className="text-center">
         <Badge className={getStatusBadgeColor(row.getValue('status'))}>
           {row.getValue('status')}
         </Badge>
@@ -71,7 +81,7 @@ export const createBuybackColumns = (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="text-left"
+          className="text-center w-full"
         >
           Estimated Value
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -79,7 +89,7 @@ export const createBuybackColumns = (
       )
     },
     cell: ({ row }) => (
-      <div className="text-left">
+      <div className="text-center">
         {row.getValue('value')}
       </div>
     ),
@@ -91,26 +101,28 @@ export const createBuybackColumns = (
       const [isOpen, setIsOpen] = useState(false);
       
       return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button 
-              variant={isWireframe ? "outline" : "default"}
-              size="sm"
-              className={`${isWireframe ? wireframeStyles.button : ""}`}
-            >
-              View Details
-            </Button>
-          </DialogTrigger>
-          <BuybackRequestDetails 
-            request={row.original}
-            onApprove={handleApprove}
-            onReject={handleReject}
-            getStatusColor={getStatusBadgeColor}
-            isWireframe={isWireframe}
-            isOpen={isOpen}
-            onOpenChange={setIsOpen}
-          />
-        </Dialog>
+        <div className="text-center">
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                variant={isWireframe ? "outline" : "default"}
+                size="sm"
+                className={`${isWireframe ? wireframeStyles.button : ""}`}
+              >
+                View Details
+              </Button>
+            </DialogTrigger>
+            <BuybackRequestDetails 
+              request={row.original}
+              onApprove={handleApprove}
+              onReject={handleReject}
+              getStatusColor={getStatusBadgeColor}
+              isWireframe={isWireframe}
+              isOpen={isOpen}
+              onOpenChange={setIsOpen}
+            />
+          </Dialog>
+        </div>
       );
     },
   },
