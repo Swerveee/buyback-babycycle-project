@@ -46,14 +46,14 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
       <Alert className={`${wireframeStyles.alert} bg-blue-50/50 mb-6`}>
         <PackageSearch className={`h-4 w-4 ${isWireframe ? 'text-black' : 'text-blue-500'}`} />
         <AlertDescription className={isWireframe ? "font-mono" : ""}>
-          Make sure to{' '}
+          Mark eligible products on the{' '}
           <button 
             onClick={() => navigate('/merchant/products')}
             className="text-blue-500 hover:text-blue-600 underline font-medium"
           >
-            select which products
+            Products page
           </button>
-          {' '}are eligible for buyback before processing any requests.
+          {' '}to make them available for buyers in the buyback program.
         </AlertDescription>
       </Alert>
       
