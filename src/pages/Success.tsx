@@ -22,12 +22,12 @@ const Success = () => {
         <CardContent className="space-y-6">
           <div className="bg-[#F8F2FF] p-4 rounded-lg">
             <p className="text-[#1A1F2C] font-medium">What happens next?</p>
-            <ul className="list-disc list-inside text-[#555555] space-y-2 mt-2">
-              <li>Our team will review your submission within 24 hours</li>
+            <ol className="list-decimal list-inside text-[#555555] space-y-2 mt-2">
+              <li>Our team will review your submission and confirm your store credit value</li>
               <li>You'll receive an email with your prepaid shipping label</li>
-              <li>Pack your items and drop them off at any shipping location</li>
-              <li>Once received, we'll verify the items and add store credit to your account</li>
-            </ul>
+              <li>Pack your items securely and drop them off at the nearest shipping location</li>
+              <li>Once reviewed, your store credit will be added to your account</li>
+            </ol>
           </div>
           <div className="flex justify-center">
             <Button 
