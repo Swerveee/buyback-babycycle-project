@@ -159,7 +159,7 @@ const BuybackRequestDetails = ({
               <p className={`${isWireframe ? "font-mono" : "text-[#555555]"}`}>{request.description}</p>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 {request.images.map((image, index) => (
-                  <Dialog key={index} open={isImagePreviewOpen} onOpenChange={setIsImagePreviewOpen}>
+                  <Dialog key={index}>
                     <DialogTrigger asChild>
                       <div className={`relative group cursor-pointer ${wireframeStyles.imagePreview}`}>
                         {image ? (
@@ -171,7 +171,7 @@ const BuybackRequestDetails = ({
                         ) : (
                           <div className="rounded-md border border-[#eee] bg-gray-100 w-full h-64 flex items-center justify-center">
                             <img
-                              src="/placeholder.svg"
+                              src="/lovable-uploads/77a57d2d-2ef7-4400-86f3-14fc659c7e67.png"
                               alt="Placeholder"
                               className="w-16 h-16 opacity-50"
                             />
@@ -266,18 +266,6 @@ const BuybackRequestDetails = ({
         </div>
 
       </DialogContent>
-
-      <Dialog open={isImagePreviewOpen} onOpenChange={setIsImagePreviewOpen}>
-        <DialogContent className={`max-w-4xl ${wireframeStyles.dialog}`}>
-          <ImagePreview
-            images={request.images}
-            currentIndex={currentImageIndex}
-            onPrevious={() => setCurrentImageIndex((prev) => Math.max(0, prev - 1))}
-            onNext={() => setCurrentImageIndex((prev) => Math.min(request.images.length - 1, prev + 1))}
-            isWireframe={isWireframe}
-          />
-        </DialogContent>
-      </Dialog>
 
       <RejectNoteModal
         isOpen={isRejectModalOpen}
