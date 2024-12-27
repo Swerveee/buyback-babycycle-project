@@ -29,12 +29,14 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
     input: "border-2 border-dashed border-gray-300 bg-gray-50",
     label: "font-mono",
     radio: "border-2 border-dashed border-gray-300",
-    select: "border-2 border-dashed border-gray-300"
+    select: "border-2 border-dashed border-gray-300",
+    icon: "text-black"
   } : {
     input: "",
     label: "",
     radio: "",
-    select: ""
+    select: "",
+    icon: "text-muted-foreground"
   };
 
   return (
@@ -62,7 +64,7 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <InfoIcon className="h-4 w-4 text-muted-foreground" />
+                    <InfoIcon className={`h-4 w-4 ${wireframeStyles.icon}`} />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Drop your package off at the nearest post office.</p>
@@ -108,7 +110,7 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <InfoIcon className="h-4 w-4 text-muted-foreground" />
+                    <InfoIcon className={`h-4 w-4 ${wireframeStyles.icon}`} />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Fee deducted from refund.</p>
@@ -169,7 +171,7 @@ const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isW
 
       <Collapsible open={isPackagingOpen} onOpenChange={setIsPackagingOpen}>
         <CollapsibleTrigger className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
-          <PackageOpen className="h-4 w-4" />
+          <PackageOpen className={`h-4 w-4 ${wireframeStyles.icon}`} />
           <span className="text-sm font-medium">How to package your item?</span>
         </CollapsibleTrigger>
         <CollapsibleContent className="mt-2 space-y-2 text-sm text-gray-600 pl-6">
