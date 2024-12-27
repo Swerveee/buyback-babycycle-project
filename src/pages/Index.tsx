@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import BuyerView from '@/components/views/BuyerView';
 import MerchantView from '@/components/views/MerchantView';
 
-type ViewType = 'buyer' | 'merchant';
-
 const Index = () => {
-  const [view, setView] = useState<ViewType>('buyer');
+  const [view, setView] = useState<'buyer' | 'merchant'>('buyer');
   const [isWireframe, setIsWireframe] = useState(false);
   const [showBuyback, setShowBuyback] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const navigate = useNavigate();
 
   const handleWireframeChange = (newValue: boolean) => {
-    setIsWireframe(newValue);
+    // Prevent any state updates while the transition is happening
+    requestAnimationFrame(() => {
+      setIsWireframe(newValue);
+    });
   };
 
   const handleControlsToggle = () => {
