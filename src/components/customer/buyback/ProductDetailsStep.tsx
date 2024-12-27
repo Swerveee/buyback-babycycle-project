@@ -2,13 +2,31 @@ import React from 'react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface ProductDetailsStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
 }
 
+const items = [
+  { value: "onesie", label: "Organic Cotton Onesie" },
+  { value: "blanket", label: "Baby Soft Blanket" },
+  { value: "sleepsack", label: "Sleep Sack" },
+  { value: "romper", label: "Baby Romper Set" },
+  { value: "hat", label: "Newborn Hat Pack" },
+  { value: "socks", label: "Baby Socks Bundle" },
+];
+
 const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWireframe }) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
@@ -39,14 +57,52 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
           </SelectContent>
         </Select>
       </div>
+
       <div className="space-y-2">
-        <Label className={wireframeStyles.label}>Item Name</Label>
-        <Input 
-          placeholder="Enter item name" 
-          required 
-          className={wireframeStyles.input}
-        />
+        <Label className={wireframeStyles.label}>Previously Purchased Item</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className={`w-full justify-between ${wireframeStyles.input}`}
+            >
+              {value
+                ? items.find((item) => item.value === value)?.label
+                : "Select an item..."}
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full p-0">
+            <Command>
+              <CommandInput placeholder="Search items..." />
+              <CommandEmpty>No item found.</CommandEmpty>
+              <CommandGroup>
+                {items.map((item) => (
+                  <CommandItem
+                    key={item.value}
+                    value={item.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === item.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {item.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
       </div>
+
       <div className="space-y-2">
         <Label className={wireframeStyles.label}>Age Range</Label>
         <Select defaultValue="0-6m">
@@ -64,6 +120,7 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
           </SelectContent>
         </Select>
       </div>
+
       <div className="space-y-2">
         <Label className={wireframeStyles.label}>Original Purchase Date</Label>
         <Input 
