@@ -32,6 +32,9 @@ const RejectNoteModal = ({
           <AlertDialogTitle>Reject Buyback Request</AlertDialogTitle>
           <AlertDialogDescription>
             Please provide a reason for rejecting this request.
+            <p className="mt-2 text-sm text-muted-foreground">
+              If provided, the rejection reason will be shared with the Customer.
+            </p>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <Textarea
