@@ -107,8 +107,14 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   };
 
   const columns = useMemo(
-    () => createBuybackColumns(handleApprove, handleReject, getStatusBadgeColor, wireframeStyles),
-    [wireframeStyles]
+    () => createBuybackColumns(
+      handleApprove, 
+      handleReject, 
+      getStatusBadgeColor, 
+      wireframeStyles,
+      isWireframe
+    ),
+    [wireframeStyles, isWireframe]
   );
 
   const table = useReactTable({

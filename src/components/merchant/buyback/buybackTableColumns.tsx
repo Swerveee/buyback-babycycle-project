@@ -10,7 +10,8 @@ export const createBuybackColumns = (
   handleApprove: (id: string) => void,
   handleReject: (id: string) => void,
   getStatusBadgeColor: (status: string) => string,
-  wireframeStyles: { button: string }
+  wireframeStyles: { button: string },
+  isWireframe: boolean
 ): ColumnDef<BuybackRequest>[] => [
   {
     accessorKey: 'date',
@@ -86,6 +87,7 @@ export const createBuybackColumns = (
           onApprove={handleApprove}
           onReject={handleReject}
           getStatusColor={getStatusBadgeColor}
+          isWireframe={isWireframe}
         />
       </Dialog>
     ),

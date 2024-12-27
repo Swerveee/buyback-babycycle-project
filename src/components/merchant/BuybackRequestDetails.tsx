@@ -33,13 +33,15 @@ interface BuybackRequestDetailsProps {
   onApprove: (id: string) => void;
   onReject: (id: string) => void;
   getStatusColor: (status: string) => string;
+  isWireframe: boolean;
 }
 
 const BuybackRequestDetails = ({ 
   request, 
   onApprove, 
   onReject,
-  getStatusColor 
+  getStatusColor,
+  isWireframe
 }: BuybackRequestDetailsProps) => {
   const [note, setNote] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -65,8 +67,18 @@ const BuybackRequestDetails = ({
     }
   };
 
+  const wireframeStyles = isWireframe ? {
+    dialog: "border-2 border-dashed border-black",
+    content: "bg-white",
+    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+  } : {
+    dialog: "",
+    content: "",
+    button: "",
+  };
+
   return (
-    <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+    <DialogContent className={`max-w-2xl max-h-[80vh] overflow-hidden flex flex-col ${wireframeStyles.dialog} ${wireframeStyles.content}`}>
       <DialogHeader>
         <DialogTitle className="text-xl font-semibold text-[#333333]">
           Buyback Request Details
@@ -222,7 +234,7 @@ const BuybackRequestDetails = ({
       <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-[#F1F1F1]">
         <Button
           variant="outline"
-          className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
+          className={`border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white ${wireframeStyles.button}`}
           onClick={() => setIsRejectModalOpen(true)}
         >
           Reject
