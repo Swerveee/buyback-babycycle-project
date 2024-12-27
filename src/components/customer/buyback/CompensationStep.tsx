@@ -2,7 +2,7 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card } from "@/components/ui/card";
-import { Clock, Sparkles, CheckCircle2 } from "lucide-react";
+import { Clock, CheckCircle2 } from "lucide-react";
 
 interface CompensationStepProps {
   onSubmit: (data: any) => void;
@@ -28,39 +28,35 @@ const CompensationStep: React.FC<CompensationStepProps> = ({ onSubmit, isWirefra
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-[#1A1F2C] mb-2">Store Credit</h2>
-        <p className="text-[#555555]">Earn store credit for your used items.</p>
+        <h2 className="text-2xl font-bold text-[#1A1F2C] mb-2">Your Store Credit</h2>
+        <p className="text-[#555555]">Based on your items, here's your estimated store credit.</p>
       </div>
 
       <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>
-        <div className="text-center mb-4">
-          <div className="text-3xl font-bold text-[#1A1F2C] mb-2">
-            Estimated Store Credit: $120
+        <div className="text-center mb-6">
+          <div className="text-4xl font-bold text-[#1A1F2C] mb-3">
+            $120
           </div>
           <p className="text-sm text-[#555555]">
-            The final store credit value will be confirmed after the merchant reviews your items.
+            Final value will be determined after merchant review.
           </p>
         </div>
 
         <div className="flex flex-col gap-4 mt-6">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#9b87f5]" />
-            <span className="text-[#1A1F2C]">10% bonus included.</span>
-          </div>
           <div className="flex items-center gap-2">
             <Clock className="w-5 h-5 text-[#9b87f5]" />
             <span className="text-[#1A1F2C]">Valid for 12 months.</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-[#9b87f5]" />
-            <span className="text-[#1A1F2C]">Shop instantly after approval.</span>
+            <span className="text-[#1A1F2C]">Available for immediate use after approval.</span>
           </div>
         </div>
       </div>
 
-      <div className="text-center mt-8">
+      <div className="text-center mt-8 mb-6">
         <p className="text-lg font-semibold text-[#1A1F2C]">
-          Submit your request now to finalize your store credit.
+          Finalize your request to receive your store credit.
         </p>
       </div>
 
