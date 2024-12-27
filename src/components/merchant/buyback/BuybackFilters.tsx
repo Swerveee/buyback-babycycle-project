@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, Download, MoreVertical } from 'lucide-react';
 
@@ -22,7 +21,7 @@ const BuybackFilters = ({
   wireframeStyles
 }: BuybackFiltersProps) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 ml-auto">
       <div className="flex items-center gap-2">
         <Button 
           variant="outline" 
