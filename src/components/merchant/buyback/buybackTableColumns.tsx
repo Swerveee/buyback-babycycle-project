@@ -75,9 +75,9 @@ export const createBuybackColumns = (
       <Dialog>
         <DialogTrigger asChild>
           <Button 
-            variant="outline" 
+            variant={isWireframe ? "outline" : "default"}
             size="sm"
-            className={wireframeStyles.button}
+            className={isWireframe ? wireframeStyles.button : ""}
           >
             View Details
           </Button>

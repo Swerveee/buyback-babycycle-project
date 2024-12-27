@@ -7,7 +7,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -50,32 +49,16 @@ const BuybackRequestDetails = ({
   const [estimatedValue, setEstimatedValue] = useState(request.value);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
 
-  const handlePreviousImage = () => {
-    setCurrentImageIndex((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleNextImage = () => {
-    setCurrentImageIndex((prev) => Math.min(request.images.length - 1, prev + 1));
-  };
-
-  const handleReject = () => {
-    if (note.trim()) {
-      onReject(request.id);
-      setIsRejectModalOpen(false);
-      setNote('');
-    } else {
-      setIsRejectModalOpen(true);
-    }
-  };
-
   const wireframeStyles = isWireframe ? {
     dialog: "border-2 border-dashed border-black",
     content: "bg-white",
     button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+    input: "border-2 border-dashed border-black",
   } : {
     dialog: "",
     content: "",
     button: "",
+    input: "",
   };
 
   return (
@@ -178,8 +161,8 @@ const BuybackRequestDetails = ({
                     <ImagePreview
                       images={request.images}
                       currentIndex={index}
-                      onPrevious={handlePreviousImage}
-                      onNext={handleNextImage}
+                      onPrevious={() => setCurrentImageIndex((prev) => Math.max(0, prev - 1))}
+                      onNext={() => setCurrentImageIndex((prev) => Math.min(request.images.length - 1, prev + 1))}
                     />
                   </DialogContent>
                 </Dialog>
@@ -241,7 +224,7 @@ const BuybackRequestDetails = ({
           Reject
         </Button>
         <Button
-          className={`bg-[#9b87f5] hover:bg-[#7E69AB] text-white ${isWireframe ? wireframeStyles.button : ''}`}
+          className={`bg-[#9b87f5] hover:bg-[#7E69AB] text-white ${wireframeStyles.button}`}
           onClick={() => onApprove(request.id)}
         >
           Approve
@@ -251,9 +234,13 @@ const BuybackRequestDetails = ({
       <RejectNoteModal
         isOpen={isRejectModalOpen}
         onClose={() => setIsRejectModalOpen(false)}
-        onConfirm={handleReject}
+        onConfirm={() => {
+          onReject(request.id);
+          setIsRejectModalOpen(false);
+        }}
         note={note}
         onNoteChange={setNote}
+        isWireframe={isWireframe}
       />
     </DialogContent>
   );

@@ -1,21 +1,22 @@
 import React from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 interface RejectNoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
   note: string;
-  onNoteChange: (note: string) => void;
+  onNoteChange: (value: string) => void;
+  isWireframe: boolean;
 }
 
 const RejectNoteModal = ({
@@ -24,42 +25,52 @@ const RejectNoteModal = ({
   onConfirm,
   note,
   onNoteChange,
+  isWireframe,
 }: RejectNoteModalProps) => {
+  const wireframeStyles = isWireframe ? {
+    dialog: "border-2 border-dashed border-black",
+    content: "bg-white",
+    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+    input: "border-2 border-dashed border-black",
+  } : {
+    dialog: "",
+    content: "",
+    button: "",
+    input: "",
+  };
+
   return (
-    <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Reject Buyback Request</AlertDialogTitle>
-          <AlertDialogDescription>
-            Please provide a reason for rejecting this request.
-            <p className="mt-2 text-sm text-muted-foreground">
-              If provided, the rejection reason will be shared with the Customer.
-            </p>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className={`${wireframeStyles.dialog} ${wireframeStyles.content}`}>
+        <DialogHeader>
+          <DialogTitle>Reject Request</DialogTitle>
+          <DialogDescription>
+            Please provide a reason for rejecting this buyback request.
+          </DialogDescription>
+        </DialogHeader>
         <Textarea
-          placeholder="Add a note about why you're rejecting this request..."
           value={note}
           onChange={(e) => onNoteChange(e.target.value)}
-          className="min-h-[120px] my-4"
+          placeholder="Enter rejection reason..."
+          className={wireframeStyles.input}
         />
-        <AlertDialogFooter>
+        <DialogFooter>
           <Button
             variant="outline"
             onClick={onClose}
-            className="border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"
+            className={wireframeStyles.button}
           >
             Cancel
           </Button>
           <Button
             onClick={onConfirm}
-            className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+            className={`bg-[#9b87f5] hover:bg-[#7E69AB] text-white ${wireframeStyles.button}`}
           >
-            Confirm Reject
+            Confirm Rejection
           </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
