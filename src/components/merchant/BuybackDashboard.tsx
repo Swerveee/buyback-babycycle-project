@@ -37,6 +37,12 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
 
   return (
     <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className={`text-3xl font-bold ${isWireframe ? "font-mono text-gray-700" : "text-[#2d2d2d]"}`}>
+          Buyback Program Management
+        </h1>
+      </div>
+
       <Alert className={`${wireframeStyles.alert} bg-blue-50/50 mb-6`}>
         <PackageSearch className={`h-4 w-4 ${isWireframe ? 'text-black' : 'text-blue-500'}`} />
         <AlertDescription className={isWireframe ? "font-mono" : ""}>
@@ -50,12 +56,6 @@ const BuybackDashboard: React.FC<BuybackDashboardProps> = ({ isWireframe }) => {
           {' '}are eligible for buyback before processing any requests.
         </AlertDescription>
       </Alert>
-
-      <div className="flex justify-between items-center mb-8">
-        <h1 className={`text-3xl font-bold ${isWireframe ? "font-mono text-gray-700" : "text-[#2d2d2d]"}`}>
-          Buyback Program Management
-        </h1>
-      </div>
       
       <div className="grid gap-4">
         <BuybackMetrics isWireframe={isWireframe} />
