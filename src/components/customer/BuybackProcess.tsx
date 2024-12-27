@@ -87,11 +87,6 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-4">BabyCycle Buyback Program</h1>
         <p className="text-lg text-gray-600 mb-4">Give your gently used baby clothes a second life!</p>
-        <div className="bg-gray-100 p-4 rounded-lg mb-6">
-          <p className="text-sm">
-            Get up to <span className="font-bold">30% more value</span> when you choose store credit
-          </p>
-        </div>
       </div>
       
       <div className="mb-8">
