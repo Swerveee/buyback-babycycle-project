@@ -83,7 +83,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-2xl animate-fade-in">
+    <div className="container mx-auto p-6 max-w-2xl">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-2">BabyCycle Buyback Program</h1>
         <p className="text-lg text-gray-600 mb-4">Give your gently used baby clothes a second life!</p>
