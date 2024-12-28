@@ -1,6 +1,6 @@
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Package, DollarSign, Info, Leaf } from 'lucide-react';
+import { RefreshCw, Package, DollarSign, Info } from 'lucide-react';
 import FeatureCard from '@/components/customer/buyback/onboarding/FeatureCard';
 import ActivationCard from '@/components/customer/buyback/onboarding/ActivationCard';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from "@/components/ui/sidebar";
@@ -22,19 +22,19 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
 
   const features = [
     {
+      icon: RefreshCw,
+      title: "Sustainable Returns",
+      description: "Reduce waste and increase customer satisfaction with our buyback program"
+    },
+    {
       icon: Package,
-      title: "Easy Returns",
-      description: "Returning your items is quick and hassle-free. We'll provide free shipping, so you don't have to worry about any extra costs."
+      title: "Easy Management",
+      description: "Streamlined process for handling returns and buyback requests"
     },
     {
       icon: DollarSign,
-      title: "Earn Store Credit",
-      description: "Trade in your baby's outgrown clothes and receive up to 70% of their value as store credit to use on your next purchase."
-    },
-    {
-      icon: Leaf,
-      title: "A Greener Future",
-      description: "Help reduce waste and create a more sustainable world by giving baby clothes a second life."
+      title: "Increase Revenue",
+      description: "Turn returns into new sales opportunities"
     }
   ];
 
@@ -112,7 +112,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
         </Sidebar>
 
         <main className="flex-1 bg-[#f8f9fb] p-4 w-full">
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="max-w-6xl mx-auto space-y-4">
             <div className="flex justify-end">
               <Toggle
                 pressed={isWireframe}
@@ -123,25 +123,25 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               </Toggle>
             </div>
 
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-2">
               <h1 className={`text-3xl font-bold ${wireframeStyles.text}`}>
-                BabyCycle Buyback Program
+                Buyback Program
               </h1>
-              <p className={`text-lg ${isWireframe ? 'text-black' : 'text-gray-600'} max-w-4xl mx-auto leading-relaxed ${wireframeStyles.text}`}>
-                Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program is simple: send us the clothes your little one no longer needs, and we'll process your request as quickly as possible. Plus, we'll cover the shipping costs! Earn up to 70% back in store credit to use on your next purchase—even for items in gently or moderately used condition.
+              <p className={`text-base ${isWireframe ? 'text-black' : 'text-gray-600'} max-w-4xl mx-auto leading-snug ${wireframeStyles.text}`}>
+                Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
               <Button
                 variant="ghost"
                 size="sm"
-                className={`mt-2 ${isWireframe ? 'text-black hover:text-black/80' : 'text-primary hover:text-primary/80'}`}
+                className={`mt-1 ${isWireframe ? 'text-black hover:text-black/80' : 'text-primary hover:text-primary/80'}`}
                 onClick={() => window.open('#', '_blank')}
               >
                 <Info className="w-4 h-4 mr-1" />
-                Learn More
+                More Details
               </Button>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-3">
               {features.map((feature, index) => (
                 <FeatureCard
                   key={index}
