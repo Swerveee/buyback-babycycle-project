@@ -1,9 +1,10 @@
 import React from 'react';
 import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { HelpCircle } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 interface AutoApproveSectionProps {
   autoApprove: boolean;
@@ -17,6 +18,7 @@ interface AutoApproveSectionProps {
   wireframeStyles: {
     label: string;
     input: string;
+    button: string;
   };
 }
 
@@ -27,55 +29,72 @@ const AutoApproveSection: React.FC<AutoApproveSectionProps> = ({
   handleRateChange,
   wireframeStyles
 }) => {
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-4">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-semibold">Auto-approve Requests</span>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <HelpCircle className="h-4 w-4 text-gray-500 cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Automatically approve buyback requests that meet these conditions.</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <p className="text-sm text-gray-600">Automatically process buyback requests using fixed rates</p>
-        </div>
-        <Switch 
-          checked={autoApprove}
-          onCheckedChange={setAutoApprove}
-        />
-      </div>
+  const conditions = [
+    { key: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
+    { key: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
+    { key: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
+  ];
 
-      <div className="grid gap-4">
-        {[
-          { condition: 'excellent', label: 'Excellent - Almost New', description: 'Items in almost new condition' },
-          { condition: 'good', label: 'Good - Minor Wear', description: 'Items with slight signs of use' },
-          { condition: 'fair', label: 'Fair - Visible Wear', description: 'Items with noticeable wear' }
-        ].map(({ condition, label, description }) => (
-          <div key={condition} className="grid grid-cols-2 gap-4 items-center">
+  return (
+    <Card>
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <CardTitle className="text-base font-semibold leading-none tracking-tight">
+              Auto-approve Requests
+            </CardTitle>
+            <CardDescription className="text-sm text-muted-foreground">
+              Automatically approve buyback requests based on item condition
+            </CardDescription>
+          </div>
+          <Switch
+            checked={autoApprove}
+            onCheckedChange={setAutoApprove}
+          />
+        </div>
+      </CardHeader>
+      {autoApprove && (
+        <CardContent>
+          <div className="space-y-4">
+            <Alert variant="default" className="bg-blue-50/50">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Requests will be automatically approved if they meet the condition criteria
+              </AlertDescription>
+            </Alert>
             <div>
-              <Label className={`${wireframeStyles.label} block mb-1`}>{label}</Label>
-              <span className="text-sm text-gray-500">{description}</span>
-            </div>
-            <div className="relative">
-              <Input
-                type="text"
-                value={rates[condition as keyof typeof rates]}
-                onChange={handleRateChange(condition as keyof typeof rates)}
-                className={`${wireframeStyles.input} w-20 ${!autoApprove ? 'bg-gray-100' : ''}`}
-                placeholder="0"
-                disabled={!autoApprove}
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+              <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Auto-approve by Condition
+              </Label>
+              <p className="text-sm text-muted-foreground mt-2 mb-4">
+                Set the maximum value for automatic approval based on item condition
+              </p>
+              <div className="space-y-4">
+                {conditions.map(({ key, label, description }) => (
+                  <div key={key} className="flex items-center justify-between gap-4">
+                    <div>
+                      <Label className="text-sm">{label}</Label>
+                      <p className="text-sm text-muted-foreground">{description}</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="text"
+                        value={rates[key as keyof typeof rates]}
+                        onChange={handleRateChange(key as keyof typeof rates)}
+                        className={`${wireframeStyles.input} w-20 text-right ${!autoApprove ? 'bg-gray-100' : ''}`}
+                        placeholder="0"
+                        disabled={!autoApprove}
+                      />
+                      <span className="text-sm text-muted-foreground">%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-    </div>
+        </CardContent>
+      )}
+    </Card>
   );
 };
 
