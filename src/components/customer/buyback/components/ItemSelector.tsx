@@ -63,59 +63,61 @@ const ItemSelector: React.FC<ItemSelectorProps> = ({
           )}
         </div>
 
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open}
-              className={`w-full justify-between ${wireframeStyles.input} border-2 border-primary/30 hover:border-primary/50 transition-colors`}
-            >
-              {selectedItem
-                ? items.find((item) => item.value === selectedItem)?.label
-                : "Select an item..."}
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
-            <Command>
-              <CommandInput placeholder="Search items..." />
-              <CommandList>
-                <CommandEmpty>No item found.</CommandEmpty>
-                <CommandGroup heading="Suggested items">
-                  {items.map((item) => (
-                    <CommandItem
-                      key={item.value}
-                      value={item.value}
-                      onSelect={(currentValue) => {
-                        onItemSelect(currentValue === selectedItem ? "" : currentValue);
-                        setOpen(false);
-                      }}
-                      className="flex items-center gap-3 px-4 py-2"
-                    >
-                      <div className={`w-10 h-10 ${isWireframe ? "border-2 border-dashed border-gray-300" : "bg-gray-100"} rounded-md flex items-center justify-center`}>
-                        <img 
-                          src={item.image}
-                          alt={item.label}
-                          className="w-8 h-8 object-contain"
-                        />
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check
-                          className={cn(
-                            "h-4 w-4",
-                            selectedItem === item.value ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        {item.label}
-                      </div>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        </Popover>
+        <div className="mt-6">
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                className={`w-full justify-between ${wireframeStyles.input} border-2 border-primary/30 hover:border-primary/50 transition-colors`}
+              >
+                {selectedItem
+                  ? items.find((item) => item.value === selectedItem)?.label
+                  : "Select an item..."}
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
+              <Command>
+                <CommandInput placeholder="Search items..." />
+                <CommandList>
+                  <CommandEmpty>No item found.</CommandEmpty>
+                  <CommandGroup heading="Suggested items">
+                    {items.map((item) => (
+                      <CommandItem
+                        key={item.value}
+                        value={item.value}
+                        onSelect={(currentValue) => {
+                          onItemSelect(currentValue === selectedItem ? "" : currentValue);
+                          setOpen(false);
+                        }}
+                        className="flex items-center gap-3 px-4 py-2"
+                      >
+                        <div className={`w-10 h-10 ${isWireframe ? "border-2 border-dashed border-gray-300" : "bg-gray-100"} rounded-md flex items-center justify-center`}>
+                          <img 
+                            src={item.image}
+                            alt={item.label}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Check
+                            className={cn(
+                              "h-4 w-4",
+                              selectedItem === item.value ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          {item.label}
+                        </div>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </div>
   );
