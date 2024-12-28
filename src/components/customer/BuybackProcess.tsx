@@ -83,38 +83,38 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-2xl">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-4">BabyCycle Buyback Program</h1>
+    <div className="container mx-auto p-4 max-w-2xl">
+      <div className="text-center mb-4">
+        <h1 className="text-2xl font-bold">BabyCycle Buyback Program</h1>
       </div>
       
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-8">
+      <div className="mb-4">
+        <div className="flex justify-between items-center">
           {steps.map((s, index) => (
             <div key={index} className="flex flex-col items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 ${
                 step > index + 1 ? 'bg-[#7E69AB] text-white' :
                 step === index + 1 ? wireframeStyles.activeStep :
                 'bg-[#F1F1F1] text-[#8E9196]'
               } ${wireframeStyles.stepIcon}`}>
-                <s.icon className="w-5 h-5" />
+                <s.icon className="w-4 h-4" />
               </div>
-              <span className={`text-sm text-center ${wireframeStyles.description}`}>{s.title}</span>
+              <span className={`text-xs text-center ${wireframeStyles.description}`}>{s.title}</span>
             </div>
           ))}
         </div>
       </div>
 
       <Card className={wireframeStyles.card}>
-        <CardHeader className={wireframeStyles.header}>
-          <CardTitle className={wireframeStyles.title}>{steps[step - 1].title}</CardTitle>
-          <CardDescription className={wireframeStyles.description}>
+        <CardHeader className={`${wireframeStyles.header} py-3`}>
+          <CardTitle className={`${wireframeStyles.title} text-lg`}>{steps[step - 1].title}</CardTitle>
+          <CardDescription className={`${wireframeStyles.description} text-sm`}>
             {steps[step - 1].description}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-3">
           <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />
-          <div className="flex justify-between pt-4">
+          <div className="flex justify-between pt-3">
             {step > 1 && (
               <Button
                 type="button"
