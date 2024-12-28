@@ -1,6 +1,5 @@
 import React from 'react';
 import { TableBody } from "@/components/ui/table";
-import { Collapsible } from "@/components/ui/collapsible";
 import BuybackTableRow from './BuybackTableRow';
 
 interface BuybackTableBodyProps {
@@ -20,18 +19,17 @@ const BuybackTableBody: React.FC<BuybackTableBodyProps> = ({
     <TableBody>
       {table.getRowModel().rows?.length ? (
         table.getRowModel().rows.map((row: any) => (
-          <Collapsible key={row.id}>
-            <BuybackTableRow
-              row={row}
-              getStatusBadgeColor={getStatusBadgeColor}
-              isWireframe={isWireframe}
-            />
-          </Collapsible>
+          <BuybackTableRow
+            key={row.id}
+            row={row}
+            getStatusBadgeColor={getStatusBadgeColor}
+            isWireframe={isWireframe}
+          />
         ))
       ) : (
         <tr>
-          <td colSpan={columns.length} className="h-24 text-center">
-            No results.
+          <td colSpan={columns.length} className="h-24 text-center text-sm text-gray-500">
+            No results found.
           </td>
         </tr>
       )}
