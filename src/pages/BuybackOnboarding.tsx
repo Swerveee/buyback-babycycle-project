@@ -110,9 +110,9 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
           </SidebarContent>
         </Sidebar>
 
-        <main className="flex-1 bg-[#f8f9fb] p-8 w-full">
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="flex justify-end mb-4">
+        <main className="flex-1 bg-[#f8f9fb] p-6 w-full">
+          <div className="max-w-6xl mx-auto space-y-6">
+            <div className="flex justify-end">
               <Toggle
                 pressed={isWireframe}
                 onPressedChange={onWireframeChange}
@@ -122,16 +122,16 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               </Toggle>
             </div>
 
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-3">
               <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
                 Buyback Program
               </h1>
               <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
-                Turn returns into opportunities. Our buyback program helps you manage returns efficiently while building customer loyalty.
+                Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-4">
               {features.map((feature, index) => (
                 <FeatureCard
                   key={index}
