@@ -127,7 +127,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               <h1 className={`text-3xl font-bold ${wireframeStyles.text}`}>
                 Buyback Program
               </h1>
-              <p className={`text-base text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
+              <p className={`text-base text-gray-600 max-w-4xl mx-auto leading-snug ${wireframeStyles.text}`}>
                 Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
               <Button
