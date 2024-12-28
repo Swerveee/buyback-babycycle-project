@@ -11,9 +11,16 @@ import {
 } from "@/components/ui/collapsible";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+interface ItemDetails {
+  id: string;
+  productDetails: any;
+  conditionDetails: any;
+}
+
 interface ShippingDetailsStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
+  items?: ItemDetails[];
 }
 
 const ShippingDetailsStep: React.FC<ShippingDetailsStepProps> = ({ onSubmit, isWireframe }) => {

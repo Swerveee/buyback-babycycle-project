@@ -111,15 +111,20 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const renderStepComponent = () => {
     const CurrentStepComponent = steps[step - 1].component;
     
+    // All steps now accept the items prop
+    const commonProps = {
+      onSubmit: handleSubmit,
+      isWireframe: isWireframe,
+      items: items
+    };
+    
     if (step === 1) {
       return (
         <CurrentStepComponent
-          items={items}
+          {...commonProps}
           activeItemId={activeItemId}
           setActiveItemId={setActiveItemId}
           updateItemDetails={updateItemDetails}
-          onSubmit={handleSubmit}
-          isWireframe={isWireframe}
         />
       );
     } else if (step === 3) {
@@ -132,8 +137,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       );
     }
     
-    // For step 2 (ShippingDetailsStep), only pass the required props
-    return <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />;
+    return <CurrentStepComponent {...commonProps} />;
   };
 
   return (
