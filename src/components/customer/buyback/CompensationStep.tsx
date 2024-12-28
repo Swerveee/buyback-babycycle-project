@@ -45,6 +45,14 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
     itemPreview: "bg-white border border-[#E9DDFF]"
   };
 
+  const getPlaceholderImage = (index: number) => {
+    const placeholders = [
+      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=64&h=64&fit=crop&auto=format',
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=64&h=64&fit=crop&auto=format'
+    ];
+    return placeholders[index % placeholders.length];
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="text-center mb-8">
@@ -57,13 +65,11 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
           <div className="space-y-4">
             {items.map((item, index) => (
               <div key={item.id} className="flex items-center gap-4">
-                {item.productDetails?.thumbnail && (
-                  <img 
-                    src={item.productDetails.thumbnail} 
-                    alt={item.productDetails.name || `Item ${index + 1}`}
-                    className="w-16 h-16 object-cover rounded-md"
-                  />
-                )}
+                <img 
+                  src={item.productDetails?.thumbnail || getPlaceholderImage(index)}
+                  alt={item.productDetails?.name || `Item ${index + 1}`}
+                  className="w-16 h-16 object-cover rounded-md"
+                />
                 <div>
                   <p className="font-medium">
                     {item.productDetails?.name || `Item ${index + 1}`}
