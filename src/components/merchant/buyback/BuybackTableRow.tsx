@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, InfoIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BuybackRequest } from '@/types/buyback';
@@ -8,6 +8,8 @@ import ValueEditor from './ValueEditor';
 import ImagePreview from './ImagePreview';
 import RejectNoteModal from './RejectNoteModal';
 import PriceChangeConfirmModal from './PriceChangeConfirmModal';
+import RequestInfoModal, { RequestInfoData } from './RequestInfoModal';
+import { useToast } from "@/hooks/use-toast";
 
 interface BuybackTableRowProps {
   request: BuybackRequest;
@@ -26,10 +28,12 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+  const [isRequestInfoModalOpen, setIsRequestInfoModalOpen] = useState(false);
   const [rejectNote, setRejectNote] = useState('');
   const [estimatedValue, setEstimatedValue] = useState(request.value);
   const [isPriceChangeModalOpen, setIsPriceChangeModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { toast } = useToast();
 
   const handlePriceChange = (newValue: string) => {
     setEstimatedValue(newValue);
@@ -43,6 +47,16 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
   const handleReject = () => {
     onReject(request.id);
     setIsRejectModalOpen(false);
+  };
+
+  const handleRequestInfo = (data: RequestInfoData) => {
+    toast({
+      title: "Information Requested",
+      description: `Requested additional information from ${request.customer}`,
+    });
+    setIsRequestInfoModalOpen(false);
+    // Here you would typically integrate with your backend to send the actual request
+    console.log("Requesting info:", data, "for request:", request.id);
   };
 
   const wireframeStyles = isWireframe ? {
@@ -82,6 +96,17 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                   </Badge>
                 </div>
                 <div className="text-center">{request.value}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsRequestInfoModalOpen(true)}
+                  className={isWireframe ? wireframeStyles.button : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"}
+                >
+                  <InfoIcon className="w-4 h-4 mr-2" />
+                  Request Info
+                </Button>
               </div>
             </div>
 
@@ -185,6 +210,13 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
         onClose={() => setIsPriceChangeModalOpen(false)}
         onConfirm={confirmPriceChange}
         newValue={estimatedValue}
+        isWireframe={isWireframe}
+      />
+
+      <RequestInfoModal
+        isOpen={isRequestInfoModalOpen}
+        onClose={() => setIsRequestInfoModalOpen(false)}
+        onConfirm={handleRequestInfo}
         isWireframe={isWireframe}
       />
     </>
