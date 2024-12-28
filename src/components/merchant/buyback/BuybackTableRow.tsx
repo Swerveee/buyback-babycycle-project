@@ -55,9 +55,6 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
     content: "bg-gray-50",
   };
 
-  const placeholderImage = "/lovable-uploads/d604f79b-f5bb-4e11-829b-70252a3dff6e.png";
-  const images = request.images.length > 0 ? request.images : [placeholderImage];
-
   return (
     <>
       <div className={`${wireframeStyles.row}`}>
@@ -75,16 +72,16 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                       )}
                     </Button>
                   </CollapsibleTrigger>
-                  <span>{request.date}</span>
+                  <span className="text-left">{request.date}</span>
                 </div>
-                <div>{request.customer}</div>
-                <div>{request.product}</div>
-                <div>
+                <div className="text-left">{request.customer}</div>
+                <div className="text-left">{request.product}</div>
+                <div className="text-left">
                   <Badge className={getStatusColor(request.status)}>
                     {request.status}
                   </Badge>
                 </div>
-                <div>{request.value}</div>
+                <div className="text-left">{request.value}</div>
               </div>
             </div>
 
@@ -119,13 +116,13 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Product Images</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    {images.map((image, index) => (
+                    {request.images.map((image, index) => (
                       <div key={index} className="relative aspect-square">
                         <ImagePreview
-                          images={images}
+                          images={request.images}
                           currentIndex={index}
                           onPrevious={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
-                          onNext={() => setCurrentImageIndex(Math.min(images.length - 1, currentImageIndex + 1))}
+                          onNext={() => setCurrentImageIndex(Math.min(request.images.length - 1, currentImageIndex + 1))}
                           isWireframe={isWireframe}
                         />
                       </div>
