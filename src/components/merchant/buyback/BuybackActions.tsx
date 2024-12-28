@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import RejectNoteModal from "./RejectNoteModal";
 import PriceChangeConfirmModal from "./PriceChangeConfirmModal";
+import RequestInfoModal, { RequestInfoData } from "./RequestInfoModal";
+import { useToast } from "@/hooks/use-toast";
 
 interface BuybackActionsProps {
   onAccept: () => void;
   onReject: (note: string) => void;
   onPriceChange: (newPrice: number) => void;
+  onRequestInfo?: (data: RequestInfoData) => void;
   isWireframe?: boolean;
 }
 
@@ -14,11 +17,14 @@ const BuybackActions: React.FC<BuybackActionsProps> = ({
   onAccept,
   onReject,
   onPriceChange,
+  onRequestInfo,
   isWireframe = false
 }) => {
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isPriceChangeModalOpen, setIsPriceChangeModalOpen] = useState(false);
+  const [isRequestInfoModalOpen, setIsRequestInfoModalOpen] = useState(false);
   const [rejectionNote, setRejectionNote] = useState("");
+  const { toast } = useToast();
 
   const handleReject = () => {
     onReject(rejectionNote);
@@ -29,6 +35,17 @@ const BuybackActions: React.FC<BuybackActionsProps> = ({
   const handlePriceChangeConfirm = (newPrice: number) => {
     onPriceChange(newPrice);
     setIsPriceChangeModalOpen(false);
+  };
+
+  const handleRequestInfo = (data: RequestInfoData) => {
+    if (onRequestInfo) {
+      onRequestInfo(data);
+      setIsRequestInfoModalOpen(false);
+      toast({
+        title: "Information Requested",
+        description: "The customer will be notified of your request.",
+      });
+    }
   };
 
   const wireframeStyles = isWireframe
@@ -62,6 +79,7 @@ const BuybackActions: React.FC<BuybackActionsProps> = ({
         </Button>
         <Button
           variant="outline"
+          onClick={() => setIsRequestInfoModalOpen(true)}
           className={isWireframe ? wireframeStyles : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"}
         >
           Request Info
@@ -81,6 +99,13 @@ const BuybackActions: React.FC<BuybackActionsProps> = ({
         isOpen={isPriceChangeModalOpen}
         onClose={() => setIsPriceChangeModalOpen(false)}
         onConfirm={handlePriceChangeConfirm}
+        isWireframe={isWireframe}
+      />
+
+      <RequestInfoModal
+        isOpen={isRequestInfoModalOpen}
+        onClose={() => setIsRequestInfoModalOpen(false)}
+        onConfirm={handleRequestInfo}
         isWireframe={isWireframe}
       />
     </div>

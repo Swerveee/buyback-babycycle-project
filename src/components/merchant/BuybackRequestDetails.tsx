@@ -28,6 +28,9 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import BuybackActions from './buyback/BuybackActions';
+import RequestInfoModal, { RequestInfoData } from './buyback/RequestInfoModal';
+import { useToast } from "@/hooks/use-toast";
 
 interface BuybackRequestDetailsProps {
   request: BuybackRequest;
@@ -53,6 +56,17 @@ const BuybackRequestDetails = ({
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
   const [estimatedValue, setEstimatedValue] = useState(request.value);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+  const [isRequestInfoModalOpen, setIsRequestInfoModalOpen] = useState(false);
+  const { toast } = useToast();
+
+  const handleRequestInfo = (data: RequestInfoData) => {
+    toast({
+      title: "Information Requested",
+      description: `Requested additional information from ${request.customer}`,
+    });
+    // Here you would typically integrate with your backend to send the actual request
+    console.log("Requesting info:", data, "for request:", request.id);
+  };
 
   const wireframeStyles = isWireframe ? {
     dialog: "border-2 border-dashed border-black",
@@ -250,21 +264,20 @@ const BuybackRequestDetails = ({
         
         {/* Footer Actions */}
         <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-[#F1F1F1]">
-          <Button
-            variant="outline"
-            className={`${isWireframe ? wireframeStyles.button : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white"}`}
-            onClick={() => setIsRejectModalOpen(true)}
-          >
-            Reject
-          </Button>
-          <Button
-            className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"}`}
-            onClick={() => onApprove(request.id)}
-          >
-            Approve
-          </Button>
+          <BuybackActions
+            onAccept={() => onApprove(request.id)}
+            onReject={(note) => onReject(request.id)}
+            onPriceChange={(newPrice) => {
+              setEstimatedValue(`₪${newPrice.toFixed(2)}`);
+              toast({
+                title: "Price Updated",
+                description: "The buyback price has been updated successfully.",
+              });
+            }}
+            onRequestInfo={handleRequestInfo}
+            isWireframe={isWireframe}
+          />
         </div>
-
       </DialogContent>
 
       <RejectNoteModal
@@ -276,6 +289,13 @@ const BuybackRequestDetails = ({
         }}
         note={note}
         onNoteChange={setNote}
+        isWireframe={isWireframe}
+      />
+
+      <RequestInfoModal
+        isOpen={isRequestInfoModalOpen}
+        onClose={() => setIsRequestInfoModalOpen(false)}
+        onConfirm={handleRequestInfo}
         isWireframe={isWireframe}
       />
     </Dialog>
