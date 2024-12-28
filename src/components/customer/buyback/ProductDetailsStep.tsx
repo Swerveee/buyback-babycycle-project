@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductDetailsStepProps {
   onSubmit: (data: any) => void;
@@ -25,6 +26,9 @@ const items = [
 const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWireframe }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [dontRememberDate, setDontRememberDate] = useState(false);
+  const [purchaseDate, setPurchaseDate] = useState("");
+  const [ageRange, setAgeRange] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,11 +38,13 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
   const wireframeStyles = isWireframe ? {
     input: "border-2 border-dashed border-gray-300 bg-white",
     label: "font-mono",
-    select: "border-2 border-dashed border-gray-300 bg-white"
+    select: "border-2 border-dashed border-gray-300 bg-white",
+    checkbox: "border-2 border-dashed border-gray-300"
   } : {
     input: "",
     label: "",
-    select: ""
+    select: "",
+    checkbox: ""
   };
 
   return (
@@ -118,30 +124,53 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
       </div>
 
       <div className="space-y-2">
-        <Label className={wireframeStyles.label}>Age Range</Label>
-        <Select defaultValue="0-6m">
-          <SelectTrigger className={wireframeStyles.select}>
-            <SelectValue placeholder="Select age range" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="0-6m">0-6 months</SelectItem>
-            <SelectItem value="6-12m">6-12 months</SelectItem>
-            <SelectItem value="1-2y">1-2 years</SelectItem>
-            <SelectItem value="2-3y">2-3 years</SelectItem>
-            <SelectItem value="3-4y">3-4 years</SelectItem>
-            <SelectItem value="4-5y">4-5 years</SelectItem>
-            <SelectItem value="5+">5+ years</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div className="space-y-2">
-        <Label className={wireframeStyles.label}>Original Purchase Date</Label>
+        <Label className={wireframeStyles.label}>When Was the Item Purchased?</Label>
+        <p className={`text-sm text-gray-500 mb-2 ${isWireframe ? "font-mono" : ""}`}>
+          Select the approximate date the item was bought. If you're unsure, select "I don't remember" and choose the age range instead.
+        </p>
         <Input 
           type="date" 
-          required 
-          className={wireframeStyles.input}
+          value={purchaseDate}
+          onChange={(e) => setPurchaseDate(e.target.value)}
+          disabled={dontRememberDate}
+          className={`${wireframeStyles.input} ${dontRememberDate ? 'opacity-50' : ''}`}
         />
+        <div className="flex items-center space-x-2 mt-2">
+          <Checkbox
+            id="dontRemember"
+            checked={dontRememberDate}
+            onCheckedChange={(checked) => {
+              setDontRememberDate(checked as boolean);
+              if (checked) {
+                setPurchaseDate('');
+              }
+            }}
+            className={wireframeStyles.checkbox}
+          />
+          <label
+            htmlFor="dontRemember"
+            className="text-sm text-gray-700 cursor-pointer"
+          >
+            I don't remember the exact date
+          </label>
+        </div>
+        
+        {dontRememberDate && (
+          <div className="mt-4">
+            <Label className={wireframeStyles.label}>Age Range</Label>
+            <Select value={ageRange} onValueChange={setAgeRange}>
+              <SelectTrigger className={wireframeStyles.select}>
+                <SelectValue placeholder="Select age range" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="0-6m">0-6 months</SelectItem>
+                <SelectItem value="6-12m">6-12 months</SelectItem>
+                <SelectItem value="1-2y">1-2 years</SelectItem>
+                <SelectItem value="over-2y">Over 2 years</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
     </form>
   );
