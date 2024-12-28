@@ -23,7 +23,11 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const [step, setStep] = useState(1);
   const [items, setItems] = useState<ItemDetails[]>([{ 
     id: '1', 
-    productDetails: null, 
+    productDetails: {
+      name: 'Baby Onesie',
+      category: 'Clothing',
+      thumbnail: '/lovable-uploads/21971396-af3e-4acc-87be-5a73f4661923.png'
+    }, 
     conditionDetails: null 
   }]);
   const [activeItemId, setActiveItemId] = useState('1');
