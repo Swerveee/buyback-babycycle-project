@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import AutoApproveSection from './settings/AutoApproveSection';
 import CreditExpirationSection from './settings/CreditExpirationSection';
 import MinimumPriceSection from './settings/MinimumPriceSection';
+import PriceEstimationSection from './settings/PriceEstimationSection';
 
 interface BuybackSettingsProps {
   isWireframe: boolean;
@@ -13,6 +14,7 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
   const [autoApprove, setAutoApprove] = useState(false);
   const [creditExpiration, setCreditExpiration] = useState('12');
   const [minItemPrice, setMinItemPrice] = useState<string>('');
+  const [showPriceEstimation, setShowPriceEstimation] = useState(false);
   const [rates, setRates] = useState({
     excellent: '70',
     good: '50',
@@ -58,6 +60,14 @@ const BuybackSettings: React.FC<BuybackSettingsProps> = ({ isWireframe }) => {
           setEnableMinPrice={setEnableMinPrice}
           minItemPrice={minItemPrice}
           setMinItemPrice={setMinItemPrice}
+          wireframeStyles={wireframeStyles}
+        />
+
+        <PriceEstimationSection
+          showPriceEstimation={showPriceEstimation}
+          setShowPriceEstimation={setShowPriceEstimation}
+          rates={rates}
+          handleRateChange={handleRateChange}
           wireframeStyles={wireframeStyles}
         />
 

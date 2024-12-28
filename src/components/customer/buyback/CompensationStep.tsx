@@ -7,9 +7,16 @@ import { Clock, CheckCircle2 } from "lucide-react";
 interface CompensationStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
+  showEstimatedValue?: boolean;
+  estimatedValue?: number;
 }
 
-const CompensationStep: React.FC<CompensationStepProps> = ({ onSubmit, isWireframe }) => {
+const CompensationStep: React.FC<CompensationStepProps> = ({ 
+  onSubmit, 
+  isWireframe,
+  showEstimatedValue = true,
+  estimatedValue = 120
+}) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(e);
@@ -31,27 +38,29 @@ const CompensationStep: React.FC<CompensationStepProps> = ({ onSubmit, isWirefra
         <p className="text-[#555555]">Redeem the value of your items as store credit.</p>
       </div>
 
-      <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>
-        <div className="text-center mb-6">
-          <div className="text-4xl font-bold text-[#1A1F2C] mb-3">
-            $120
+      {showEstimatedValue && (
+        <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>
+          <div className="text-center mb-6">
+            <div className="text-4xl font-bold text-[#1A1F2C] mb-3">
+              ${estimatedValue}
+            </div>
+            <p className="text-sm text-[#555555]">
+              Final value will be determined after merchant review.
+            </p>
           </div>
-          <p className="text-sm text-[#555555]">
-            Final value will be determined after merchant review.
-          </p>
-        </div>
 
-        <div className="flex flex-col gap-4 mt-6">
-          <div className="flex items-center gap-2">
-            <Clock className="w-5 h-5 text-[#9b87f5]" />
-            <span className="text-[#1A1F2C]">Valid for 12 months.</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-[#9b87f5]" />
-            <span className="text-[#1A1F2C]">Available for immediate use after approval.</span>
+          <div className="flex flex-col gap-4 mt-6">
+            <div className="flex items-center gap-2">
+              <Clock className="w-5 h-5 text-[#9b87f5]" />
+              <span className="text-[#1A1F2C]">Valid for 12 months.</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-[#9b87f5]" />
+              <span className="text-[#1A1F2C]">Available for immediate use after approval.</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="text-center mt-8 mb-6">
         <p className="text-lg font-semibold text-[#1A1F2C]">
