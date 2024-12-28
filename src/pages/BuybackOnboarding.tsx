@@ -111,8 +111,8 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
           </SidebarContent>
         </Sidebar>
 
-        <main className="flex-1 bg-[#f8f9fb] p-6 w-full">
-          <div className="max-w-6xl mx-auto space-y-6">
+        <main className="flex-1 bg-[#f8f9fb] p-4 w-full">
+          <div className="max-w-6xl mx-auto space-y-4">
             <div className="flex justify-end">
               <Toggle
                 pressed={isWireframe}
@@ -123,17 +123,17 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               </Toggle>
             </div>
 
-            <div className="text-center space-y-3">
-              <h1 className={`text-4xl font-bold ${wireframeStyles.text}`}>
+            <div className="text-center space-y-2">
+              <h1 className={`text-3xl font-bold ${wireframeStyles.text}`}>
                 Buyback Program
               </h1>
-              <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
+              <p className={`text-base text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
                 Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
               <Button
                 variant="ghost"
                 size="sm"
-                className="mt-2 text-primary hover:text-primary/80"
+                className="mt-1 text-primary hover:text-primary/80"
                 onClick={() => window.open('#', '_blank')}
               >
                 <Info className="w-4 h-4 mr-1" />
@@ -141,7 +141,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               </Button>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 gap-3">
               {features.map((feature, index) => (
                 <FeatureCard
                   key={index}

@@ -20,10 +20,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, descriptio
 
   return (
     <Card className={wireframeStyles.card}>
-      <CardHeader>
-        <Icon className="h-10 w-10 mb-2 text-purple-600" />
-        <CardTitle className={wireframeStyles.text}>{title}</CardTitle>
-        <CardDescription className={wireframeStyles.text}>
+      <CardHeader className="p-4">
+        <Icon className="h-8 w-8 mb-1 text-purple-600" />
+        <CardTitle className={`text-lg ${wireframeStyles.text}`}>{title}</CardTitle>
+        <CardDescription className={`text-sm ${wireframeStyles.text}`}>
           {description}
         </CardDescription>
       </CardHeader>

@@ -25,19 +25,19 @@ const ActivationCard: React.FC<ActivationCardProps> = ({ isWireframe }) => {
 
   return (
     <Card className={`${wireframeStyles.card} bg-purple-50`}>
-      <CardContent className="p-6">
-        <div className="grid md:grid-cols-2 gap-6 items-center">
+      <CardContent className="p-4">
+        <div className="grid md:grid-cols-2 gap-4 items-center">
           <div>
-            <h2 className={`text-2xl font-bold mb-4 ${wireframeStyles.text}`}>
+            <h2 className={`text-xl font-bold mb-2 ${wireframeStyles.text}`}>
               Ready to get started?
             </h2>
-            <p className={`text-gray-600 mb-6 ${wireframeStyles.text}`}>
+            <p className={`text-sm text-gray-600 mb-4 ${wireframeStyles.text}`}>
               Activate your buyback program now and start offering your customers an easy way to return and exchange products.
             </p>
             <Button 
               onClick={() => navigate('/buyback')}
               className={`${wireframeStyles.button} gap-2 ${isWireframe ? 'text-black' : ''}`}
-              size="lg"
+              size="default"
             >
               Activate Buyback Program
               <ArrowRight className="h-4 w-4" />
