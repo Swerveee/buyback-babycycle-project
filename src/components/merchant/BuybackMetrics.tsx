@@ -15,25 +15,25 @@ interface BuybackMetricsProps {
 const BuybackMetrics: React.FC<BuybackMetricsProps> = ({ isWireframe }) => {
   const metrics = [
     {
-      title: "Total Requests",
+      title: "Requests Received This Month",
       value: "24",
       change: "+12%",
       icon: Package,
-      tooltip: "Total number of buyback requests received from customers in the current period"
+      tooltip: "Number of buyback requests submitted since the beginning of the current month"
     },
     {
-      title: "Value Returned",
+      title: "Total Value Returned (MTD)",
       value: "$2,400",
       change: "+8%",
       icon: DollarSign,
-      tooltip: "Total monetary value provided to customers through store credit, refunds, or other compensation methods"
+      tooltip: "Monetary value of items accepted and processed for buyback since the start of the current month"
     },
     {
-      title: "Acceptance Rate",
+      title: "Acceptance Rate (MTD)",
       value: "92%",
       change: "+3%",
       icon: Recycle,
-      tooltip: "Percentage of buyback requests that were approved and processed successfully"
+      tooltip: "Percentage of buyback requests accepted compared to total requests submitted this month"
     }
   ];
 
