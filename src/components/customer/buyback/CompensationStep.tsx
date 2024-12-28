@@ -65,7 +65,7 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
         </div>
       )}
 
-      <Alert className={`${wireframeStyles.alert} bg-[#FFF9E7] border-[#FFE5A0] text-[#946800]`}>
+      <Alert className={`${wireframeStyles.alert}`}>
         <AlertCircle className="h-4 w-4" />
         <AlertDescription>
           Your request will be reviewed by our team. We'll notify you once it's approved.
