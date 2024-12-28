@@ -57,7 +57,7 @@ const PriceChangeConfirmModal: React.FC<PriceChangeConfirmModalProps> = ({
             onClick={onConfirm}
             className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"}`}
           >
-            Send for Review
+            Approve Changes
           </Button>
         </DialogFooter>
       </DialogContent>
