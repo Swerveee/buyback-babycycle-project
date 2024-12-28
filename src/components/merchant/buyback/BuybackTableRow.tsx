@@ -99,17 +99,6 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                 </div>
                 <div className="text-center">{request.value}</div>
               </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setIsRequestInfoModalOpen(true)}
-                  className={isWireframe ? wireframeStyles.button : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"}
-                >
-                  <InfoIcon className="w-4 h-4 mr-2" />
-                  Request More Information
-                </Button>
-              </div>
             </div>
 
             <CollapsibleContent className={`mt-4 p-6 rounded-lg ${wireframeStyles.content}`}>
