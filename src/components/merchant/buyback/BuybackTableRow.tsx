@@ -97,7 +97,10 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                     {request.status}
                   </Badge>
                 </div>
-                <div className="text-center">{request.value}</div>
+                <div className="text-center flex items-center justify-center gap-4">
+                  <span>{request.value}</span>
+                  <span className="text-sm text-gray-500">Purchase: 10/10/23</span>
+                </div>
               </div>
             </div>
 
