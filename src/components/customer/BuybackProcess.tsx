@@ -86,7 +86,12 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     <div className="container mx-auto p-6 max-w-2xl">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-4">BabyCycle Buyback Program</h1>
-        <p className="text-lg text-gray-600 mb-4">Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program is simple: send us the clothes your little one no longer needs, and we'll process your request as quickly as possible. Plus, we'll cover the shipping costs! Earn up to 70% back in store credit to use on your next purchase—even for items in medium condition.</p>
+        <p className="text-lg text-gray-600 mb-4">
+          Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program is simple: 
+          send us the clothes your little one no longer needs, and we'll process your request as quickly as possible. 
+          Plus, we'll cover the shipping costs! Earn up to 70% back in store credit to use on your next purchase—even 
+          for items in medium condition.
+        </p>
       </div>
       
       <div className="mb-8">
