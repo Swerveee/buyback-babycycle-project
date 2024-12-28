@@ -2,7 +2,8 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card } from "@/components/ui/card";
-import { Clock, CheckCircle2 } from "lucide-react";
+import { Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface CompensationStepProps {
   onSubmit: (data: any) => void;
@@ -25,11 +26,13 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
   const wireframeStyles = isWireframe ? {
     label: "font-mono",
     valueBox: "border-2 border-dashed border-black",
-    benefitCard: "border-2 border-dashed border-black bg-white"
+    benefitCard: "border-2 border-dashed border-black bg-white",
+    alert: "border-2 border-dashed border-black"
   } : {
     label: "",
     valueBox: "bg-[#F8F2FF] border border-[#E9DDFF]",
-    benefitCard: "bg-white border border-[#E9DDFF]"
+    benefitCard: "bg-white border border-[#E9DDFF]",
+    alert: ""
   };
 
   return (
@@ -45,7 +48,7 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
               ${estimatedValue}
             </div>
             <p className="text-sm text-[#555555]">
-              Final value will be determined after merchant review.
+              Estimated value - Final value will be determined after merchant review.
             </p>
           </div>
 
@@ -61,6 +64,13 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
           </div>
         </div>
       )}
+
+      <Alert className={`${wireframeStyles.alert}`}>
+        <AlertCircle className="h-4 w-4" />
+        <AlertDescription>
+          Your request will be reviewed by our team. We'll notify you once it's approved.
+        </AlertDescription>
+      </Alert>
 
       <div className="text-center mt-8 mb-6">
         <p className="text-lg font-semibold text-[#1A1F2C]">
