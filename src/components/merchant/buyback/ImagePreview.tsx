@@ -32,7 +32,7 @@ const ImagePreview = ({
     image: "",
   };
 
-  const placeholderImage = "public/lovable-uploads/77a57d2d-2ef7-4400-86f3-14fc659c7e67.png";
+  const placeholderImage = "/lovable-uploads/2ffd80df-53a3-4f50-92ed-ae88b6b9c353.png";
   const currentImage = images[currentIndex] || placeholderImage;
 
   return (
