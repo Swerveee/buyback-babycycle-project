@@ -3,31 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle2, Package, DollarSign, Truck, Plus } from 'lucide-react';
-import ProductDetailsStep from './buyback/ProductDetailsStep';
-import ShippingDetailsStep from './buyback/ShippingDetailsStep';
-import CompensationStep from './buyback/CompensationStep';
-import ItemManager from './buyback/components/ItemManager';
+import { Plus } from 'lucide-react';
+import { steps } from './buyback/config/steps';
+import StepProgress from './buyback/components/StepProgress';
+import { ItemDetails } from '@/types/buyback-types';
 
 interface BuybackProcessProps {
   isWireframe: boolean;
-}
-
-interface ItemDetails {
-  id: string;
-  productDetails: any;
-  conditionDetails: any;
 }
 
 const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const [step, setStep] = useState(1);
   const [items, setItems] = useState<ItemDetails[]>([{ 
     id: '1', 
-    productDetails: {
-      name: 'Baby Onesie',
-      category: 'Clothing',
-      thumbnail: '/lovable-uploads/21971396-af3e-4acc-87be-5a73f4661923.png'
-    }, 
+    productDetails: null,
     conditionDetails: null 
   }]);
   const [activeItemId, setActiveItemId] = useState('1');
@@ -73,27 +62,6 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     ));
   };
 
-  const steps = [
-    {
-      title: "Item Details",
-      icon: Package,
-      description: "Add your items and their condition details",
-      component: ItemManager
-    },
-    {
-      title: "Shipping Details",
-      icon: Truck,
-      description: "Get your prepaid shipping label",
-      component: ShippingDetailsStep
-    },
-    {
-      title: "Earn Store Credit",
-      icon: DollarSign,
-      description: "Trade in your baby's outgrown clothes and receive up to 70% of their value as store credit to use on your next purchase.",
-      component: CompensationStep
-    }
-  ];
-
   const wireframeStyles = isWireframe ? {
     card: "border-2 border-dashed border-black",
     header: "bg-white border-b-2 border-dashed border-black",
@@ -115,17 +83,15 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const renderStepComponent = () => {
     const CurrentStepComponent = steps[step - 1].component;
     
-    // Base props that all steps receive
     const commonProps = {
       onSubmit: handleSubmit,
       isWireframe: isWireframe,
       items: items
     };
     
-    // Only ItemManager needs the additional props
-    if (CurrentStepComponent === ItemManager) {
+    if (CurrentStepComponent === steps[0].component) {
       return (
-        <ItemManager
+        <CurrentStepComponent
           {...commonProps}
           activeItemId={activeItemId}
           setActiveItemId={setActiveItemId}
@@ -134,7 +100,6 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       );
     }
     
-    // All other components just receive the common props
     return <CurrentStepComponent {...commonProps} />;
   };
 
@@ -145,20 +110,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       </div>
       
       <div className="mb-8">
-        <div className="flex justify-between items-center mb-8">
-          {steps.map((s, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
-                step > index + 1 ? 'bg-[#7E69AB] text-white' :
-                step === index + 1 ? wireframeStyles.activeStep :
-                'bg-[#F1F1F1] text-[#8E9196]'
-              } ${wireframeStyles.stepIcon}`}>
-                <s.icon className="w-5 h-5" />
-              </div>
-              <span className={`text-sm text-center ${wireframeStyles.description}`}>{s.title}</span>
-            </div>
-          ))}
-        </div>
+        <StepProgress currentStep={step} wireframeStyles={wireframeStyles} />
       </div>
 
       <Card className={wireframeStyles.card}>
