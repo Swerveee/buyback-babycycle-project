@@ -37,7 +37,6 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
   };
 
   const confirmPriceChange = () => {
-    // Handle price change confirmation
     setIsPriceChangeModalOpen(false);
   };
 
@@ -59,11 +58,22 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
   return (
     <>
       <div className={`${wireframeStyles.row}`}>
-        <div className="flex items-center p-4">
+        <div className="p-4">
           <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
             <div className="flex items-center justify-between">
               <div className="grid grid-cols-5 gap-4 flex-1">
-                <div>{request.date}</div>
+                <div className="flex items-center gap-2">
+                  <CollapsibleTrigger asChild>
+                    <Button variant="ghost" size="sm" className="p-0">
+                      {isOpen ? (
+                        <ChevronUp className="h-4 w-4" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </CollapsibleTrigger>
+                  <span>{request.date}</span>
+                </div>
                 <div>{request.customer}</div>
                 <div>{request.product}</div>
                 <div>
@@ -73,15 +83,6 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                 </div>
                 <div>{request.value}</div>
               </div>
-              <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  {isOpen ? (
-                    <ChevronUp className="h-4 w-4" />
-                  ) : (
-                    <ChevronDown className="h-4 w-4" />
-                  )}
-                </Button>
-              </CollapsibleTrigger>
             </div>
 
             <CollapsibleContent className={`mt-4 p-6 rounded-lg ${wireframeStyles.content}`}>
