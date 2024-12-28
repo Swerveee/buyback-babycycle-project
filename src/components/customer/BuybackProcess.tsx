@@ -89,7 +89,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       items: items
     };
     
-    if (CurrentStepComponent === steps[0].component) {
+    if (step === 1) {
       return (
         <CurrentStepComponent
           {...commonProps}
