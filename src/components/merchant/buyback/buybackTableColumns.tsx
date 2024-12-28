@@ -4,8 +4,6 @@ import { format, parseISO } from 'date-fns';
 import { ArrowUpDown, ChevronDown, ChevronUp } from 'lucide-react';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
-import BuybackTableRow from './BuybackTableRow';
-import { useState } from 'react';
 
 export const createBuybackColumns = (
   handleApprove: (id: string) => void,

@@ -1,7 +1,6 @@
 import React from 'react';
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { flexRender } from '@tanstack/react-table';
-import { BuybackRequest } from '@/types/buyback';
 import BuybackTableRow from './BuybackTableRow';
 
 interface BuybackTableBodyProps {
@@ -34,7 +33,7 @@ const BuybackTableBody: React.FC<BuybackTableBodyProps> = ({
             </TableRow>
             {row.getIsExpanded() && (
               <TableRow>
-                <TableCell colSpan={columns.length} className="p-0">
+                <TableCell colSpan={columns.length}>
                   <BuybackTableRow
                     request={row.original}
                     onApprove={(id: string) => console.log('Approving request:', id)}
