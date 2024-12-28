@@ -1,9 +1,9 @@
 import React from 'react';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import ProductDetailsStep from '../ProductDetailsStep';
 import ConditionAssessmentStep from '../ConditionAssessmentStep';
-import { Button } from "@/components/ui/button";
 import { Pencil } from 'lucide-react';
-import { Card } from "@/components/ui/card";
 
 interface ItemManagerProps {
   items: Array<{
@@ -28,7 +28,7 @@ const ItemManager: React.FC<ItemManagerProps> = ({
 }) => {
   return (
     <div className="space-y-6">
-      <div className="flex gap-2 overflow-x-auto pb-2 pt-4">
+      <div className="flex gap-2 overflow-x-auto pb-2 pt-6">
         {items.map((item, index) => (
           <Button
             key={item.id}
@@ -48,7 +48,7 @@ const ItemManager: React.FC<ItemManagerProps> = ({
 
       {items.map((item) => (
         <div key={item.id} className={activeItemId === item.id ? 'block' : 'hidden'}>
-          <Card className="p-6 space-y-8 mt-4">
+          <Card className="p-6 space-y-8 mt-6">
             <div>
               <h3 className="text-lg font-semibold mb-4">Product Details</h3>
               <ProductDetailsStep
