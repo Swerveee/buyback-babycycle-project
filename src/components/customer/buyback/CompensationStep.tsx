@@ -65,10 +65,10 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
         </div>
       )}
 
-      <Alert className={`${wireframeStyles.alert}`}>
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>
-          Your request will be reviewed by our team. We'll notify you once it's approved.
+      <Alert variant="default" className={`${wireframeStyles.alert} bg-blue-50 border-blue-200`}>
+        <AlertCircle className="h-4 w-4 text-blue-500" />
+        <AlertDescription className="text-blue-700">
+          Your request will be carefully reviewed by our merchant team before approval. We'll notify you once the review is complete.
         </AlertDescription>
       </Alert>
 
