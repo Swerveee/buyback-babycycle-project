@@ -24,7 +24,7 @@ const ActivationCard: React.FC<ActivationCardProps> = ({ isWireframe }) => {
   };
 
   return (
-    <Card className={`${wireframeStyles.card} bg-purple-50`}>
+    <Card className={`${wireframeStyles.card} bg-white`}>
       <CardContent className="p-4">
         <div className="grid md:grid-cols-2 gap-4 items-center">
           <div>
