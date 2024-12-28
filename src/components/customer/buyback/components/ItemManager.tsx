@@ -1,9 +1,9 @@
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductDetailsStep from '../ProductDetailsStep';
 import ConditionAssessmentStep from '../ConditionAssessmentStep';
 import { Button } from "@/components/ui/button";
 import { Pencil } from 'lucide-react';
+import { Card } from "@/components/ui/card";
 
 interface ItemManagerProps {
   items: Array<{
@@ -48,32 +48,36 @@ const ItemManager: React.FC<ItemManagerProps> = ({
 
       {items.map((item) => (
         <div key={item.id} className={activeItemId === item.id ? 'block' : 'hidden'}>
-          <Tabs defaultValue="details" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="details">Product Details</TabsTrigger>
-              <TabsTrigger value="condition">Condition Assessment</TabsTrigger>
-            </TabsList>
-            <TabsContent value="details">
+          <Card className="p-6 space-y-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Product Details</h3>
               <ProductDetailsStep
                 onSubmit={(data) => {
                   updateItemDetails(item.id, data, 'productDetails');
-                  onSubmit(new Event('submit') as any);
                 }}
                 isWireframe={isWireframe}
                 initialData={item.productDetails}
               />
-            </TabsContent>
-            <TabsContent value="condition">
+            </div>
+            
+            <div className="pt-6 border-t">
+              <h3 className="text-lg font-semibold mb-4">Condition Assessment</h3>
               <ConditionAssessmentStep
                 onSubmit={(data) => {
                   updateItemDetails(item.id, data, 'conditionDetails');
-                  onSubmit(new Event('submit') as any);
                 }}
                 isWireframe={isWireframe}
                 initialData={item.conditionDetails}
               />
-            </TabsContent>
-          </Tabs>
+            </div>
+
+            <Button
+              onClick={(e) => onSubmit(e)}
+              className={`w-full ${isWireframe ? 'border-2 border-dashed border-black bg-white hover:bg-black/5 text-black' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'}`}
+            >
+              Save Item Details
+            </Button>
+          </Card>
         </div>
       ))}
     </div>
