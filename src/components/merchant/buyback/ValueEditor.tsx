@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Pencil } from "lucide-react";
-import { toast } from "sonner";
+import { Pencil, Check, X } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import PriceChangeConfirmModal from './PriceChangeConfirmModal';
 
 interface ValueEditorProps {
   initialValue: string;
@@ -13,6 +14,8 @@ interface ValueEditorProps {
 const ValueEditor = ({ initialValue, onValueChange, isWireframe }: ValueEditorProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const { toast } = useToast();
 
   const wireframeStyles = isWireframe ? {
     button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
@@ -26,23 +29,58 @@ const ValueEditor = ({ initialValue, onValueChange, isWireframe }: ValueEditorPr
     // Remove any non-numeric characters except decimal point
     const numericValue = value.replace(/[^\d.]/g, '');
     const formattedValue = `₪${numericValue}`;
-    onValueChange(formattedValue);
+    setValue(formattedValue);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmPriceChange = () => {
+    onValueChange(value);
     setIsEditing(false);
-    toast.success("Value updated successfully");
+    setShowConfirmModal(false);
+    toast({
+      title: "Price change submitted",
+      description: "An email has been sent to the customer for review.",
+    });
   };
 
   if (isEditing) {
     return (
-      <div className="flex items-center gap-2">
-        <Input
-          type="text"
-          value={value.replace('₪', '')}
-          onChange={(e) => setValue(e.target.value)}
-          className={`w-24 ${wireframeStyles.input}`}
+      <>
+        <div className="flex items-center gap-2">
+          <Input
+            type="text"
+            value={value.replace('₪', '')}
+            onChange={(e) => setValue(e.target.value)}
+            className={`w-24 ${wireframeStyles.input}`}
+          />
+          <Button 
+            onClick={handleSave} 
+            size="sm" 
+            className={wireframeStyles.button}
+          >
+            <Check className="h-4 w-4" />
+          </Button>
+          <Button 
+            onClick={() => {
+              setValue(initialValue);
+              setIsEditing(false);
+            }} 
+            size="sm" 
+            variant="outline"
+            className={wireframeStyles.button}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <PriceChangeConfirmModal
+          isOpen={showConfirmModal}
+          onClose={() => setShowConfirmModal(false)}
+          onConfirm={handleConfirmPriceChange}
+          newValue={value}
+          isWireframe={isWireframe}
         />
-        <Button onClick={handleSave} size="sm" className={wireframeStyles.button}>Save</Button>
-        <Button onClick={() => setIsEditing(false)} size="sm" variant="outline" className={wireframeStyles.button}>Cancel</Button>
-      </div>
+      </>
     );
   }
 
