@@ -10,6 +10,9 @@ import RejectNoteModal from './RejectNoteModal';
 import PriceChangeConfirmModal from './PriceChangeConfirmModal';
 import RequestInfoModal, { RequestInfoData } from './RequestInfoModal';
 import { useToast } from "@/hooks/use-toast";
+import ProductInformation from './components/ProductInformation';
+import CustomerInformation from './components/CustomerInformation';
+import BuybackActions from './components/BuybackActions';
 
 interface BuybackTableRowProps {
   request: BuybackRequest;
@@ -55,7 +58,6 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
       description: `Requested additional information from ${request.customer}`,
     });
     setIsRequestInfoModalOpen(false);
-    // Here you would typically integrate with your backend to send the actual request
     console.log("Requesting info:", data, "for request:", request.id);
   };
 
@@ -105,29 +107,18 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                   className={isWireframe ? wireframeStyles.button : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"}
                 >
                   <InfoIcon className="w-4 h-4 mr-2" />
-                  Request Info
+                  Request More Information
                 </Button>
               </div>
             </div>
 
             <CollapsibleContent className={`mt-4 p-6 rounded-lg ${wireframeStyles.content}`}>
               <div className="space-y-6">
-                {/* Product Information */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Product Information</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="font-medium">Condition</p>
-                      <p>{request.condition}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium">Description</p>
-                      <p>{request.description}</p>
-                    </div>
-                  </div>
-                </div>
+                <ProductInformation
+                  condition={request.condition}
+                  description={request.description}
+                />
 
-                {/* Value Editor */}
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Estimated Value</h3>
                   <ValueEditor
@@ -137,7 +128,6 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                   />
                 </div>
 
-                {/* Images */}
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Product Images</h3>
                   <div className="grid grid-cols-2 gap-4">
@@ -155,41 +145,18 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                   </div>
                 </div>
 
-                {/* Customer Information */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Customer Information</h3>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <p className="font-medium">Email</p>
-                      <p>{request.email}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium">Phone</p>
-                      <p>{request.phone}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium">Shipping Address</p>
-                      <p>{request.shippingAddress}</p>
-                    </div>
-                  </div>
-                </div>
+                <CustomerInformation
+                  email={request.email}
+                  phone={request.phone}
+                  shippingAddress={request.shippingAddress}
+                />
 
-                {/* Actions */}
-                <div className="flex justify-end gap-2 pt-4 border-t border-gray-200">
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsRejectModalOpen(true)}
-                    className={wireframeStyles.button}
-                  >
-                    Reject
-                  </Button>
-                  <Button
-                    onClick={() => onApprove(request.id)}
-                    className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"}`}
-                  >
-                    Approve
-                  </Button>
-                </div>
+                <BuybackActions
+                  onReject={() => setIsRejectModalOpen(true)}
+                  onApprove={() => onApprove(request.id)}
+                  onRequestInfo={() => setIsRequestInfoModalOpen(true)}
+                  isWireframe={isWireframe}
+                />
               </div>
             </CollapsibleContent>
           </Collapsible>
