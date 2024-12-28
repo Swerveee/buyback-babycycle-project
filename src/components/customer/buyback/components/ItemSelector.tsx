@@ -42,27 +42,26 @@ const ItemSelector: React.FC<ItemSelectorProps> = ({
   return (
     <div className="space-y-2 animate-fade-in">
       <div className="bg-accent/50 p-4 rounded-lg border-2 border-accent shadow-lg transition-all duration-300 highlight-pulse">
-        <Label className={`${wireframeStyles.label} text-lg font-semibold mb-2 block`}>
-          Confirm Item Type
-        </Label>
-        <p className="text-sm text-gray-600 mb-4">
-          We've detected your item. Please confirm if this is correct or select a different item from the list.
-        </p>
-        
-        {selectedItemData && (
-          <div className="mb-4 p-3 bg-white rounded-lg border border-accent flex items-center gap-3">
-            <div className="w-12 h-12 rounded-md overflow-hidden border border-accent flex items-center justify-center bg-white">
+        <div className="flex justify-between items-start gap-4">
+          <div className="flex-1">
+            <Label className={`${wireframeStyles.label} text-lg font-semibold mb-2 block`}>
+              Confirm Item Type
+            </Label>
+            <p className="text-sm text-gray-600 mb-4">
+              We've detected your item. Please confirm if this is correct or select a different item from the list.
+            </p>
+          </div>
+          
+          {selectedItemData && (
+            <div className="w-32 h-32 rounded-lg overflow-hidden border-2 border-accent flex items-center justify-center bg-white shrink-0">
               <img 
                 src={selectedItemData.image} 
                 alt={selectedItemData.label}
-                className="w-10 h-10 object-contain"
+                className="w-28 h-28 object-contain"
               />
             </div>
-            <span className="text-sm font-medium text-gray-700">
-              {selectedItemData.label}
-            </span>
-          </div>
-        )}
+          )}
+        </div>
 
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
