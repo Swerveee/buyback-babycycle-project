@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, Mail, Package, CreditCard, Plus } from 'lucide-react';
+import { CheckCircle2, Mail, Package, CreditCard } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -74,22 +74,11 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
                 </li>
               </ol>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mx-auto">
-              <Button 
-                onClick={() => navigate('/buyback')}
-                className={`w-full ${
-                  isWireframe 
-                    ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
-                    : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'
-                } flex items-center justify-center gap-2`}
-              >
-                <Plus className="w-4 h-4" />
-                Trade In Another Item
-              </Button>
+            <div className="flex justify-center">
               <Button 
                 onClick={() => navigate('/')}
                 variant="outline"
-                className={`w-full ${
+                className={`${
                   isWireframe 
                     ? 'border-2 border-dashed border-gray-400 bg-white text-gray-900 hover:bg-gray-50' 
                     : 'border-[#9b87f5] text-[#9b87f5] hover:bg-[#F8F2FF]'
