@@ -1,5 +1,6 @@
 import { Toggle } from "@/components/ui/toggle";
-import { RefreshCw, Package, DollarSign } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { RefreshCw, Package, DollarSign, Info } from 'lucide-react';
 import FeatureCard from '@/components/customer/buyback/onboarding/FeatureCard';
 import ActivationCard from '@/components/customer/buyback/onboarding/ActivationCard';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from "@/components/ui/sidebar";
@@ -129,6 +130,15 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${wireframeStyles.text}`}>
                 Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="mt-2 text-primary hover:text-primary/80"
+                onClick={() => window.open('#', '_blank')}
+              >
+                <Info className="w-4 h-4 mr-1" />
+                More Details
+              </Button>
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
