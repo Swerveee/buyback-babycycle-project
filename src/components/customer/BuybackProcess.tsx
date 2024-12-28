@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Plus } from 'lucide-react';
 import { steps } from './buyback/config/steps';
 import StepProgress from './buyback/components/StepProgress';
-import { ItemDetails } from '@/types/buyback-types';
+import { ItemDetails, ItemManagerProps, ShippingDetailsStepProps, CompensationStepProps } from '@/types/buyback-types';
 
 interface BuybackProcessProps {
   isWireframe: boolean;
@@ -89,18 +89,23 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       items: items
     };
     
-    if (step === 1) {
-      return (
-        <CurrentStepComponent
-          {...commonProps}
-          activeItemId={activeItemId}
-          setActiveItemId={setActiveItemId}
-          updateItemDetails={updateItemDetails}
-        />
-      );
+    switch (step) {
+      case 1:
+        return (
+          <CurrentStepComponent
+            {...commonProps}
+            activeItemId={activeItemId}
+            setActiveItemId={setActiveItemId}
+            updateItemDetails={updateItemDetails}
+          /> as React.ReactElement<ItemManagerProps>
+        );
+      case 2:
+        return <CurrentStepComponent {...commonProps} /> as React.ReactElement<ShippingDetailsStepProps>;
+      case 3:
+        return <CurrentStepComponent {...commonProps} /> as React.ReactElement<CompensationStepProps>;
+      default:
+        return null;
     }
-    
-    return <CurrentStepComponent {...commonProps} />;
   };
 
   return (

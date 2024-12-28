@@ -2,8 +2,16 @@ import { Package, Truck, DollarSign } from 'lucide-react';
 import ItemManager from '../components/ItemManager';
 import ShippingDetailsStep from '../ShippingDetailsStep';
 import CompensationStep from '../CompensationStep';
+import { ItemManagerProps, ShippingDetailsStepProps, CompensationStepProps } from '@/types/buyback-types';
 
-export const steps = [
+type Step = {
+  title: string;
+  icon: any;
+  description: string;
+  component: React.ComponentType<ItemManagerProps | ShippingDetailsStepProps | CompensationStepProps>;
+};
+
+export const steps: Step[] = [
   {
     title: "Item Details",
     icon: Package,
