@@ -52,7 +52,7 @@ const PriceEstimationSection: React.FC<PriceEstimationSectionProps> = ({
       {showPriceEstimation && (
         <CardContent>
           <div className="space-y-4">
-            <Alert variant="default" className="bg-accent">
+            <Alert variant="default" className="bg-blue-50/50">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
                 Customers will still need manual approval for their buyback requests if Auto-approve Requests is turned off.
