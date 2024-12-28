@@ -1,8 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -20,7 +18,7 @@ import { BuybackRequest } from '@/types/buyback';
 import BuybackFilters from './buyback/BuybackFilters';
 import { createBuybackColumns } from './buyback/buybackTableColumns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import BuybackTableRow from './buyback/BuybackTableRow';
+import BuybackTableBody from './buyback/BuybackTableBody';
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
@@ -214,48 +212,11 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <React.Fragment key={row.id}>
-                  <TableRow
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                  {row.getIsExpanded() && (
-                    <TableRow>
-                      <TableCell colSpan={columns.length} className="p-0">
-                        <BuybackTableRow
-                          request={row.original}
-                          onApprove={handleApprove}
-                          onReject={handleReject}
-                          getStatusColor={getStatusBadgeColor}
-                          isWireframe={isWireframe}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+          <BuybackTableBody 
+            table={table}
+            columns={columns}
+            isWireframe={isWireframe}
+          />
         </Table>
       </div>
     </div>
