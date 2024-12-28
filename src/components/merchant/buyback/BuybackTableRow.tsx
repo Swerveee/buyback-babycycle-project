@@ -72,16 +72,16 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
                       )}
                     </Button>
                   </CollapsibleTrigger>
-                  <span className="text-left">{request.date}</span>
+                  <span className="text-center flex-1">{request.date}</span>
                 </div>
-                <div className="text-left">{request.customer}</div>
-                <div className="text-left">{request.product}</div>
-                <div className="text-left">
+                <div className="text-center">{request.customer}</div>
+                <div className="text-center">{request.product}</div>
+                <div className="text-center">
                   <Badge className={getStatusColor(request.status)}>
                     {request.status}
                   </Badge>
                 </div>
-                <div className="text-left">{request.value}</div>
+                <div className="text-center">{request.value}</div>
               </div>
             </div>
 
