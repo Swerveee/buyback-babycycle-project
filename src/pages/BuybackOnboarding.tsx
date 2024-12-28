@@ -23,18 +23,18 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
   const features = [
     {
       icon: RefreshCw,
-      title: "Easy Returns",
-      description: "Returning your items is quick and hassle-free. We'll provide free shipping, so you don't have to worry about any extra costs."
-    },
-    {
-      icon: DollarSign,
-      title: "Earn Store Credit",
-      description: "Trade in your baby's outgrown clothes and receive up to 70% of their value as store credit to use on your next purchase."
+      title: "Sustainable Returns",
+      description: "Reduce waste and increase customer satisfaction with our buyback program"
     },
     {
       icon: Package,
-      title: "A Greener Future",
-      description: "Help reduce waste and create a more sustainable world by giving baby clothes a second life."
+      title: "Easy Management",
+      description: "Streamlined process for handling returns and buyback requests"
+    },
+    {
+      icon: DollarSign,
+      title: "Increase Revenue",
+      description: "Turn returns into new sales opportunities"
     }
   ];
 
@@ -128,7 +128,7 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
                 Buyback Program
               </h1>
               <p className={`text-base ${isWireframe ? 'text-black' : 'text-gray-600'} max-w-4xl mx-auto leading-snug ${wireframeStyles.text}`}>
-                Turn your baby's outgrown BabyCycle clothes into store credit! Our buyback program is simple: send us the clothes your little one no longer needs, and we'll process your request as quickly as possible. Plus, we'll cover the shipping costs! Earn up to 70% back in store credit to use on your next purchase—even for items in medium condition.
+                Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
               <Button
                 variant="ghost"
