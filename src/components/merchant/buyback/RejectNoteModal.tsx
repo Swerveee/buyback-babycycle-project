@@ -100,24 +100,17 @@ const RejectNoteModal = ({
           />
         </div>
 
-        <DialogFooter className="flex flex-col sm:flex-row gap-2">
+        <DialogFooter>
           <Button
             variant="outline"
             onClick={onClose}
-            className={`${wireframeStyles.button} order-3 sm:order-1`}
+            className={wireframeStyles.button}
           >
             Cancel
           </Button>
           <Button
-            variant="outline"
-            onClick={onClose}
-            className={`${isWireframe ? wireframeStyles.button : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"} order-2`}
-          >
-            Request More Info
-          </Button>
-          <Button
             onClick={onConfirm}
-            className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"} order-1 sm:order-3`}
+            className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"}`}
           >
             Confirm Rejection
           </Button>
