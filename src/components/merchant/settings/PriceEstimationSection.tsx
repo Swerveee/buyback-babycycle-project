@@ -69,37 +69,46 @@ const PriceEstimationSection: React.FC<PriceEstimationSectionProps> = ({
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label className="text-sm">Excellent Condition (%)</Label>
-                    <Input
-                      type="number"
-                      min="0"
-                      max="100"
-                      value={rates.excellent}
-                      onChange={handleRateChange('excellent')}
-                      className={wireframeStyles.input}
-                    />
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={rates.excellent}
+                        onChange={handleRateChange('excellent')}
+                        className={`${wireframeStyles.input} w-20`}
+                      />
+                      <span className="text-sm text-muted-foreground">Items in almost new condition</span>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <Label className="text-sm">Good Condition (%)</Label>
-                    <Input
-                      type="number"
-                      min="0"
-                      max="100"
-                      value={rates.good}
-                      onChange={handleRateChange('good')}
-                      className={wireframeStyles.input}
-                    />
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={rates.good}
+                        onChange={handleRateChange('good')}
+                        className={`${wireframeStyles.input} w-20`}
+                      />
+                      <span className="text-sm text-muted-foreground">Items with slight signs of use</span>
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm">Fair Condition (%)</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    max="100"
-                    value={rates.fair}
-                    onChange={handleRateChange('fair')}
-                    className={wireframeStyles.input}
-                  />
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="number"
+                      min="0"
+                      max="100"
+                      value={rates.fair}
+                      onChange={handleRateChange('fair')}
+                      className={`${wireframeStyles.input} w-20`}
+                    />
+                    <span className="text-sm text-muted-foreground">Items with noticeable wear</span>
+                  </div>
                 </div>
               </div>
             </div>
