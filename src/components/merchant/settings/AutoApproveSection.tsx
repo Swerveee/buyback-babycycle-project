@@ -66,7 +66,7 @@ const AutoApproveSection: React.FC<AutoApproveSectionProps> = ({
                 type="text"
                 value={rates[condition as keyof typeof rates]}
                 onChange={handleRateChange(condition as keyof typeof rates)}
-                className={`${wireframeStyles.input} pr-8 ${!autoApprove ? 'bg-gray-100' : ''}`}
+                className={`${wireframeStyles.input} w-20 ${!autoApprove ? 'bg-gray-100' : ''}`}
                 placeholder="0"
                 disabled={!autoApprove}
               />
