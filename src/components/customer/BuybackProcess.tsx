@@ -124,6 +124,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       );
     }
     
+    // For other steps, only pass the required props
     return <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />;
   };
 
