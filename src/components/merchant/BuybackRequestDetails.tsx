@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { BuybackRequest } from '@/types/buyback';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { HelpCircle, ZoomIn } from "lucide-react";
 import ImagePreview from './buyback/ImagePreview';
-import ValueEditor from './buyback/ValueEditor';
 import RejectNoteModal from './buyback/RejectNoteModal';
 import {
   Collapsible,
@@ -31,6 +20,7 @@ import { ChevronDown } from "lucide-react";
 import BuybackActions from './buyback/BuybackActions';
 import RequestInfoModal, { RequestInfoData } from './buyback/RequestInfoModal';
 import { useToast } from "@/hooks/use-toast";
+import ProductDetails from './buyback/components/ProductDetails';
 
 interface BuybackRequestDetailsProps {
   request: BuybackRequest;
@@ -64,7 +54,6 @@ const BuybackRequestDetails = ({
       title: "Information Requested",
       description: `Requested additional information from ${request.customer}`,
     });
-    // Here you would typically integrate with your backend to send the actual request
     console.log("Requesting info:", data, "for request:", request.id);
   };
 
@@ -98,70 +87,16 @@ const BuybackRequestDetails = ({
         
         <ScrollArea className="flex-1 pr-4">
           <div className="space-y-6">
-            {/* Product Information Section */}
-            <div>
-              <h3 className={`text-lg font-semibold mb-3 ${isWireframe ? "font-mono" : "text-[#333333]"}`}>
-                Product Information
-              </h3>
-              <div className="grid grid-cols-2 gap-4 text-[#555555]">
-                <div>
-                  <p className={`font-medium ${isWireframe ? "font-mono" : ""}`}>Product Name</p>
-                  <p className={isWireframe ? "font-mono" : ""}>{request.product}</p>
-                </div>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className={`font-medium ${isWireframe ? "font-mono" : ""}`}>Condition</p>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <HelpCircle className={`h-4 w-4 ${isWireframe ? "text-black" : "text-muted-foreground"}`} />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className={isWireframe ? "font-mono" : ""}>
-                              The current condition of the product as assessed by the customer
-                            </p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                    <p className={isWireframe ? "font-mono" : ""}>{request.condition}</p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className={`font-medium ${isWireframe ? "font-mono" : ""}`}>Status</p>
-                      <Badge className={`${getStatusColor(request.status)} ${isWireframe ? "border-2 border-dashed border-black" : ""}`}>
-                        {request.status}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Value Editor Section */}
-              <div className="mt-4">
-                <div className="flex items-center gap-2">
-                  <p className={`font-medium ${isWireframe ? "font-mono" : ""}`}>Estimated Value</p>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <HelpCircle className={`h-4 w-4 ${isWireframe ? "text-black" : "text-muted-foreground"}`} />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className={isWireframe ? "font-mono" : ""}>
-                          The estimated value offered to the customer in store credit
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-                <ValueEditor 
-                  initialValue={estimatedValue} 
-                  onValueChange={setEstimatedValue}
-                  isWireframe={isWireframe}
-                />
-              </div>
-            </div>
+            <ProductDetails
+              product={request.product}
+              condition={request.condition}
+              status={request.status}
+              estimatedValue={estimatedValue}
+              purchaseDate="10/10/23"
+              getStatusColor={getStatusColor}
+              onValueChange={setEstimatedValue}
+              isWireframe={isWireframe}
+            />
             
             <Separator className={`${wireframeStyles.separator} bg-[#F1F1F1]`} />
             
