@@ -15,7 +15,13 @@ interface ImagePreviewProps {
   isWireframe: boolean;
 }
 
-const ImagePreview = ({ images, currentIndex, onPrevious, onNext, isWireframe }: ImagePreviewProps) => {
+const ImagePreview = ({ 
+  images, 
+  currentIndex, 
+  onPrevious, 
+  onNext, 
+  isWireframe 
+}: ImagePreviewProps) => {
   const [isZoomed, setIsZoomed] = React.useState(false);
 
   const wireframeStyles = isWireframe ? {
@@ -56,7 +62,7 @@ const ImagePreview = ({ images, currentIndex, onPrevious, onNext, isWireframe }:
       <img
         src={currentImage}
         alt={`Product preview ${currentIndex + 1}`}
-        className={`w-full h-24 object-cover rounded-lg ${wireframeStyles.image}`}
+        className={`w-full h-16 object-cover rounded-lg ${wireframeStyles.image}`}
       />
       
       <div className="absolute top-1/2 -translate-y-1/2 left-2">
