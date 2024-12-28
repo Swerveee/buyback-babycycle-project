@@ -4,6 +4,7 @@ import RejectNoteModal from "./RejectNoteModal";
 import PriceChangeConfirmModal from "./PriceChangeConfirmModal";
 import RequestInfoModal, { RequestInfoData } from "./RequestInfoModal";
 import { useToast } from "@/hooks/use-toast";
+import { InfoIcon } from 'lucide-react';
 
 interface BuybackActionsProps {
   onAccept: () => void;
@@ -82,6 +83,7 @@ const BuybackActions: React.FC<BuybackActionsProps> = ({
           onClick={() => setIsRequestInfoModalOpen(true)}
           className={isWireframe ? wireframeStyles : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"}
         >
+          <InfoIcon className="w-4 h-4 mr-2" />
           Request Info
         </Button>
       </div>
