@@ -15,7 +15,7 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
   const orderNumber = "TI-" + Math.random().toString(36).substr(2, 9).toUpperCase();
 
   return (
-    <div className="container mx-auto p-6 max-w-2xl">
+    <div className="container mx-auto p-4 max-w-2xl h-screen flex items-center">
       {onWireframeChange && (
         <div className="fixed top-4 right-4">
           <Toggle
@@ -27,40 +27,40 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
           </Toggle>
         </div>
       )}
-      <Card className={`${isWireframe ? 'border-2 border-dashed border-black shadow-none bg-white' : 'border-[#eee]'} shadow-sm`}>
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
+      <Card className={`${isWireframe ? 'border-2 border-dashed border-black shadow-none bg-white' : 'border-[#eee]'} shadow-sm w-full`}>
+        <CardHeader className="text-center space-y-2">
+          <div className="flex justify-center mb-2">
             <CheckCircle2 className={`w-16 h-16 ${isWireframe ? 'text-gray-900' : 'text-green-500'}`} />
           </div>
           <CardTitle className={`text-2xl ${isWireframe ? 'text-gray-900' : 'text-[#1A1F2C]'}`}>
             Thank You for Your Trade-In Request!
           </CardTitle>
           <CardDescription className={isWireframe ? 'text-gray-600' : 'text-[#555555]'}>
-            We're excited to help you trade in your gently used kids' items.
+            Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
           </CardDescription>
-          <div className={`mt-4 text-sm ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+          <div className={`mt-2 text-sm ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
             Order Number: <span className="font-medium">{orderNumber}</span>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className={`${isWireframe ? 'border-2 border-dashed border-gray-400 bg-gray-50' : 'bg-[#F8F2FF]'} p-4 rounded-lg`}>
-            <p className={`font-medium ${isWireframe ? 'text-gray-900' : 'text-[#1A1F2C]'}`}>
+        <CardContent className="space-y-4">
+          <div className={`${isWireframe ? 'border-2 border-dashed border-gray-400 bg-gray-50' : 'bg-[#F8F2FF]'} p-3 rounded-lg`}>
+            <p className={`font-medium mb-2 ${isWireframe ? 'text-gray-900' : 'text-[#1A1F2C]'}`}>
               What happens next?
             </p>
-            <ol className="list-none space-y-3 mt-2">
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+            <ol className="list-none space-y-2">
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} text-sm`}>
                 <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-green-500'}`} />
                 Our team will review your submission and confirm your store credit value
               </li>
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} text-sm`}>
                 <Mail className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-blue-500'}`} />
                 You'll receive an email with your prepaid shipping label
               </li>
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} whitespace-nowrap`}>
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} text-sm whitespace-nowrap`}>
                 <Package className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-orange-500'}`} />
                 Pack your items securely and drop them off at the nearest shipping location
               </li>
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} text-sm`}>
                 <CreditCard className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-purple-500'}`} />
                 Once reviewed, your store credit will be added to your account
               </li>
