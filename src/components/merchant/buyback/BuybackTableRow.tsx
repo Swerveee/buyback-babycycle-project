@@ -102,7 +102,7 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
             </div>
 
             <CollapsibleContent className={`mt-4 p-6 rounded-lg ${wireframeStyles.content}`}>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <ProductInformation
                   condition={request.condition}
                   description={request.description}
