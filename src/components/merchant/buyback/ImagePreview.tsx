@@ -22,8 +22,6 @@ const ImagePreview = ({
   onNext, 
   isWireframe 
 }: ImagePreviewProps) => {
-  const [isZoomed, setIsZoomed] = React.useState(false);
-
   const wireframeStyles = isWireframe ? {
     button: "border-2 border-dashed border-black bg-white hover:bg-black/5",
     image: "border-2 border-dashed border-black",
@@ -32,17 +30,17 @@ const ImagePreview = ({
     image: "",
   };
 
-  const currentImage = images[currentIndex];
+  const placeholderImage = "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b";
+  const currentImage = images[currentIndex] || placeholderImage;
 
   return (
-    <div className="relative">
+    <div className="relative group">
       <Dialog>
         <DialogTrigger asChild>
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 z-10 rounded-full bg-white/80 hover:bg-white"
-            onClick={() => setIsZoomed(true)}
+            className="absolute top-2 right-2 z-10 rounded-full bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
           >
             <ZoomIn className="h-4 w-4" />
           </Button>
@@ -58,7 +56,13 @@ const ImagePreview = ({
         </DialogContent>
       </Dialog>
 
-      <div className="absolute top-1/2 -translate-y-1/2 left-2">
+      <img
+        src={currentImage}
+        alt={`Product preview ${currentIndex + 1}`}
+        className={`w-full h-32 object-cover rounded-lg ${wireframeStyles.image}`}
+      />
+      
+      <div className="absolute top-1/2 -translate-y-1/2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <Button
           variant="ghost"
           size="icon"
@@ -70,7 +74,7 @@ const ImagePreview = ({
         </Button>
       </div>
       
-      <div className="absolute top-1/2 -translate-y-1/2 right-2">
+      <div className="absolute top-1/2 -translate-y-1/2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <Button
           variant="ghost"
           size="icon"
