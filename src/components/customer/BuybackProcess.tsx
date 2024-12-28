@@ -111,32 +111,26 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const renderStepComponent = () => {
     const CurrentStepComponent = steps[step - 1].component;
     
-    // All steps now accept the items prop
+    // Base props that all steps receive
     const commonProps = {
       onSubmit: handleSubmit,
       isWireframe: isWireframe,
       items: items
     };
     
-    if (step === 1) {
+    // Only ItemManager needs the additional props
+    if (CurrentStepComponent === ItemManager) {
       return (
-        <CurrentStepComponent
+        <ItemManager
           {...commonProps}
           activeItemId={activeItemId}
           setActiveItemId={setActiveItemId}
           updateItemDetails={updateItemDetails}
         />
       );
-    } else if (step === 3) {
-      return (
-        <CurrentStepComponent
-          onSubmit={handleSubmit}
-          isWireframe={isWireframe}
-          items={items}
-        />
-      );
     }
     
+    // All other components just receive the common props
     return <CurrentStepComponent {...commonProps} />;
   };
 

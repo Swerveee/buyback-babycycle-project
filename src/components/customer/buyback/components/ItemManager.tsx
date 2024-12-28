@@ -5,12 +5,14 @@ import ProductDetailsStep from '../ProductDetailsStep';
 import ConditionAssessmentStep from '../ConditionAssessmentStep';
 import { Pencil } from 'lucide-react';
 
+interface ItemDetails {
+  id: string;
+  productDetails: any;
+  conditionDetails: any;
+}
+
 interface ItemManagerProps {
-  items: Array<{
-    id: string;
-    productDetails: any;
-    conditionDetails: any;
-  }>;
+  items: ItemDetails[];
   activeItemId: string;
   setActiveItemId: (id: string) => void;
   updateItemDetails: (itemId: string, details: any, type: 'productDetails' | 'conditionDetails') => void;
@@ -74,13 +76,6 @@ const ItemManager: React.FC<ItemManagerProps> = ({
                 initialData={item.conditionDetails}
               />
             </div>
-
-            <Button
-              onClick={(e) => onSubmit(e)}
-              className={`w-full ${isWireframe ? 'border-2 border-dashed border-black bg-white hover:bg-black/5 text-black' : 'bg-[#9b87f5] hover:bg-[#7E69AB] text-white'}`}
-            >
-              Save Item Details
-            </Button>
           </Card>
         </div>
       ))}
