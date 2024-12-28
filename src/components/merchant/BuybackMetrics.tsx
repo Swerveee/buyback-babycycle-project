@@ -33,7 +33,7 @@ const BuybackMetrics: React.FC<BuybackMetricsProps> = ({ isWireframe }) => {
       tooltip: "Monetary value of items accepted and processed for buyback since the start of the current month"
     },
     {
-      title: "Acceptance Rate",
+      title: "Acceptance Rate This Month",
       value: "92%",
       change: "+3%",
       icon: Recycle,
