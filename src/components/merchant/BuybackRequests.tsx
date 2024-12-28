@@ -1,32 +1,19 @@
-import React, { useState, useMemo } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  SortingState,
-  useReactTable,
-  getFilteredRowModel,
-} from '@tanstack/react-table';
+import React, { useState } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BuybackRequest } from '@/types/buyback';
 import BuybackFilters from './buyback/BuybackFilters';
-import BuybackActions from './buyback/BuybackActions';
-import { createBuybackColumns } from './buyback/buybackTableColumns';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import BuybackTableHeader from './buyback/BuybackTableHeader';
+import BuybackTableBody from './buyback/BuybackTableBody';
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
 }
 
 const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<{ column: string; direction: 'asc' | 'desc' }>({
+    column: 'date',
+    direction: 'desc'
+  });
   const [globalFilter, setGlobalFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -128,40 +115,20 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     console.log('Rejecting request:', id);
   };
 
-  const wireframeStyles = isWireframe ? {
-    table: "border-2 border-dashed border-gray-300",
-    button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
-    input: "border-2 border-dashed border-gray-300",
-  } : {
-    table: "border",
-    button: "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white",
-    input: "border-input",
+  const handleSort = (column: string) => {
+    setSorting(prev => ({
+      column,
+      direction: prev.column === column && prev.direction === 'asc' ? 'desc' : 'asc'
+    }));
   };
 
-  const columns = useMemo(
-    () => createBuybackColumns(
-      handleApprove, 
-      handleReject, 
-      getStatusBadgeColor, 
-      wireframeStyles,
-      isWireframe
-    ),
-    [wireframeStyles, isWireframe]
-  );
-
-  const table = useReactTable({
-    data: mockRequests,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange: setSorting,
-    state: {
-      sorting,
-      globalFilter,
-    },
-    onGlobalFilterChange: setGlobalFilter,
-  });
+  const wireframeStyles = isWireframe ? {
+    card: "border-2 border-dashed border-gray-300",
+    input: "border-2 border-dashed border-gray-300",
+  } : {
+    card: "border rounded-lg shadow-sm bg-white",
+    input: "border-input",
+  };
 
   return (
     <div className="space-y-4">
@@ -191,53 +158,18 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
         />
       </div>
 
-      <div className={wireframeStyles.table}>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+      <div className={wireframeStyles.card}>
+        <BuybackTableHeader
+          onSort={handleSort}
+          isWireframe={isWireframe}
+        />
+        <BuybackTableBody
+          requests={mockRequests}
+          onApprove={handleApprove}
+          onReject={handleReject}
+          getStatusColor={getStatusBadgeColor}
+          isWireframe={isWireframe}
+        />
       </div>
     </div>
   );
