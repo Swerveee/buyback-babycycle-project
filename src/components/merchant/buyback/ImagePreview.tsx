@@ -56,7 +56,7 @@ const ImagePreview = ({ images, currentIndex, onPrevious, onNext, isWireframe }:
       <img
         src={currentImage}
         alt={`Product preview ${currentIndex + 1}`}
-        className={`w-full h-40 object-cover rounded-lg ${wireframeStyles.image}`}
+        className={`w-full h-24 object-cover rounded-lg ${wireframeStyles.image}`}
       />
       
       <div className="absolute top-1/2 -translate-y-1/2 left-2">
