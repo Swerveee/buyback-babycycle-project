@@ -36,7 +36,7 @@ const ImagePreview = ({ images, currentIndex, onPrevious, onNext, isWireframe }:
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-4 right-4 z-10 rounded-full bg-white/80 hover:bg-white"
+            className="absolute top-2 right-2 z-10 rounded-full bg-white/80 hover:bg-white"
             onClick={() => setIsZoomed(true)}
           >
             <ZoomIn className="h-4 w-4" />
@@ -56,10 +56,10 @@ const ImagePreview = ({ images, currentIndex, onPrevious, onNext, isWireframe }:
       <img
         src={currentImage}
         alt={`Product preview ${currentIndex + 1}`}
-        className={`w-full h-auto max-h-[80vh] object-contain ${wireframeStyles.image}`}
+        className={`w-full h-40 object-cover rounded-lg ${wireframeStyles.image}`}
       />
       
-      <div className="absolute top-1/2 -translate-y-1/2 left-4">
+      <div className="absolute top-1/2 -translate-y-1/2 left-2">
         <Button
           variant="ghost"
           size="icon"
@@ -71,7 +71,7 @@ const ImagePreview = ({ images, currentIndex, onPrevious, onNext, isWireframe }:
         </Button>
       </div>
       
-      <div className="absolute top-1/2 -translate-y-1/2 right-4">
+      <div className="absolute top-1/2 -translate-y-1/2 right-2">
         <Button
           variant="ghost"
           size="icon"
