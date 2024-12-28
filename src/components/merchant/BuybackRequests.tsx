@@ -14,12 +14,13 @@ import {
   SortingState,
   useReactTable,
   getFilteredRowModel,
+  getExpandedRowModel,
 } from '@tanstack/react-table';
 import { BuybackRequest } from '@/types/buyback';
 import BuybackFilters from './buyback/BuybackFilters';
-import BuybackActions from './buyback/BuybackActions';
 import { createBuybackColumns } from './buyback/buybackTableColumns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import BuybackTableRow from './buyback/BuybackTableRow';
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
@@ -29,6 +30,7 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [expanded, setExpanded] = useState({});
 
   const mockRequests: BuybackRequest[] = [
     {
@@ -155,10 +157,13 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     onSortingChange: setSorting,
+    onExpandedChange: setExpanded,
     state: {
       sorting,
       globalFilter,
+      expanded,
     },
     onGlobalFilterChange: setGlobalFilter,
   });
@@ -212,19 +217,34 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                  {row.getIsExpanded() && (
+                    <TableRow>
+                      <TableCell colSpan={columns.length} className="p-0">
+                        <BuybackTableRow
+                          request={row.original}
+                          onApprove={handleApprove}
+                          onReject={handleReject}
+                          getStatusColor={getStatusBadgeColor}
+                          isWireframe={isWireframe}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </>
               ))
             ) : (
               <TableRow>

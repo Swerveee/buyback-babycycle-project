@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { format, parseISO } from 'date-fns';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, ChevronDown, ChevronUp } from 'lucide-react';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
-import BuybackRequestDetails from '../BuybackRequestDetails';
+import BuybackTableRow from './BuybackTableRow';
 import { useState } from 'react';
 
 export const createBuybackColumns = (
@@ -15,6 +14,25 @@ export const createBuybackColumns = (
   wireframeStyles: { button: string },
   isWireframe: boolean
 ): ColumnDef<BuybackRequest>[] => [
+  {
+    id: 'expander',
+    header: () => null,
+    cell: ({ row }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => row.toggleExpanded()}
+          className="p-0 hover:bg-transparent"
+        >
+          {row.getIsExpanded() ? (
+            <ChevronUp className="h-4 w-4" />
+          ) : (
+            <ChevronDown className="h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
+  },
   {
     accessorKey: 'date',
     header: ({ column }) => {
@@ -30,7 +48,6 @@ export const createBuybackColumns = (
       )
     },
     cell: ({ row }) => {
-      // Parse the ISO string to a Date object
       const date = parseISO(row.getValue('date'));
       return (
         <div className="text-center">
@@ -98,37 +115,5 @@ export const createBuybackColumns = (
         {row.getValue('value')}
       </div>
     ),
-  },
-  {
-    id: 'actions',
-    header: '',
-    cell: ({ row }) => {
-      const [isOpen, setIsOpen] = useState(false);
-      
-      return (
-        <div className="text-center">
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-              <Button 
-                variant={isWireframe ? "outline" : "default"}
-                size="sm"
-                className={`${isWireframe ? wireframeStyles.button : ""}`}
-              >
-                View Details
-              </Button>
-            </DialogTrigger>
-            <BuybackRequestDetails 
-              request={row.original}
-              onApprove={handleApprove}
-              onReject={handleReject}
-              getStatusColor={getStatusBadgeColor}
-              isWireframe={isWireframe}
-              isOpen={isOpen}
-              onOpenChange={setIsOpen}
-            />
-          </Dialog>
-        </div>
-      );
-    },
   },
 ];
