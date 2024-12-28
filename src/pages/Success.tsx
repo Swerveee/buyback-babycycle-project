@@ -48,19 +48,19 @@ const Success = ({ isWireframe = false, onWireframeChange }: SuccessProps) => {
               What happens next?
             </p>
             <ol className="list-none space-y-3 mt-2">
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+              <li className={`flex items-start gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
                 <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-green-500'}`} />
                 Our team will review your submission and confirm your store credit value
               </li>
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+              <li className={`flex items-start gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
                 <Mail className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-blue-500'}`} />
                 You'll receive an email with your prepaid shipping label
               </li>
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'} whitespace-nowrap`}>
+              <li className={`flex items-start gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
                 <Package className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-orange-500'}`} />
-                Pack your items securely and drop them off at the nearest shipping location
+                <span className="flex-1">Pack your items securely and drop them off at the nearest shipping location</span>
               </li>
-              <li className={`flex items-center gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
+              <li className={`flex items-start gap-3 ${isWireframe ? 'text-gray-600' : 'text-[#555555]'}`}>
                 <CreditCard className={`w-5 h-5 flex-shrink-0 ${isWireframe ? 'text-gray-900' : 'text-purple-500'}`} />
                 Once reviewed, your store credit will be added to your account
               </li>
