@@ -7,7 +7,6 @@ import { CheckCircle2, Package, DollarSign, Truck, Plus } from 'lucide-react';
 import ProductDetailsStep from './buyback/ProductDetailsStep';
 import ShippingDetailsStep from './buyback/ShippingDetailsStep';
 import CompensationStep from './buyback/CompensationStep';
-import ItemManager from './buyback/components/ItemManager';
 
 interface BuybackProcessProps {
   isWireframe: boolean;
@@ -74,7 +73,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       title: "Item Details",
       icon: Package,
       description: "Add your items and their condition details",
-      component: ItemManager
+      component: ProductDetailsStep
     },
     {
       title: "Shipping Details",
@@ -113,18 +112,13 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     
     if (step === 1) {
       return (
-        <CurrentStepComponent
-          items={items}
-          activeItemId={activeItemId}
-          setActiveItemId={setActiveItemId}
-          updateItemDetails={updateItemDetails}
+        <ProductDetailsStep
           onSubmit={handleSubmit}
           isWireframe={isWireframe}
         />
       );
     }
     
-    // For other steps, only pass the required props
     return <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />;
   };
 
