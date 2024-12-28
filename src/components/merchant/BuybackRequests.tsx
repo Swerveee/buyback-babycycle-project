@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
-import { Table } from "@/components/ui/table";
+import React, { useState, useMemo } from 'react';
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  flexRender,
   getCoreRowModel,
   getSortedRowModel,
   SortingState,
@@ -9,10 +17,9 @@ import {
 } from '@tanstack/react-table';
 import { BuybackRequest } from '@/types/buyback';
 import BuybackFilters from './buyback/BuybackFilters';
+import BuybackActions from './buyback/BuybackActions';
 import { createBuybackColumns } from './buyback/buybackTableColumns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import BuybackTableBody from './buyback/BuybackTableBody';
-import BuybackTableHeader from './buyback/BuybackTableHeader';
 
 interface BuybackRequestsProps {
   isWireframe: boolean;
@@ -126,12 +133,12 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     button: "border-2 border-dashed border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700",
     input: "border-2 border-dashed border-gray-300",
   } : {
-    table: "border rounded-lg shadow-sm",
+    table: "border",
     button: "border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5] hover:text-white",
     input: "border-input",
   };
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => createBuybackColumns(
       handleApprove, 
       handleReject, 
@@ -163,7 +170,7 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
           value={statusFilter}
           onValueChange={setStatusFilter}
         >
-          <SelectTrigger className={`w-[180px] h-9 ${isWireframe ? wireframeStyles.input : ''}`}>
+          <SelectTrigger className="w-[180px] h-9">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
@@ -186,13 +193,50 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
 
       <div className={wireframeStyles.table}>
         <Table>
-          <BuybackTableHeader headerGroups={table.getHeaderGroups()} />
-          <BuybackTableBody 
-            table={table}
-            columns={columns}
-            isWireframe={isWireframe}
-            getStatusBadgeColor={getStatusBadgeColor}
-          />
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
         </Table>
       </div>
     </div>

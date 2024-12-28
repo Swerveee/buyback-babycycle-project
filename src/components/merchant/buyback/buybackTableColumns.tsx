@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { format, parseISO } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
+import BuybackRequestDetails from '../BuybackRequestDetails';
+import { useState } from 'react';
 
 export const createBuybackColumns = (
   handleApprove: (id: string) => void,
@@ -27,6 +30,7 @@ export const createBuybackColumns = (
       )
     },
     cell: ({ row }) => {
+      // Parse the ISO string to a Date object
       const date = parseISO(row.getValue('date'));
       return (
         <div className="text-center">
@@ -94,5 +98,37 @@ export const createBuybackColumns = (
         {row.getValue('value')}
       </div>
     ),
+  },
+  {
+    id: 'actions',
+    header: '',
+    cell: ({ row }) => {
+      const [isOpen, setIsOpen] = useState(false);
+      
+      return (
+        <div className="text-center">
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                variant={isWireframe ? "outline" : "default"}
+                size="sm"
+                className={`${isWireframe ? wireframeStyles.button : ""}`}
+              >
+                View Details
+              </Button>
+            </DialogTrigger>
+            <BuybackRequestDetails 
+              request={row.original}
+              onApprove={handleApprove}
+              onReject={handleReject}
+              getStatusColor={getStatusBadgeColor}
+              isWireframe={isWireframe}
+              isOpen={isOpen}
+              onOpenChange={setIsOpen}
+            />
+          </Dialog>
+        </div>
+      );
+    },
   },
 ];
