@@ -47,10 +47,6 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="text-center mb-8">
-        <p className="text-[#555555]">Redeem the value of your items as store credit.</p>
-      </div>
-
       {items && items.length > 0 && (
         <div className={`p-4 rounded-lg mb-6 ${wireframeStyles.itemPreview}`}>
           <h3 className="text-lg font-semibold mb-4">Items for Trade-in</h3>
@@ -88,8 +84,11 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
             <div className="text-4xl font-bold text-[#1A1F2C] mb-3">
               ${estimatedValue}
             </div>
-            <p className="text-sm text-[#555555]">
+            <p className="text-sm text-[#555555] mb-2">
               Estimated value - Final value will be determined after merchant review.
+            </p>
+            <p className="text-sm text-[#555555]">
+              Redeem the value of your items as store credit.
             </p>
           </div>
 
