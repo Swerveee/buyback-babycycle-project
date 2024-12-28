@@ -86,6 +86,20 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
       images: ["image6.jpg"],
       condition: "Poor",
       shippingAddress: "321 Elm St, City, Country"
+    },
+    {
+      id: "5",
+      product: "Baby Dress",
+      customer: "Lisa Anderson",
+      date: "2024-02-21",
+      status: "Pending Customer Approval",
+      value: "₪22.00",
+      description: "Slight discoloration on hem",
+      email: "lisa@example.com",
+      phone: "567-890-1234",
+      images: ["image7.jpg"],
+      condition: "Good",
+      shippingAddress: "567 Maple St, City, Country"
     }
   ];
 
@@ -99,6 +113,8 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
         return "bg-blue-100 text-blue-800";
       case "Rejected":
         return "bg-red-100 text-red-800";
+      case "Pending Customer Approval":
+        return "bg-purple-100 text-purple-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -160,6 +176,7 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>
             <SelectItem value="Pending Review">Pending Review</SelectItem>
+            <SelectItem value="Pending Customer Approval">Pending Customer Approval</SelectItem>
             <SelectItem value="Approved">Approved</SelectItem>
             <SelectItem value="Shipped">Shipped</SelectItem>
           </SelectContent>
