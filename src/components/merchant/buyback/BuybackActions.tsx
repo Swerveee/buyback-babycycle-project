@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { RejectNoteModal } from "./RejectNoteModal";
-import { PriceChangeConfirmModal } from "./PriceChangeConfirmModal";
+import RejectNoteModal from "./RejectNoteModal";
+import PriceChangeConfirmModal from "./PriceChangeConfirmModal";
 
 interface BuybackActionsProps {
   onAccept: () => void;
