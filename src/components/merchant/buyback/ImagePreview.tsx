@@ -32,8 +32,7 @@ const ImagePreview = ({
     image: "",
   };
 
-  const placeholderImage = "/lovable-uploads/2ffd80df-53a3-4f50-92ed-ae88b6b9c353.png";
-  const currentImage = images[currentIndex] || placeholderImage;
+  const currentImage = images[currentIndex];
 
   return (
     <div className="relative">
@@ -59,12 +58,6 @@ const ImagePreview = ({
         </DialogContent>
       </Dialog>
 
-      <img
-        src={currentImage}
-        alt={`Product preview ${currentIndex + 1}`}
-        className={`w-full h-16 object-cover rounded-lg ${wireframeStyles.image}`}
-      />
-      
       <div className="absolute top-1/2 -translate-y-1/2 left-2">
         <Button
           variant="ghost"
