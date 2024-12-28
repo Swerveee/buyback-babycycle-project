@@ -37,7 +37,7 @@ const PriceEstimationSection: React.FC<PriceEstimationSectionProps> = ({
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <CardTitle className="text-base font-semibold leading-none tracking-tight">
-              Price Estimation
+              Show Price Estimations
             </CardTitle>
             <CardDescription className="text-sm text-muted-foreground">
               Show estimated buyback value to customers during the submission process
