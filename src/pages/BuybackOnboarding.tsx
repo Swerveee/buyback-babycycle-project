@@ -14,7 +14,7 @@ interface BuybackOnboardingProps {
 const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWireframeChange }) => {
   const wireframeStyles = isWireframe ? {
     button: "border-2 border-dashed border-gray-300 bg-gray-50",
-    text: "font-mono"
+    text: "font-mono text-black"
   } : {
     button: "",
     text: ""
@@ -127,13 +127,13 @@ const BuybackOnboarding: React.FC<BuybackOnboardingProps> = ({ isWireframe, onWi
               <h1 className={`text-3xl font-bold ${wireframeStyles.text}`}>
                 Buyback Program
               </h1>
-              <p className={`text-base text-gray-600 max-w-4xl mx-auto leading-snug ${wireframeStyles.text}`}>
+              <p className={`text-base ${isWireframe ? 'text-black' : 'text-gray-600'} max-w-4xl mx-auto leading-snug ${wireframeStyles.text}`}>
                 Activate your buyback program now and start offering your customers an easy way to return and exchange products while earning store points for their next purchase!
               </p>
               <Button
                 variant="ghost"
                 size="sm"
-                className="mt-1 text-primary hover:text-primary/80"
+                className={`mt-1 ${isWireframe ? 'text-black hover:text-black/80' : 'text-primary hover:text-primary/80'}`}
                 onClick={() => window.open('#', '_blank')}
               >
                 <Info className="w-4 h-4 mr-1" />
