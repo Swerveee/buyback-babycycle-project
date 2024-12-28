@@ -35,9 +35,13 @@ const ItemManager: React.FC<ItemManagerProps> = ({
             variant={activeItemId === item.id ? "default" : "outline"}
             onClick={() => setActiveItemId(item.id)}
             className={`flex-shrink-0 ${
-              activeItemId === item.id 
-                ? 'bg-[#9b87f5] hover:bg-[#7E69AB]' 
-                : 'border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10'
+              isWireframe
+                ? activeItemId === item.id
+                  ? 'border-2 border-dashed border-black bg-white text-black hover:bg-black/5'
+                  : 'border-2 border-dashed border-black bg-white text-black hover:bg-black/5'
+                : activeItemId === item.id 
+                  ? 'bg-[#9b87f5] hover:bg-[#7E69AB]' 
+                  : 'border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10'
             }`}
           >
             <Pencil className="w-4 h-4 mr-2" />
