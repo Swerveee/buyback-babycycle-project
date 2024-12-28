@@ -194,6 +194,7 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
+                <TableHead key="expander" className="w-4" />
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
@@ -211,6 +212,7 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
             table={table}
             columns={columns}
             isWireframe={isWireframe}
+            getStatusBadgeColor={getStatusBadgeColor}
           />
         </Table>
       </div>
