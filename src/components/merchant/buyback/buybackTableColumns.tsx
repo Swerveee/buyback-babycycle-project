@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { format, parseISO } from 'date-fns';
-import { ArrowUpDown, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
 import { ColumnDef } from "@tanstack/react-table";
 import { BuybackRequest } from '@/types/buyback';
 
@@ -12,25 +12,6 @@ export const createBuybackColumns = (
   wireframeStyles: { button: string },
   isWireframe: boolean
 ): ColumnDef<BuybackRequest>[] => [
-  {
-    id: 'expander',
-    header: () => null,
-    cell: ({ row }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => row.toggleExpanded()}
-          className="p-0 hover:bg-transparent"
-        >
-          {row.getIsExpanded() ? (
-            <ChevronUp className="h-4 w-4" />
-          ) : (
-            <ChevronDown className="h-4 w-4" />
-          )}
-        </Button>
-      );
-    },
-  },
   {
     accessorKey: 'date',
     header: ({ column }) => {

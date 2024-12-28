@@ -12,7 +12,6 @@ import {
   SortingState,
   useReactTable,
   getFilteredRowModel,
-  getExpandedRowModel,
 } from '@tanstack/react-table';
 import { BuybackRequest } from '@/types/buyback';
 import BuybackFilters from './buyback/BuybackFilters';
@@ -28,7 +27,6 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [expanded, setExpanded] = useState({});
 
   const mockRequests: BuybackRequest[] = [
     {
@@ -155,13 +153,10 @@ const BuybackRequests: React.FC<BuybackRequestsProps> = ({ isWireframe }) => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
     onSortingChange: setSorting,
-    onExpandedChange: setExpanded,
     state: {
       sorting,
       globalFilter,
-      expanded,
     },
     onGlobalFilterChange: setGlobalFilter,
   });
