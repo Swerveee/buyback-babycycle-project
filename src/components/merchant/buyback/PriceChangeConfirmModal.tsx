@@ -12,8 +12,8 @@ import { Button } from "@/components/ui/button";
 interface PriceChangeConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
-  newValue: string;
+  onConfirm: (newPrice: number) => void;
+  newValue?: string;
   isWireframe: boolean;
 }
 
@@ -36,6 +36,12 @@ const PriceChangeConfirmModal: React.FC<PriceChangeConfirmModalProps> = ({
     button: "",
   };
 
+  const handleConfirm = () => {
+    // Convert newValue to number or use 0 as fallback
+    const numericValue = newValue ? parseFloat(newValue) : 0;
+    onConfirm(numericValue);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className={wireframeStyles.dialog}>
@@ -54,7 +60,7 @@ const PriceChangeConfirmModal: React.FC<PriceChangeConfirmModalProps> = ({
             Cancel
           </Button>
           <Button
-            onClick={onConfirm}
+            onClick={handleConfirm}
             className={`${isWireframe ? wireframeStyles.button : "bg-[#9b87f5] hover:bg-[#7E69AB] text-white"}`}
           >
             Approve Changes
