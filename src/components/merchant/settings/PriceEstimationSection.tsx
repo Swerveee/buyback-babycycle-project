@@ -65,57 +65,29 @@ const PriceEstimationSection: React.FC<PriceEstimationSectionProps> = ({
               </p>
               <div className="space-y-4">
                 <div className="grid gap-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <Label className="text-sm">Excellent Condition</Label>
-                      <p className="text-sm text-muted-foreground">Items in almost new condition</p>
+                  {[
+                    { condition: 'excellent', label: 'Excellent Condition', description: 'Items in almost new condition' },
+                    { condition: 'good', label: 'Good Condition', description: 'Items with slight signs of use' },
+                    { condition: 'fair', label: 'Fair Condition', description: 'Items with noticeable wear' }
+                  ].map(({ condition, label, description }) => (
+                    <div key={condition} className="flex items-center justify-center gap-4">
+                      <div className="flex-1">
+                        <Label className="text-sm">{label}</Label>
+                        <p className="text-sm text-muted-foreground">{description}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          type="number"
+                          min="0"
+                          max="100"
+                          value={rates[condition as keyof typeof rates]}
+                          onChange={handleRateChange(condition as keyof typeof rates)}
+                          className={`${wireframeStyles.input} w-20 text-right`}
+                        />
+                        <span className="text-sm text-muted-foreground">%</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={rates.excellent}
-                        onChange={handleRateChange('excellent')}
-                        className={`${wireframeStyles.input} w-20 text-right`}
-                      />
-                      <span className="text-sm text-muted-foreground">%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <Label className="text-sm">Good Condition</Label>
-                      <p className="text-sm text-muted-foreground">Items with slight signs of use</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={rates.good}
-                        onChange={handleRateChange('good')}
-                        className={`${wireframeStyles.input} w-20 text-right`}
-                      />
-                      <span className="text-sm text-muted-foreground">%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <Label className="text-sm">Fair Condition</Label>
-                      <p className="text-sm text-muted-foreground">Items with noticeable wear</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={rates.fair}
-                        onChange={handleRateChange('fair')}
-                        className={`${wireframeStyles.input} w-20 text-right`}
-                      />
-                      <span className="text-sm text-muted-foreground">%</span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

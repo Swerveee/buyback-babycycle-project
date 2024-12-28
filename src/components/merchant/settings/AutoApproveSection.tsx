@@ -71,8 +71,8 @@ const AutoApproveSection: React.FC<AutoApproveSectionProps> = ({
               </p>
               <div className="space-y-4">
                 {conditions.map(({ key, label, description }) => (
-                  <div key={key} className="flex items-center justify-between gap-4">
-                    <div>
+                  <div key={key} className="flex items-center justify-center gap-4">
+                    <div className="flex-1">
                       <Label className="text-sm">{label}</Label>
                       <p className="text-sm text-muted-foreground">{description}</p>
                     </div>
