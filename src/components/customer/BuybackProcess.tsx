@@ -39,13 +39,13 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     {
       title: "Product Details",
       icon: Package,
-      description: "Tell us about your kids' item",
+      description: "Returning your items is quick and hassle-free. We'll provide free shipping, so you don't have to worry about any extra costs.",
       component: ProductDetailsStep
     },
     {
       title: "Condition Assessment",
       icon: CheckCircle2,
-      description: "Describe the condition of your item",
+      description: "A Greener Future - Help reduce waste and create a more sustainable world by giving baby clothes a second life.",
       component: ConditionAssessmentStep
     },
     {
@@ -55,9 +55,9 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
       component: ShippingDetailsStep
     },
     {
-      title: "Store Credit",
+      title: "Earn Store Credit",
       icon: DollarSign,
-      description: "Choose how you want to be rewarded",
+      description: "Trade in your baby's outgrown clothes and receive up to 70% of their value as store credit to use on your next purchase.",
       component: CompensationStep
     }
   ];
