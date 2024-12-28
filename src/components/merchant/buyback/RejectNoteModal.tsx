@@ -49,7 +49,7 @@ const RejectNoteModal = ({
         <DialogHeader>
           <DialogTitle className={wireframeStyles.title}>Reject Request</DialogTitle>
           <DialogDescription className={wireframeStyles.description}>
-            Please provide a reason for rejecting this buyback request.
+            Please provide a reason for rejecting this buyback request. This feedback will be shared with the customer to help them understand the decision.
           </DialogDescription>
         </DialogHeader>
         <Textarea
