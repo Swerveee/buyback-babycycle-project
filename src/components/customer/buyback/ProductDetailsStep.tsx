@@ -126,7 +126,7 @@ const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWir
       <div className="space-y-2">
         <Label className={wireframeStyles.label}>When Was the Item Purchased?</Label>
         <p className={`text-sm text-gray-500 mb-2 ${isWireframe ? "font-mono" : ""}`}>
-          Select the approximate date the item was bought. If you're unsure, select "I don't remember" and choose the age range instead.
+          Select the date the item was bought. If you're unsure, check "I don't remember," and provide an approximate age range instead.
         </p>
         <Input 
           type="date" 
