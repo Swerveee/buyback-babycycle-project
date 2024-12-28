@@ -90,6 +90,24 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     }
   ];
 
+  const wireframeStyles = isWireframe ? {
+    card: "border-2 border-dashed border-black",
+    header: "bg-white border-b-2 border-dashed border-black",
+    title: "font-mono text-black",
+    description: "font-mono text-black/60",
+    stepIcon: "border-2 border-dashed border-black",
+    button: "border-2 border-dashed border-black bg-white hover:bg-black/5 text-black",
+    activeStep: "border-2 border-dashed border-black bg-black text-white",
+  } : {
+    card: "border-[#eee] shadow-sm",
+    header: "bg-[#F8F2FF]",
+    title: "text-[#1A1F2C]",
+    description: "text-[#555555]",
+    stepIcon: "",
+    button: "bg-[#9b87f5] hover:bg-[#7E69AB] text-white",
+    activeStep: "bg-[#9b87f5] text-white",
+  };
+
   const renderStepComponent = () => {
     const CurrentStepComponent = steps[step - 1].component;
     
