@@ -3,24 +3,36 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle2, Package, DollarSign, Truck } from 'lucide-react';
+import { CheckCircle2, Package, DollarSign, Truck, Plus } from 'lucide-react';
 import ProductDetailsStep from './buyback/ProductDetailsStep';
-import ConditionAssessmentStep from './buyback/ConditionAssessmentStep';
 import ShippingDetailsStep from './buyback/ShippingDetailsStep';
 import CompensationStep from './buyback/CompensationStep';
+import ItemManager from './buyback/components/ItemManager';
 
 interface BuybackProcessProps {
   isWireframe: boolean;
 }
 
+interface ItemDetails {
+  id: string;
+  productDetails: any;
+  conditionDetails: any;
+}
+
 const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
   const [step, setStep] = useState(1);
+  const [items, setItems] = useState<ItemDetails[]>([{ 
+    id: '1', 
+    productDetails: null, 
+    conditionDetails: null 
+  }]);
+  const [activeItemId, setActiveItemId] = useState('1');
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (step < 4) {
+    if (step < 3) {
       setStep(step + 1);
       toast({
         title: "Progress Saved",
@@ -35,18 +47,34 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
     }
   };
 
+  const addNewItem = () => {
+    const newId = (items.length + 1).toString();
+    setItems([...items, { 
+      id: newId, 
+      productDetails: null, 
+      conditionDetails: null 
+    }]);
+    setActiveItemId(newId);
+    toast({
+      title: "New Item Added",
+      description: "You can now add details for another item.",
+    });
+  };
+
+  const updateItemDetails = (itemId: string, details: any, type: 'productDetails' | 'conditionDetails') => {
+    setItems(items.map(item => 
+      item.id === itemId 
+        ? { ...item, [type]: details }
+        : item
+    ));
+  };
+
   const steps = [
     {
-      title: "Product Details",
+      title: "Item Details",
       icon: Package,
-      description: "Returning your items is quick and hassle-free. We'll provide free shipping, so you don't have to worry about any extra costs.",
-      component: ProductDetailsStep
-    },
-    {
-      title: "Condition Assessment",
-      icon: CheckCircle2,
-      description: "A Greener Future - Help reduce waste and create a more sustainable world by giving baby clothes a second life.",
-      component: ConditionAssessmentStep
+      description: "Add your items and their condition details",
+      component: ItemManager
     },
     {
       title: "Shipping Details",
@@ -113,7 +141,30 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />
+          {step === 1 ? (
+            <CurrentStepComponent
+              items={items}
+              activeItemId={activeItemId}
+              setActiveItemId={setActiveItemId}
+              updateItemDetails={updateItemDetails}
+              onSubmit={handleSubmit}
+              isWireframe={isWireframe}
+            />
+          ) : (
+            <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />
+          )}
+          
+          {step === 1 && (
+            <Button
+              onClick={addNewItem}
+              variant="outline"
+              className="w-full mt-4 border-dashed border-2 border-[#9b87f5] text-[#9b87f5] hover:bg-[#9b87f5]/10"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Another Item
+            </Button>
+          )}
+          
           <div className="flex justify-between pt-4">
             {step > 1 && (
               <Button
@@ -129,7 +180,7 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
               onClick={handleSubmit}
               className={`ml-auto ${wireframeStyles.button}`}
             >
-              {step === 4 ? 'Submit Request' : 'Continue'}
+              {step === 3 ? 'Submit Request' : 'Continue'}
             </Button>
           </div>
         </CardContent>

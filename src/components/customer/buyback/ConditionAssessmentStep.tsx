@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import ItemConditionRadio from './components/ItemConditionRadio';
 import ImageUploader from './components/ImageUploader';
@@ -8,6 +8,7 @@ import AdditionalNotes from './components/AdditionalNotes';
 interface ConditionAssessmentStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
+  initialData?: any;
 }
 
 const MAX_IMAGES = 3;
@@ -21,11 +22,23 @@ const items = [
   { value: "socks", label: "Baby Socks Bundle", image: "/placeholder.svg" },
 ];
 
-const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSubmit, isWireframe }) => {
+const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ 
+  onSubmit, 
+  isWireframe,
+  initialData 
+}) => {
   const [images, setImages] = useState<File[]>([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (initialData) {
+      setSelectedItem(initialData.selectedItem || "");
+      // Note: We can't restore File objects from initialData
+      // but in a real app you'd probably have URLs to previously uploaded images
+    }
+  }, [initialData]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -77,7 +90,10 @@ const ConditionAssessmentStep: React.FC<ConditionAssessmentStepProps> = ({ onSub
       });
       return;
     }
-    onSubmit(e);
+    onSubmit({
+      selectedItem,
+      images
+    });
   };
 
   return (

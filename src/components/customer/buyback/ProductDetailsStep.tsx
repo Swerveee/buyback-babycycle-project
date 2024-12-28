@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -7,16 +7,29 @@ import { Checkbox } from "@/components/ui/checkbox";
 interface ProductDetailsStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
+  initialData?: any;
 }
 
-const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWireframe }) => {
+const ProductDetailsStep: React.FC<ProductDetailsStepProps> = ({ onSubmit, isWireframe, initialData }) => {
   const [dontRememberDate, setDontRememberDate] = useState(false);
   const [purchaseDate, setPurchaseDate] = useState("");
   const [ageRange, setAgeRange] = useState("");
 
+  useEffect(() => {
+    if (initialData) {
+      setDontRememberDate(initialData.dontRememberDate || false);
+      setPurchaseDate(initialData.purchaseDate || "");
+      setAgeRange(initialData.ageRange || "");
+    }
+  }, [initialData]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(e);
+    onSubmit({
+      dontRememberDate,
+      purchaseDate,
+      ageRange
+    });
   };
 
   const wireframeStyles = isWireframe ? {
