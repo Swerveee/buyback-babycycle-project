@@ -5,6 +5,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -16,7 +17,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ZoomIn } from "lucide-react";
 import BuybackActions from './buyback/BuybackActions';
 import RequestInfoModal, { RequestInfoData } from './buyback/RequestInfoModal';
 import { useToast } from "@/hooks/use-toast";
