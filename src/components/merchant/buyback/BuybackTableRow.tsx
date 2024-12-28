@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, InfoIcon } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BuybackRequest } from '@/types/buyback';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import ValueEditor from './ValueEditor';
-import ImagePreview from './ImagePreview';
 import RejectNoteModal from './RejectNoteModal';
 import PriceChangeConfirmModal from './PriceChangeConfirmModal';
-import RequestInfoModal, { RequestInfoData } from './RequestInfoModal';
+import RequestInfoModal from './RequestInfoModal';
 import { useToast } from "@/hooks/use-toast";
-import ProductInformation from './components/ProductInformation';
-import CustomerInformation from './components/CustomerInformation';
-import BuybackActions from './components/BuybackActions';
+import CollapsibleDetails from './components/CollapsibleDetails';
 
 interface BuybackTableRowProps {
   request: BuybackRequest;
@@ -35,30 +31,14 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
   const [rejectNote, setRejectNote] = useState('');
   const [estimatedValue, setEstimatedValue] = useState(request.value);
   const [isPriceChangeModalOpen, setIsPriceChangeModalOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { toast } = useToast();
 
-  const handlePriceChange = (newValue: string) => {
-    setEstimatedValue(newValue);
-    setIsPriceChangeModalOpen(true);
-  };
-
-  const confirmPriceChange = () => {
-    setIsPriceChangeModalOpen(false);
-  };
-
-  const handleReject = () => {
-    onReject(request.id);
-    setIsRejectModalOpen(false);
-  };
-
-  const handleRequestInfo = (data: RequestInfoData) => {
+  const handleRequestInfo = (data: any) => {
     toast({
       title: "Information Requested",
       description: `Requested additional information from ${request.customer}`,
     });
     setIsRequestInfoModalOpen(false);
-    console.log("Requesting info:", data, "for request:", request.id);
   };
 
   const wireframeStyles = isWireframe ? {
@@ -102,51 +82,16 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
             </div>
 
             <CollapsibleContent className={`mt-4 p-6 rounded-lg ${wireframeStyles.content}`}>
-              <div className="space-y-4">
-                <ProductInformation
-                  condition={request.condition}
-                  description={request.description}
-                />
-
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Estimated Value</h3>
-                  <ValueEditor
-                    initialValue={estimatedValue}
-                    onValueChange={handlePriceChange}
-                    isWireframe={isWireframe}
-                  />
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Product Images</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {request.images.map((image, index) => (
-                      <div key={index} className="relative aspect-square">
-                        <ImagePreview
-                          images={request.images}
-                          currentIndex={index}
-                          onPrevious={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
-                          onNext={() => setCurrentImageIndex(Math.min(request.images.length - 1, currentImageIndex + 1))}
-                          isWireframe={isWireframe}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <CustomerInformation
-                  email={request.email}
-                  phone={request.phone}
-                  shippingAddress={request.shippingAddress}
-                />
-
-                <BuybackActions
-                  onReject={() => setIsRejectModalOpen(true)}
-                  onApprove={() => onApprove(request.id)}
-                  onRequestInfo={() => setIsRequestInfoModalOpen(true)}
-                  isWireframe={isWireframe}
-                />
-              </div>
+              <CollapsibleDetails
+                request={request}
+                estimatedValue={estimatedValue}
+                setEstimatedValue={setEstimatedValue}
+                onReject={() => setIsRejectModalOpen(true)}
+                onApprove={() => onApprove(request.id)}
+                onRequestInfo={() => setIsRequestInfoModalOpen(true)}
+                getStatusColor={getStatusColor}
+                isWireframe={isWireframe}
+              />
             </CollapsibleContent>
           </Collapsible>
         </div>
@@ -155,7 +100,10 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
       <RejectNoteModal
         isOpen={isRejectModalOpen}
         onClose={() => setIsRejectModalOpen(false)}
-        onConfirm={handleReject}
+        onConfirm={() => {
+          onReject(request.id);
+          setIsRejectModalOpen(false);
+        }}
         note={rejectNote}
         onNoteChange={setRejectNote}
         isWireframe={isWireframe}
@@ -164,7 +112,7 @@ const BuybackTableRow: React.FC<BuybackTableRowProps> = ({
       <PriceChangeConfirmModal
         isOpen={isPriceChangeModalOpen}
         onClose={() => setIsPriceChangeModalOpen(false)}
-        onConfirm={confirmPriceChange}
+        onConfirm={() => setIsPriceChangeModalOpen(false)}
         newValue={estimatedValue}
         isWireframe={isWireframe}
       />
