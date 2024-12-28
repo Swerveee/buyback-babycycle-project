@@ -5,18 +5,26 @@ import { Card } from "@/components/ui/card";
 import { Clock, CheckCircle2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+interface ItemDetails {
+  id: string;
+  productDetails: any;
+  conditionDetails: any;
+}
+
 interface CompensationStepProps {
   onSubmit: (data: any) => void;
   isWireframe: boolean;
   showEstimatedValue?: boolean;
   estimatedValue?: number;
+  items?: ItemDetails[];
 }
 
 const CompensationStep: React.FC<CompensationStepProps> = ({ 
   onSubmit, 
   isWireframe,
   showEstimatedValue = true,
-  estimatedValue = 120
+  estimatedValue = 120,
+  items = []
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,12 +35,14 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
     label: "font-mono",
     valueBox: "border-2 border-dashed border-black",
     benefitCard: "border-2 border-dashed border-black bg-white",
-    alert: "border-2 border-dashed border-black"
+    alert: "border-2 border-dashed border-black",
+    itemPreview: "border-2 border-dashed border-black"
   } : {
     label: "",
     valueBox: "bg-[#F8F2FF] border border-[#E9DDFF]",
     benefitCard: "bg-white border border-[#E9DDFF]",
-    alert: ""
+    alert: "",
+    itemPreview: "bg-white border border-[#E9DDFF]"
   };
 
   return (
@@ -40,6 +50,35 @@ const CompensationStep: React.FC<CompensationStepProps> = ({
       <div className="text-center mb-8">
         <p className="text-[#555555]">Redeem the value of your items as store credit.</p>
       </div>
+
+      {items && items.length > 0 && (
+        <div className={`p-4 rounded-lg mb-6 ${wireframeStyles.itemPreview}`}>
+          <h3 className="text-lg font-semibold mb-4">Items for Trade-in</h3>
+          <div className="space-y-4">
+            {items.map((item, index) => (
+              <div key={item.id} className="flex items-center gap-4">
+                {item.productDetails?.thumbnail && (
+                  <img 
+                    src={item.productDetails.thumbnail} 
+                    alt={item.productDetails.name || `Item ${index + 1}`}
+                    className="w-16 h-16 object-cover rounded-md"
+                  />
+                )}
+                <div>
+                  <p className="font-medium">
+                    {item.productDetails?.name || `Item ${index + 1}`}
+                  </p>
+                  {item.productDetails?.category && (
+                    <p className="text-sm text-gray-500">
+                      {item.productDetails.category}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {showEstimatedValue && (
         <div className={`p-6 rounded-lg ${wireframeStyles.valueBox}`}>

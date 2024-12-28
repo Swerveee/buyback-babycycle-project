@@ -122,9 +122,17 @@ const BuybackProcess: React.FC<BuybackProcessProps> = ({ isWireframe }) => {
           isWireframe={isWireframe}
         />
       );
+    } else if (step === 3) {
+      return (
+        <CurrentStepComponent
+          onSubmit={handleSubmit}
+          isWireframe={isWireframe}
+          items={items}
+        />
+      );
     }
     
-    // For other steps, only pass the required props
+    // For step 2 (ShippingDetailsStep), only pass the required props
     return <CurrentStepComponent onSubmit={handleSubmit} isWireframe={isWireframe} />;
   };
 
